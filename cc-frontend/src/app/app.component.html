@@ -1,0 +1,78 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Gestion de asociados</span>
+  <span class="spacer"></span>
+</mat-toolbar>
+
+<mat-drawer-container autosize>
+  <mat-drawer #drawer mode="side" [opened]="true">
+
+    <mat-selection-list #shoes [multiple]="false">
+      <mat-list-option>
+            Una cosa
+      </mat-list-option>
+      <mat-list-option>
+            Otra cosa
+      </mat-list-option>
+      <mat-list-option>
+            Otra cosa más
+      </mat-list-option>
+    </mat-selection-list>
+
+    <mat-accordion multi>
+      <mat-expansion-panel hideToggle expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Seccion 1
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-selection-list [multiple]="false">
+          <mat-list-option>
+                Una cosa
+          </mat-list-option>
+          <mat-list-option>
+                Otra cosa
+          </mat-list-option>
+          <mat-list-option>
+                Otra cosa más
+          </mat-list-option>
+        </mat-selection-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-accordion multi>
+      <mat-expansion-panel hideToggle expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Seccion 2
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-selection-list [multiple]="false">
+          <mat-list-option>
+                Una cosa
+          </mat-list-option>
+          <mat-list-option>
+                Otra cosa
+          </mat-list-option>
+          <mat-list-option>
+                Otra cosa más
+          </mat-list-option>
+        </mat-selection-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+    
+    <p>Primera linea</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi accusantium porro soluta. Non, sunt aspernatur doloremque accusantium consequatur recusandae asperiores et cumque quia, nostrum facere, rem perferendis. Repellendus veniam, fuga illo quas ullam voluptates nostrum perferendis suscipit molestiae quam sapiente cum necessitatibus saepe sequi nemo facilis earum aliquam. Molestiae, dolores. Eos non velit quo, voluptates eius eveniet quisquam blanditiis magni ipsum optio, numquam ullam, pariatur rem! Magni mollitia, nulla quasi aliquam rem eum. Quia totam sint fuga sunt assumenda neque recusandae debitis, odit rem hic quibusdam, laborum quos earum iste maiores distinctio repudiandae omnis nostrum molestias est libero voluptates esse dignissimos. Beatae dignissimos et maiores minima consequuntur saepe dolore eveniet quod laudantium maxime, atque animi illo perspiciatis quia, sequi expedita officiis iure? Magni esse, tenetur hic sunt possimus aliquid, sapiente mollitia aliquam consectetur optio maiores quia? Rerum corrupti id alias? Sunt quod maxime iste cum minus ipsum iusto voluptas consequatur eveniet labore beatae nihil recusandae, veniam quia accusantium a reprehenderit optio. Error corporis, totam eaque velit veritatis quod minus tenetur, sequi nisi accusamus dolores aliquam id veniam aliquid dolore, sint illum aut dolor suscipit eum nam distinctio facilis quaerat? Voluptate id dolores voluptatem cum sint nihil pariatur rem, placeat in.</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio accusamus dolore tempore earum. Harum eius optio exercitationem, voluptate dolores illo asperiores perspiciatis quaerat culpa nesciunt. Odio reiciendis adipisci quam. Vero, perspiciatis dolores! Eius harum alias, fugit sequi veritatis similique perferendis in error maiores quos tempora commodi esse nemo qui nulla debitis ipsum pariatur deleniti laudantium quod expedita quisquam quia neque repellendus. Exercitationem accusantium error perspiciatis at deleniti deserunt corrupti placeat minima. Porro, accusamus minus! Quia libero, officia excepturi eum consectetur explicabo laborum sit sint inventore sequi nihil consequatur culpa, facere quibusdam vero incidunt voluptate! Dolore culpa ex voluptates sunt laboriosam ad blanditiis temporibus odit, cum amet? Rerum eius eveniet laudantium iusto reprehenderit obcaecati neque illo voluptatem impedit, voluptatibus atque harum corrupti enim, molestias suscipit molestiae explicabo sit vero nostrum. Minima adipisci, nulla labore in cum tempore quidem eum fugit dicta sunt, quisquam, incidunt repellat sint sapiente consequuntur facere eius? Officiis earum et necessitatibus, quibusdam ipsam totam soluta excepturi maiores voluptas atque esse nihil enim ut aperiam recusandae dolor numquam veniam, dignissimos, ex labore ratione beatae animi? Praesentium dolorum eveniet enim repellat quam saepe quasi minima sit error deserunt itaque voluptatum dolores minus sequi ex necessitatibus, doloremque eius magnam facilis maiores.</p>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis labore ipsa natus dolore, earum quidem perspiciatis rerum optio exercitationem omnis possimus laboriosam error saepe totam odio quibusdam officiis dolor veniam delectus doloribus deserunt eos. Ad, quos? Sit officiis aliquid dolorem quod veritatis libero atque ipsam, beatae error iure qui? Esse unde doloribus omnis error est nobis architecto, nihil eius eveniet quis aperiam, ducimus ex sunt ad excepturi accusamus sequi eum vel corporis provident distinctio aliquid veniam quo. Nihil culpa non ratione iste adipisci maiores dolorem aperiam quos atque, excepturi, iure corporis totam est, fuga ipsa impedit! Perspiciatis corrupti, voluptatum sit nulla, deserunt ex recusandae perferendis quae eius beatae optio reiciendis corporis ea libero sint quaerat dignissimos enim architecto. Quae voluptatum dicta ab eaque officiis vitae libero quis optio? Nesciunt fuga facilis quasi soluta perspiciatis at sequi! Dignissimos assumenda commodi, a repudiandae, quaerat aliquid numquam tempore corrupti consequuntur sequi, adipisci et tempora maxime alias officiis odit ex totam architecto doloribus! Distinctio ex ratione sequi laudantium corrupti nesciunt autem, molestiae aut culpa voluptatibus magni totam ab, pariatur voluptatem eligendi suscipit fugit tempora quibusdam dolores numquam a accusantium! Aut nesciunt tempore necessitatibus, eius vero excepturi sunt voluptate illo voluptatibus odit numquam est molestiae!</p>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa, consequatur. Expedita aspernatur nesciunt hic tempora perspiciatis molestias exercitationem quisquam culpa inventore, laborum nobis tenetur fuga iusto suscipit reiciendis obcaecati aut ipsa? Enim, autem perferendis nesciunt aut dolores necessitatibus! Consequatur expedita, aspernatur dolorum minus totam harum quisquam magni cum in at quasi, consequuntur provident doloremque dolorem porro fugit fugiat pariatur? Impedit, magni? Expedita porro qui sed consequatur? Rerum nihil aut omnis ducimus voluptatum iste dignissimos numquam tempora expedita laborum esse, aliquam nobis ratione, labore obcaecati. Exercitationem, incidunt dolorum. Possimus, magni! Est vitae, excepturi saepe eveniet iure quibusdam corporis ullam praesentium repudiandae dolore voluptatum deleniti, unde ratione alias odit quos temporibus sapiente iusto, ut voluptatem cumque. Qui doloremque minus nisi quaerat delectus cupiditate sit, labore mollitia voluptas. Fugit blanditiis aliquid aut perferendis, quam obcaecati neque porro cum soluta, ea quasi pariatur illo est reprehenderit, accusantium id quisquam a dolore maiores magnam harum fuga. Possimus dolorem laudantium tempore earum quaerat, numquam facere deleniti, sunt cumque, id provident impedit ut hic voluptatum deserunt suscipit. Recusandae cumque dignissimos voluptates est libero, voluptatem mollitia laudantium, ducimus harum unde aspernatur quia perferendis omnis animi minima distinctio quaerat exercitationem commodi, iure aliquid maiores ea temporibus? Excepturi, consequatur error!</p>
+    <p>Ultima linea</p>
+
+  </mat-drawer-content>
+</mat-drawer-container>
