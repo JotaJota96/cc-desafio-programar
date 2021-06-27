@@ -15,6 +15,8 @@ import {MatListModule} from '@angular/material/list';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCheckboxModule} from '@angular/material/checkbox'; 
+import {MatRadioModule} from '@angular/material/radio'; 
 import {MatSnackBarModule} from '@angular/material/snack-bar'; 
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table'; 
@@ -42,6 +44,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatExpansionModule,
     MatInputModule,
     MatFormFieldModule,
+    MatCheckboxModule,
+    MatRadioModule,
     MatSnackBarModule,
     MatSelectModule,
     MatTableModule,
