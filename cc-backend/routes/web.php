@@ -18,7 +18,13 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+// Dashboard
+$router->get('/dashboard/rubro', 'DashboardController@lista_rubro');
+$router->get('/dashboard/rubro/principal', 'DashboardController@lista_rubro_principal');
+$router->get('/dashboard/rubro/secundaria', 'DashboardController@lista_rubro_secundaria');
+$router->get('/dashboard/localidad', 'DashboardController@lista_localidad');
 
+// ApiRest
 $router->get('/{model}/export', 'ResetController@export');
 $router->get('/{model}/caunt', 'ResetController@caunt');
 $router->get('/{model}/{id}', 'ResetController@get');
