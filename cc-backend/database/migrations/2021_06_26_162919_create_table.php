@@ -17,6 +17,7 @@ class CreateTable extends Migration
         Schema::create('departamento', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
+            $table->SoftDeletes();
             $table->timestamps();
         });
 
@@ -51,6 +52,7 @@ class CreateTable extends Migration
             $table->string('nombre');
             $table->unsignedBigInteger('departamento_id')->nullable();
             $table->foreign('departamento_id')->references('id')->on('departamento');
+            $table->SoftDeletes();
             $table->timestamps();
         });
         
@@ -66,6 +68,7 @@ class CreateTable extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('persona_id')->nullable();
             $table->foreign('persona_id')->references('id')->on('persona');
+            $table->SoftDeletes();
         });
 
         Schema::create('empresa', function (Blueprint $table) {

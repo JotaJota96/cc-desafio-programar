@@ -8,58 +8,45 @@ use Illuminate\Support\Facades\Validator;
 use \Crypt;
 use App\Traits\ModelsCustom;
 
+use App\Models\Empresa as Empresa;
 use App\Models\Persona as Persona;
+use App\Models\Tipo_relacion as Tipo_relacion;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Model
+class Empresa_persona extends Model
 {
   use SoftDeletes;
   use ModelsCustom;
 
-  protected $table = 'user';
-
+  protected $table = 'empresa_persona';
   protected $fillable = [
       'id',
-      'email',
-      'token',
+      'empresa_id',
       'persona_id',
-      'rol',
-      'nickname',
-      'password',
-      'email_verified_at',
-      'expires_at',
+      'tipo_relacion_id',
+      'deleted_at',
       'created_at',
       'updated_at'
   ];
-
   static public $rules = array(
     'get' => array(
       'id' => 'numeric',
-      'email' => 'max:255|unique:user',
-      'token' => 'max:255|unique:user',
+      'empresa_id' => 'numeric|exists:empresa,id',
       'persona_id' => 'numeric|exists:persona,id',
-      'rol' => 'numeric',
-      'nickname' => 'max:255',
-      'email_verified_at' => 'date',
-      'expires_at' => 'date',
+      'tipo_relacion_id' => 'numeric|exists:tipo_relacion,id',
+      'deleted_at' => 'date',
       'created_at' => 'date',
       'updated_at' => 'date'
     ),
     'post' => array(
-      'email' => 'max:255|required|unique:user',
-      'token' => 'max:255|unique:user',
+      'empresa_id' => 'numeric|exists:empresa,id',
       'persona_id' => 'numeric|exists:persona,id',
-      'rol' => 'numeric',
-      'nickname' => 'max:255|required',
-      'password' => 'min:6|max:255|required'
+      'tipo_relacion_id' => 'numeric|exists:tipo_relacion,id',
     ),
     'put' => array(
-      'email' => 'max:255|required|unique:user',
-      'token' => 'max:255|unique:user',
+      'empresa_id' => 'numeric|exists:empresa,id',
       'persona_id' => 'numeric|exists:persona,id',
-      'rol' => 'numeric',
-      'nickname' => 'max:255|required',
-      'password' => 'max:255'
+      'tipo_relacion_id' => 'numeric|exists:tipo_relacion,id',
     ),
     'delete' => array(
       'id' => 'numeric|required'
@@ -67,15 +54,20 @@ class User extends Model
   );
 
   protected $casts = array(
-      'email_verified_at' => 'datetime:Y-m-d H i s',
-      'expires_at' => 'datetime:Y-m-d H i s',
+      'deleted_at' => 'datetime:Y-m-d H i s',
       'created_at' => 'datetime:Y-m-d H i s',
       'updated_at' => 'datetime:Y-m-d H i s'
   );
   
+
+
+  static public $messages = array(
+    
+  );
+  
   static public function validate($data, $rule_type)
   {
-    $validator = Validator::make( $data->all(), User::$rules[$rule_type] );
+    $validator = Validator::make( $data->all(), Empresa_persona::$rules[$rule_type] );
     if($validator->fails()){
       return $validator->messages()->toArray();
     }
@@ -83,13 +75,25 @@ class User extends Model
 
   protected $Relationships = [
     'hasMany' => [ ],
-    'belongsTo' => [ 'persona'],
+    'belongsTo' => [ 'empresa', 'persona', 'tipo_relacion'],
     'belongsToMany' => [ ]
   ];
   
+  protected $RelationshipsClass = [
+    'empresa' => 'App\Models\Empresa',
+    'persona' => 'App\Models\Persona',
+    'tipo_relacion' => 'App\Models\Tipo_relacion'
+  ];
+
   //Relationships
+  public function empresa() { 
+    return $this->belongsTo('App\Models\Empresa'); 
+  }
   public function persona() { 
     return $this->belongsTo('App\Models\Persona'); 
+  }
+  public function tipo_relacion() { 
+    return $this->belongsTo('App\Models\Tipo_relacion'); 
   }
   
 }

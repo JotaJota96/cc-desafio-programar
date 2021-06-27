@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\ResetController;
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
@@ -16,3 +17,12 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+
+$router->get('/{model}/export', 'ResetController@export');
+$router->get('/{model}/caunt', 'ResetController@caunt');
+$router->get('/{model}/{id}', 'ResetController@get');
+$router->get('/{model}', 'ResetController@gets');
+$router->delete('/{model}/{id}', 'ResetController@delete');
+$router->put('/{model}/{id}', 'ResetController@put');
+$router->post('/{model}/', 'ResetController@post');
