@@ -25,11 +25,22 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatChipsModule} from '@angular/material/chips'; 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatStepperModule} from '@angular/material/stepper';
-// Angular Material
+// Fin Angular Material
+
+// Componentes
+import { RubroABMComponent } from './private/rubro-abm/rubro-abm.component';
+import { LocalidadABMComponent } from './private/localidad-abm/localidad-abm.component';
+import { TipoDeRelacionABMComponent } from './private/tipo-de-relacion-abm/tipo-de-relacion-abm.component';
+import { HomeComponent } from './private/home/home.component';
+// Fin Componentes
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RubroABMComponent,
+    LocalidadABMComponent,
+    TipoDeRelacionABMComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
