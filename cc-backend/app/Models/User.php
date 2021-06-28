@@ -19,23 +19,32 @@ class User extends Model
   protected $table = 'user';
 
   protected $fillable = [
-      'id',
-      'email',
+    'id',
+    'email',
+    'token',
+    'persona_id',
+    'rol',
+    'nickname',
+    'password',
+    'email_verified_at',
+    'expires_at',
+    'created_at',
+    'updated_at'
+  ];
+  protected $hidden = [
       'token',
-      'persona_id',
-      'rol',
-      'nickname',
       'password',
       'email_verified_at',
       'expires_at',
       'created_at',
       'updated_at'
   ];
+    
 
   static public $rules = array(
     'get' => array(
       'id' => 'numeric',
-      'email' => 'max:255|unique:user',
+      'email' => 'max:255|email|unique:user',
       'token' => 'max:255|unique:user',
       'persona_id' => 'numeric|exists:persona,id',
       'rol' => 'numeric',
@@ -46,7 +55,7 @@ class User extends Model
       'updated_at' => 'date'
     ),
     'post' => array(
-      'email' => 'max:255|required|unique:user',
+      'email' => 'max:255|email|required|unique:user',
       'token' => 'max:255|unique:user',
       'persona_id' => 'numeric|exists:persona,id',
       'rol' => 'numeric',
@@ -54,7 +63,7 @@ class User extends Model
       'password' => 'min:6|max:255|required'
     ),
     'put' => array(
-      'email' => 'max:255|required|unique:user',
+      'email' => 'max:255|email|required|unique:user',
       'token' => 'max:255|unique:user',
       'persona_id' => 'numeric|exists:persona,id',
       'rol' => 'numeric',
@@ -67,10 +76,10 @@ class User extends Model
   );
 
   protected $casts = array(
-      'email_verified_at' => 'datetime:Y-m-d H i s',
-      'expires_at' => 'datetime:Y-m-d H i s',
-      'created_at' => 'datetime:Y-m-d H i s',
-      'updated_at' => 'datetime:Y-m-d H i s'
+      'email_verified_at' => 'datetime:Y-m-d H:i:s',
+      'expires_at' => 'datetime:Y-m-d H:i:s',
+      'created_at' => 'datetime:Y-m-d H:i:s',
+      'updated_at' => 'datetime:Y-m-d H:i:s'
   );
   
   static public function validate($data, $rule_type)

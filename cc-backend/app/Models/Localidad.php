@@ -24,6 +24,10 @@ class Localidad extends Model
       'created_at',
       'updated_at'
   ];
+  protected $hidden = [
+      'created_at',
+      'updated_at'
+  ];
   static public $rules = array(
     'get' => array(
       'id' => 'numeric',
@@ -46,8 +50,8 @@ class Localidad extends Model
   );
 
   protected $casts = array(
-      'created_at' => 'datetime:Y-m-d H i s',
-      'updated_at' => 'datetime:Y-m-d H i s'
+      'created_at' => 'datetime:Y-m-d H:i:s',
+      'updated_at' => 'datetime:Y-m-d H:i:s'
   );
   
 
