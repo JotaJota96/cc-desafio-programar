@@ -18,6 +18,11 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->get('/access/login', 'AuthenticationController@login');
+$router->get('/access/hash', 'AuthenticationController@password_hash');
+$router->get('/access/password/iniciar_reset', 'AuthenticationController@send_reset_password');
+$router->post('/access/password/reset', 'AuthenticationController@reset_password');
+
 // Dashboard
 $router->get('/dashboard/rubro', 'DashboardController@lista_rubro');
 $router->get('/dashboard/rubro/principal', 'DashboardController@lista_rubro_principal');
