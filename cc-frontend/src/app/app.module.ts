@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 // Angular Material
 import {MatButtonModule} from '@angular/material/button';
@@ -25,6 +26,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatChipsModule} from '@angular/material/chips'; 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatCardModule} from '@angular/material/card'; 
 // Fin Angular Material
 
 // Componentes
@@ -47,6 +49,8 @@ import { HomeComponent } from './private/home/home.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
@@ -64,7 +68,8 @@ import { HomeComponent } from './private/home/home.component';
     MatNativeDateModule,
     MatChipsModule,
     MatProgressSpinnerModule,
-    MatStepperModule
+    MatStepperModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
