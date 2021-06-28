@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,9 +24,20 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatStepperModule} from '@angular/material/stepper';
 // Angular Material
 
+import { SecondaryChartComponent } from './components/secondary-chart/secondary-chart.component';
+import { MainChartComponent } from './components/main-chart/main-chart.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { DonutChartComponent } from './components/donut-chart/donut-chart.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SecondaryChartComponent,
+    MainChartComponent,
+    PieChartComponent,
+    LineChartComponent,
+    DonutChartComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +60,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatProgressSpinnerModule,
     MatStepperModule
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [],
   bootstrap: [AppComponent]
 })
