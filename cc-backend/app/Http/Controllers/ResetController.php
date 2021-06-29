@@ -136,7 +136,7 @@ class ResetController extends Controller
     {
         if (!isset($id) || !is_numeric($id)) return response("Identificador no valido", 404);
         $model = $this->model($model);
-        if (!isset($model) == null) return response("No se encontro", 404);
+        if (!isset($model) || $model == null) return response("No se encontro", 404);
         if (isset($model['error'])) return response($model['error'], 404);
         $model = $model->find($id);
         if ($model == null) return response("No se encontro", 404);
@@ -176,7 +176,7 @@ class ResetController extends Controller
         $error = $model::validate($request, 'get');
         if (isset($error)) return response($error, 404);
         if (isset($model['error'])) return response($model['error'], 404);
-        else return response($model::customGet($id), 200);
+        else return response($model::customGet($model, $id), 200);
     }
 
     public function delete(Request $request, $model, $id)
@@ -200,7 +200,7 @@ class ResetController extends Controller
         $error = $model::validate($request, 'get');
         if (isset($error)) return response($error, 404);
         if (isset($model['error'])) return response($model['error'], 404);
-        return response($model::customGet(), 200);
+        return response($model::customGet($model), 200);
     }
 
     public function caunt(Request $request, $model)

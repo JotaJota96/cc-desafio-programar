@@ -12,14 +12,21 @@ use Illuminate\Support\Facades\Validator;
  * @incluidRelationships:boolean Parametro de para solicitar dataos completos es full por defecto en caso de ser diferente setear en el model base
  * @Relationships:Array Listado de relaciones que se deceen editar en la recursividad de creacion y solicirudes de ser diferente setear en el model base
  * _createNameForingkey():string Funcion a reescribir de ser nesesaria
+ * @request:List Listado de funciones con los roles que podran ejecutarlos, de ser null se coniderara un elemento publico
  */
 trait ModelsCustom 
 {
+    public static $request = [
+        'gets' => [0],
+        'delete' => [0],
+        'put' => [0],
+        'post' => [0],
+    ];
     
-    public static function customGet($id = null)
+    public static function customGet($oModels = null, $id = null)
     {
-        if ($id == null) return self::customGetAll();
-        $oModels = new self;
+        if ($id == null) return self::customGetAll($oModels);
+        if ($oModels == null) $oModels = new self;
         self::addFull(Request()->all(), $oModels);
         $oModels = $oModels->find($id);
         return $oModels ? $oModels : [];
@@ -87,6 +94,7 @@ trait ModelsCustom
         if ($fillable == null) $fillable = $oModels->fillable;
         $queryNameLike = isset($oModels->queryNameLike) ? $oModels->queryNameLike : 'strict_where';
         $isNotLike = (isset($param[$queryNameLike])) ? $param[$queryNameLike] : true;
+        self::addFull($param, $oModels);
         foreach ($fillable as $key) {
             if (isset($param[$key])) {
                     if ($param[$key] == 'null' || $param[$key] == null) $oModels->whereNull($key);
@@ -94,7 +102,6 @@ trait ModelsCustom
                     else $oModels = $oModels->where($key, 'like', '%'. $param[$key].'%');
             }
         }
-        self::addFull($param, $oModels);
 
         $queryNameParam = isset($oModels->queryNameParam) ? $oModels->queryNameParam : 'q';
 

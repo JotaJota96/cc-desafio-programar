@@ -27,7 +27,7 @@ $router->get('/access/login', 'AuthenticationController@login');
 $router->get('/access/hash', 'AuthenticationController@password_hash');
 $router->get('/access/password/iniciar_reset', 'AuthenticationController@send_reset_password');
 $router->post('/access/password/reset', 'AuthenticationController@reset_password');
-
+$router->group(['middleware' => 'CustomAuthenticate'], function () use ($router) {
 /*
 |--------------------------------------------------------------------------
 | Dashboard
@@ -154,3 +154,4 @@ $router->get('/{model}', 'ResetController@gets');
 $router->delete('/{model}/{id}', 'ResetController@delete');
 $router->put('/{model}/{id}', 'ResetController@put');
 $router->post('/{model}/', 'ResetController@post');
+});

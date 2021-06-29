@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Model
 {
-  use SoftDeletes;
   use ModelsCustom;
 
   protected $table = 'user';
@@ -36,6 +35,7 @@ class User extends Model
       'password',
       'email_verified_at',
       'expires_at',
+      'deleted_at',
       'created_at',
       'updated_at'
   ];
@@ -44,8 +44,7 @@ class User extends Model
   static public $rules = array(
     'get' => array(
       'id' => 'numeric',
-      'email' => 'max:255|email|unique:user',
-      'token' => 'max:255|unique:user',
+      'email' => 'max:255|email',
       'persona_id' => 'numeric|exists:persona,id',
       'rol' => 'numeric',
       'nickname' => 'max:255',
@@ -63,11 +62,11 @@ class User extends Model
       'password' => 'min:6|max:255|required'
     ),
     'put' => array(
-      'email' => 'max:255|email|required|unique:user',
+      'email' => 'max:255|email|unique:user',
       'token' => 'max:255|unique:user',
       'persona_id' => 'numeric|exists:persona,id',
       'rol' => 'numeric',
-      'nickname' => 'max:255|required',
+      'nickname' => 'max:255',
       'password' => 'max:255'
     ),
     'delete' => array(
