@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-//import { Chart } from 'chart.js';
+
 declare var Chart: any;
 
 
@@ -34,14 +34,20 @@ export class MainChartComponent implements OnInit, AfterViewInit {
     label: 'My First dataset',
     backgroundColor: 'rgb(255, 99, 132)',
     borderColor: 'rgb(255, 99, 132)',
-    data: [0, 10, 5, 2, 20, 30, 45],
+    data: [15, 10, 5, 2, 20, 30, 45],
   }]
 };
 
  const config = {
-  type: 'line',
+  type: 'bar',
   data,
-  options: {}
+  options: {
+    plugins: {
+          legend: {
+              display: false
+        }
+    }
+  }
 };
 
   var myChart = new Chart(
