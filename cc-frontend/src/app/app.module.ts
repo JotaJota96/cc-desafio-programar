@@ -52,7 +52,7 @@ import { DonutChartComponent } from './components/donut-chart/donut-chart.compon
     MainChartComponent,
     PieChartComponent,
     LineChartComponent,
-    DonutChartComponent
+    DonutChartComponent,
     RubroABMComponent,
     LocalidadABMComponent,
     TipoDeRelacionABMComponent,
