@@ -18,7 +18,7 @@ export abstract class AbstractService<T> {
     return this.http.get(this.apiURL) as Observable<T[]>;;
   }
 
-  get(id: number): Observable<T> {
+  get(id: number | undefined): Observable<T> {
     return this.http.get(this.apiURL + '/' + id) as Observable<T>;;
   }
 
@@ -26,11 +26,11 @@ export abstract class AbstractService<T> {
     return this.http.post(this.apiURL, data) as Observable<T>;;;
   }
 
-  update(id: number, data: T): Observable<T> {
+  update(id: number | undefined, data: T): Observable<T> {
     return this.http.put(this.apiURL + '/' + id, data) as Observable<T>;;;
   }
 
-  delete(id: number): Observable<T> {
+  delete(id: number | undefined): Observable<T> {
     return this.http.delete(this.apiURL + '/' + id) as Observable<T>;;
   }
 
