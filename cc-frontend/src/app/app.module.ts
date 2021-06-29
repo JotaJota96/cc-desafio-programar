@@ -27,6 +27,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatCardModule} from '@angular/material/card'; 
+import {MatDialogModule} from '@angular/material/dialog'; 
 // Fin Angular Material
 
 // Componentes
@@ -34,6 +35,7 @@ import { RubroABMComponent } from './private/rubro-abm/rubro-abm.component';
 import { LocalidadABMComponent } from './private/localidad-abm/localidad-abm.component';
 import { TipoDeRelacionABMComponent } from './private/tipo-de-relacion-abm/tipo-de-relacion-abm.component';
 import { HomeComponent } from './private/home/home.component';
+import { DialogConfirmarComponent } from './private/dialogs/dialog-confirmar/dialog-confirmar.component';
 // Fin Componentes
 
 @NgModule({
@@ -42,7 +44,8 @@ import { HomeComponent } from './private/home/home.component';
     RubroABMComponent,
     LocalidadABMComponent,
     TipoDeRelacionABMComponent,
-    HomeComponent
+    HomeComponent,
+    DialogConfirmarComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,8 @@ import { HomeComponent } from './private/home/home.component';
     MatChipsModule,
     MatProgressSpinnerModule,
     MatStepperModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

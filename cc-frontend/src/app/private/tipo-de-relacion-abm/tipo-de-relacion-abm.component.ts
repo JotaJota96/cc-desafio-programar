@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TipoRelacionDTO } from 'src/app/classes/tipo-relacion-dto';
+import { DialogActionResult, DialogService, DialogType } from 'src/app/services/dialog.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class TipoDeRelacionABMComponent implements OnInit {
 
   public formulario: FormGroup = new FormGroup({});
 
-  constructor() {
+  constructor(protected dialog: DialogService) {
     this.resetearFormulario();
   }
 
@@ -40,7 +41,14 @@ export class TipoDeRelacionABMComponent implements OnInit {
 
   seleccionarParaEliminar(elemento: TipoRelacionDTO) {
     this.elementoSeleccionado = elemento;
-    // TODO mostrar confirmacion antes de eliminar
+    this.dialog.openDialog({
+      type: DialogType.CONFIRM_DELETE,
+      useDefault: true,
+    }).afterClosed().subscribe((result: DialogActionResult) => {
+      if (result == DialogActionResult.CONFIRM) {
+        this.eliminar();
+      }
+    });
   }
 
   resetearFormulario(elemento?: TipoRelacionDTO) {
