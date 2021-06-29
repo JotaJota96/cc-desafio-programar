@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
                 'empresa_id' => Empresa::inRandomOrder()->first()->id,
                 'persona_id' => $i,
                 'tipo_relacion_id' => Tipo_relacion::inRandomOrder()->first()->id,
-                'deleted_at' => $date[0],
+                'deleted_at' => $date[1],
                 'created_at' => $date[2],
                 'updated_at' => $date[3]
             ]);

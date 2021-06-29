@@ -27,10 +27,15 @@ class Persona extends Model
       'created_at',
       'updated_at'
   ];
+  protected $hidden = [
+      'deleted_at',
+      'created_at',
+      'updated_at'
+  ];
   static public $rules = array(
     'get' => array(
       'id' => 'numeric',
-      'email' => 'max:255',
+      'email' => 'max:255|email',
       'nombre_1' => 'max:255',
       'nombre_2' => 'max:255',
       'apellide_1' => 'max:255',
@@ -41,7 +46,7 @@ class Persona extends Model
       'updated_at' => 'date'
     ),
     'post' => array(
-      'email' => 'max:255',
+      'email' => 'max:255|email',
       'nombre_1' => 'max:255',
       'nombre_2' => 'max:255',
       'apellide_1' => 'max:255',
@@ -49,7 +54,7 @@ class Persona extends Model
       'celular' => 'max:255',
     ),
     'put' => array(
-      'email' => 'max:255',
+      'email' => 'max:255|email',
       'nombre_1' => 'max:255',
       'nombre_2' => 'max:255',
       'apellide_1' => 'max:255',
@@ -62,9 +67,9 @@ class Persona extends Model
   );
 
   protected $casts = array(
-      'deleted_at' => 'datetime:Y-m-d H i s',
-      'created_at' => 'datetime:Y-m-d H i s',
-      'updated_at' => 'datetime:Y-m-d H i s'
+      'deleted_at' => 'datetime:Y-m-d H:i:s',
+      'created_at' => 'datetime:Y-m-d H:i:s',
+      'updated_at' => 'datetime:Y-m-d H:i:s'
   );
   
 

@@ -39,6 +39,10 @@ class Empresa extends Model
       'created_at',
       'updated_at'
   ];
+  protected $hidden = [
+      'deleted_at',
+      'updated_at'
+  ];
   static public $rules = array(
     'get' => array(
       'id' => 'numeric',
@@ -47,7 +51,7 @@ class Empresa extends Model
       'localidad_id' => 'numeric|exists:localidad,id',
       'rubro_principal_id' => 'numeric|exists:rubro,id',
       'rubro_secundaria_id' => 'numeric|exists:rubro,id',
-      'email' => 'max:255',
+      'email' => 'max:255|email',
       'razon_social' => 'max:255',
       'nombre_fantasia' => 'max:255',
       'direccion' => 'max:255',
@@ -66,7 +70,7 @@ class Empresa extends Model
       'localidad_id' => 'numeric|exists:localidad,id',
       'rubro_principal_id' => 'required|numeric|exists:rubro,id',
       'rubro_secundaria_id' => 'numeric|exists:rubro,id',
-      'email' => 'max:255',
+      'email' => 'max:255|email',
       'razon_social' => 'max:255|required',
       'nombre_fantasia' => 'max:255|required',
       'direccion' => 'max:255|required',
@@ -82,7 +86,7 @@ class Empresa extends Model
       'localidad_id' => 'numeric|exists:localidad,id',
       'rubro_principal_id' => 'required|numeric|exists:rubro,id',
       'rubro_secundaria_id' => 'numeric|exists:rubro,id',
-      'email' => 'max:255',
+      'email' => 'max:255|email',
       'razon_social' => 'max:255|required',
       'nombre_fantasia' => 'max:255|required',
       'direccion' => 'max:255|required',
@@ -98,9 +102,9 @@ class Empresa extends Model
   );
 
   protected $casts = array(
-      'deleted_at' => 'datetime:Y-m-d H i s',
-      'created_at' => 'datetime:Y-m-d H i s',
-      'updated_at' => 'datetime:Y-m-d H i s'
+      'deleted_at' => 'datetime:Y-m-d H:i:s',
+      'created_at' => 'datetime:Y-m-d H:i:s',
+      'updated_at' => 'datetime:Y-m-d H:i:s'
   );
   
 
@@ -119,20 +123,19 @@ class Empresa extends Model
 
   protected $Relationships = [
     'hasMany' => [ 'empresa_persona'],
-    'belongsTo' => [ 'localidad', 'rubro', 'rubro'],
+    'belongsTo' => [ 'localidad', 'rubro', 'rubro_secundaria'],
     'belongsToMany' => [ ]
   ];
   
   protected $RelationshipsClass = [
     'localidad' => 'App\Models\Localidad',
     'rubro' => 'App\Models\Rubro',
-    'rubro' => 'App\Models\Rubro'
   ];
 
   //Relationships
   public function empresa_persona() 
   { 
-    return $this->hasMany('App\Models\Empresa_persona'); 
+    return $this->hasMany('App\Models\Empresa_persona', 'empresa_id', 'id'); 
   }
   public function localidad() { 
     return $this->belongsTo('App\Models\Localidad'); 

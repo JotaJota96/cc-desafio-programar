@@ -1,6 +1,7 @@
 <?php
 namespace App\Traits;
 use App;
+use App\Models\Empresa;
 use Illuminate\Http\Request;
 use Illuminate\Http\response;
 use Illuminate\Support\Facades\DB;
@@ -18,9 +19,10 @@ trait ModelsCustom
     public static function customGet($id = null)
     {
         if ($id == null) return self::customGetAll();
-        $oModels = self::find($id);
+        $oModels = new self;
         self::addFull(Request()->all(), $oModels);
-        return $oModels->first();
+        $oModels = $oModels->find($id);
+        return $oModels ? $oModels : [];
     }
     
     public static function _caunt($oModels = null, $select = null, $fillable = null, $param = null)
@@ -83,9 +85,13 @@ trait ModelsCustom
         if ($oModels == null) $oModels = new self();
         if ($param == null) $param = Request()->all();
         if ($fillable == null) $fillable = $oModels->fillable;
+        $queryNameLike = isset($oModels->queryNameLike) ? $oModels->queryNameLike : 'strict_where';
+        $isNotLike = (isset($param[$queryNameLike])) ? $param[$queryNameLike] : true;
         foreach ($fillable as $key) {
             if (isset($param[$key])) {
-                $oModels = $oModels->where($key, 'like', '%'. $param[$key].'%'); 
+                    if ($param[$key] == 'null' || $param[$key] == null) $oModels->whereNull($key);
+                    else if ($isNotLike) $oModels = $oModels->where($key, $param[$key]);  
+                    else $oModels = $oModels->where($key, 'like', '%'. $param[$key].'%');
             }
         }
         self::addFull($param, $oModels);
@@ -109,10 +115,10 @@ trait ModelsCustom
      * Mergea todos las relaciones del modelo en base en caso de mandar por parametro full
      * si se quiere una remplasar el nombre del parametro setear incluidRelationships en el modelo
      */
-    private static function addFull($param, &$oModels)
+    private static function addFull($param, &$oModels = null)
     {
-        $incluidRelationships = isset($oModels->incluidRelationships) ? $oModels->incluidRelationships : 'full';
-        if (isset($param[$incluidRelationships]) && ($param[$incluidRelationships] == 1 || $param[$incluidRelationships])) {
+        if ($oModels == null) return;
+        if ($oModels::isFull($param, $oModels)) {
             $lRelationships = [];
             if(isset($oModels->Relationships)) {
                 foreach ($oModels->Relationships as $slRelationships) {
@@ -121,6 +127,15 @@ trait ModelsCustom
             }
             $oModels = $oModels->with($lRelationships);
         }
+    }
+
+    /**
+     * Chekea existencia de full
+     */
+    private static function isFull($param, &$oModels)
+    {
+        $incluidRelationships = isset($oModels->incluidRelationships) ? $oModels->incluidRelationships : 'full';
+        return isset($param[$incluidRelationships]) && ($param[$incluidRelationships] == 1 || $param[$incluidRelationships]);
     }
 
     public function myGetAllRelationships($name, $select = null)

@@ -28,6 +28,11 @@ class Empresa_persona extends Model
       'created_at',
       'updated_at'
   ];
+  protected $hidden = [
+      'deleted_at',
+      'created_at',
+      'updated_at'
+  ];
   static public $rules = array(
     'get' => array(
       'id' => 'numeric',
@@ -54,9 +59,9 @@ class Empresa_persona extends Model
   );
 
   protected $casts = array(
-      'deleted_at' => 'datetime:Y-m-d H i s',
-      'created_at' => 'datetime:Y-m-d H i s',
-      'updated_at' => 'datetime:Y-m-d H i s'
+      'deleted_at' => 'datetime:Y-m-d H:i:s',
+      'created_at' => 'datetime:Y-m-d H:i:s',
+      'updated_at' => 'datetime:Y-m-d H:i:s'
   );
   
 
