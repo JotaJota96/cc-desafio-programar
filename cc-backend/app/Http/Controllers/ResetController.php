@@ -20,14 +20,14 @@ use Illuminate\Support\Facades\File as File;
 class ResetController extends Controller
 {
     public $modales = [
-        'user' => 'App\Models\user',
-        'departamento' => 'App\Models\departamento',
-        'tipo_relacion' => 'App\Models\tipo_relacion',
-        'rubro' => 'App\Models\rubro',
-        'persona' => 'App\Models\persona',
-        'localidad' => 'App\Models\localidad',
-        'empresa' => 'App\Models\empresa',
-        'empresa_persona' => 'App\Models\empresa_persona',
+        'user' => 'App\Models\User',
+        'departamento' => 'App\Models\Departamento',
+        'tipo_relacion' => 'App\Models\Tipo_relacion',
+        'rubro' => 'App\Models\Rubro',
+        'persona' => 'App\Models\Persona',
+        'localidad' => 'App\Models\Localidad',
+        'empresa' => 'App\Models\Empresa',
+        'empresa_persona' => 'App\Models\Empresa_persona',
     ];
     public $error = [
         'not_model' => 'No se encuentra la tabla'
@@ -51,37 +51,37 @@ class ResetController extends Controller
         foreach ($this->model() as $key => $value) {
             $info[] = [
                 [
-                    "metodo" => "get", 
+                    "metodo" => "get",
                     "url" => '/reset/'.$key.'/init'
                 ], [
-                    "metodo" => "get", 
+                    "metodo" => "get",
                     "url" => '/reset/'.$key.'/export'
                 ], [
-                    "metodo" => "get", 
+                    "metodo" => "get",
                     "url" => '/reset/'.$key.'/estruct'
                 ], [
-                    "metodo" => "get", 
+                    "metodo" => "get",
                     "url" => '/reset/'.$key.'/estruct/put'
                 ], [
-                    "metodo" => "get", 
+                    "metodo" => "get",
                     "url" => '/reset/'.$key.'/estruct/post'
                 ], [
-                    "metodo" => "get", 
+                    "metodo" => "get",
                     "url" => '/reset/'.$key.'/estruct/get'
                 ], [
-                    "metodo" => "get", 
+                    "metodo" => "get",
                     "url" => '/reset/'.$key.'/'
                 ], [
-                    "metodo" => "get", 
+                    "metodo" => "get",
                     "url" => '/reset/'.$key.'/{id}'
                 ], [
-                    "metodo" => "delete", 
+                    "metodo" => "delete",
                     "url" => '/reset/'.$key.'/{id}'
                 ], [
-                    "metodo" => "put", 
+                    "metodo" => "put",
                     "url" => '/reset/'.$key.'/{id}'
                 ], [
-                    "metodo" => "post", 
+                    "metodo" => "post",
                     "url" => '/reset/'.$key.'/'
                 ]
             ];
@@ -118,7 +118,7 @@ class ResetController extends Controller
                             if ($im !== false) {
                                 $ruta = $model->update[$i]['folder'] . "/" . $picName . ".webp";
                                 $webp = imagewebp($im, $ruta);
-                                $params[$model->update[$i]['name'] . "_webp"] = $ruta; 
+                                $params[$model->update[$i]['name'] . "_webp"] = $ruta;
                                 imagedestroy($im);
                             }
                         }
@@ -157,7 +157,7 @@ class ResetController extends Controller
                         if ($im !== false) {
                             $ruta = "public/".$model->update[$i]['folder']."/".Str::random(20).".webp";
                             $webp = imagewebp($im, $ruta);
-                            $params[$model->update[$i]['name']."_webp"] = "public/".$ruta; 
+                            $params[$model->update[$i]['name']."_webp"] = "public/".$ruta;
                             imagedestroy($im);
                         }
                     }
@@ -217,7 +217,7 @@ class ResetController extends Controller
         if ($model == null) return response("No se encontro", 404);
         $model = $this->model($model_name);
         if (isset($model['error'])) return response($model['error'], 404);
-        
+
         $csvData = $model::all()->toArray();
         $fillable = $model->_fillable();
         if ($fillable == null) return response("No se encontro", 404);
@@ -235,5 +235,5 @@ class ResetController extends Controller
             'Content-Disposition' => 'attachment; filename="'.$model_name.'.csv',
         ]);
     }
-    
+
 }

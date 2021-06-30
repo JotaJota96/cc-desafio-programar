@@ -39,6 +39,8 @@ Para seguir estos pasos perimero se deben haber preparado los contenedores docke
     php -S 0.0.0.0:80 -t public
     ```
 
+    La API quedará expuesta en <localhost:8080>
+
 4. En una nueva terminal, ingresar al contenedor de la API REST
 
     ```bash
@@ -54,3 +56,5 @@ Para seguir estos pasos perimero se deben haber preparado los contenedores docke
     # Iniciar el servidor de desarrollo local
     npm start
     ```
+
+    La aplicación quedará expuesta en <localhost:4200>

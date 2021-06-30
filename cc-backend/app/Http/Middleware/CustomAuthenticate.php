@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class CustomAuthenticate
 {
-    
+
     public $default = [0];
     public $modales = [
         'user' => 'App\Models\user',
@@ -32,8 +32,10 @@ class CustomAuthenticate
      */
     public function handle($request, Closure $next)
     {
+        // FIX temporal mientras no haya login
+        return $next($request);
         try {
-            $route = $request->route(); 
+            $route = $request->route();
             $model = null;
             $reqRole = $this->default;
             $modelName = null;
@@ -78,5 +80,5 @@ class CustomAuthenticate
         return substr($token, 7);
     }
 
-     
+
 }
