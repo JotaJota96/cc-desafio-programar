@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>
+    {{ data.title }}
+</h1>
+<div mat-dialog-content>
+    {{ data.message }}
+</div>
+
+<!-- INFO = 1 || ERROR = 6 || ADVERTENCIA = 7, -->
+<div mat-dialog-actions align="end" *ngIf="data.type == 1 || data.type == 6 || data.type == 7">
+    <button mat-flat-button color="accent" (click)="action(1)" >Aceptar</button>
+</div>
+
+<!-- ACCEPT_CANCEL = 2, -->
+<div mat-dialog-actions align="end" *ngIf="data.type == 2">
+    <button mat-flat-button (click)="action(2)" >Cancelar</button>
+    <button mat-flat-button color="accent" (click)="action(1)" >Aceptar</button>
+</div>
+
+<!-- YES_NO_CANCEL = 3, -->
+<div mat-dialog-actions align="end" *ngIf="data.type == 3">
+    <button mat-flat-button (click)="action(2)" >Cancelar</button>
+    <button mat-flat-button color="accent" (click)="action(5)" >No</button> 
+    <button mat-flat-button color="accent" (click)="action(4)" >Sí</button>
+</div>
+
+<!-- YES_NO = 4, -->
+<div mat-dialog-actions align="end" *ngIf="data.type == 4">
+    <button mat-flat-button color="accent" (click)="action(5)" >No</button> 
+    <button mat-flat-button color="accent" (click)="action(4)" >Sí</button>
+</div>
+
+<!-- CONFIRM_DELETE = 5 -->
+<div mat-dialog-actions align="end" *ngIf="data.type == 5">
+    <button mat-flat-button (click)="action(2)" >Cancelar</button>
+    <button mat-flat-button color="warn" (click)="action(3)" >Confirmar</button>
+</div>
+
