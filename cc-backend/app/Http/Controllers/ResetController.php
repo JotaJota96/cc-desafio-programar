@@ -20,14 +20,14 @@ use Illuminate\Support\Facades\File as File;
 class ResetController extends Controller
 {
     public $modales = [
-        'user' => 'App\Models\user',
-        'departamento' => 'App\Models\departamento',
-        'tipo_relacion' => 'App\Models\tipo_relacion',
-        'rubro' => 'App\Models\rubro',
-        'persona' => 'App\Models\persona',
-        'localidad' => 'App\Models\localidad',
-        'empresa' => 'App\Models\empresa',
-        'empresa_persona' => 'App\Models\empresa_persona',
+        'user' => 'App\Models\User',
+        'departamento' => 'App\Models\Departamento',
+        'tipo_relacion' => 'App\Models\Tipo_relacion',
+        'rubro' => 'App\Models\Rubro',
+        'persona' => 'App\Models\Persona',
+        'localidad' => 'App\Models\Localidad',
+        'empresa' => 'App\Models\Empresa',
+        'empresa_persona' => 'App\Models\Empresa_persona',
     ];
     public $error = [
         'not_model' => 'No se encuentra la tabla'
@@ -43,50 +43,6 @@ class ResetController extends Controller
     function respond($status, $data = [])
     {
         return response()->json($data, $status);
-    }
-
-    public function info(Request $request)
-    {
-        $info = [];
-        foreach ($this->model() as $key => $value) {
-            $info[] = [
-                [
-                    "metodo" => "get", 
-                    "url" => '/reset/'.$key.'/init'
-                ], [
-                    "metodo" => "get", 
-                    "url" => '/reset/'.$key.'/export'
-                ], [
-                    "metodo" => "get", 
-                    "url" => '/reset/'.$key.'/estruct'
-                ], [
-                    "metodo" => "get", 
-                    "url" => '/reset/'.$key.'/estruct/put'
-                ], [
-                    "metodo" => "get", 
-                    "url" => '/reset/'.$key.'/estruct/post'
-                ], [
-                    "metodo" => "get", 
-                    "url" => '/reset/'.$key.'/estruct/get'
-                ], [
-                    "metodo" => "get", 
-                    "url" => '/reset/'.$key.'/'
-                ], [
-                    "metodo" => "get", 
-                    "url" => '/reset/'.$key.'/{id}'
-                ], [
-                    "metodo" => "delete", 
-                    "url" => '/reset/'.$key.'/{id}'
-                ], [
-                    "metodo" => "put", 
-                    "url" => '/reset/'.$key.'/{id}'
-                ], [
-                    "metodo" => "post", 
-                    "url" => '/reset/'.$key.'/'
-                ]
-            ];
-        }
-        return $this->respond(Response::HTTP_OK,  $info );
     }
 
     /**
@@ -128,7 +84,7 @@ class ResetController extends Controller
             $model = $model::_create($params);
             return response($model, 200);
         } catch (\Throwable $th) {
-            return response($th, 500);
+            return response([$th->getMessage()], 500);
         }
     }
 

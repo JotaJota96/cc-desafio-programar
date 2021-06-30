@@ -47,8 +47,8 @@ class CustomAuthenticate
                 $method = explode('@', $route[1]['uses'])[1];
                 $reqRole = $this->resetRole($model, $method);
             }
-        } catch (\Throwable $th) {
-            return response()->json([ "error" => $th ], Response::HTTP_CONFLICT);
+        } catch (\Throwable $th) {            
+            return response()->json([ "error" => [$th->getMessage()] ], Response::HTTP_CONFLICT);
         }
 
         if ($reqRole == null) return $next($request);
