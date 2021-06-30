@@ -42,6 +42,8 @@ export class MainChartComponent implements OnInit, AfterViewInit {
   type: 'bar',
   data,
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
           legend: {
               display: false

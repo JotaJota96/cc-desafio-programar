@@ -39,6 +39,8 @@ export class DonutChartComponent implements OnInit, AfterViewInit {
   type: 'doughnut',
   data,
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
           legend: {
               display: false

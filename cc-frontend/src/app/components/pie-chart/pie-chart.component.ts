@@ -43,6 +43,8 @@ export class PieChartComponent implements OnInit, AfterViewInit {
   type: 'pie',
   data,
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
           legend: {
               display: false

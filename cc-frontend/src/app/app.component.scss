@@ -1,4 +1,3 @@
-
 .mat-toolbar {
     position: fixed; /* sticky = lo oculta al hacer scroll, fixed = siempre lo muestra */
     position: -webkit-sticky; /* Para macOS/iOS Safari */
@@ -9,7 +8,6 @@
 .mat-drawer-container {
     /*height: calc(100% - 64px); /*la altura del contenedor será el 100% - la altura de la navbar*/
     height: 100%;
-    margin-top: 64px;
 }
 
 .mat-drawer {
@@ -17,8 +15,8 @@
     padding: 0px;
 }
 
-.nav-icon {
-    padding-right: 5px;
+.nav-icon{
+    margin-right: 10px;
 }
 
 .mat-expansion-panel-header-title {

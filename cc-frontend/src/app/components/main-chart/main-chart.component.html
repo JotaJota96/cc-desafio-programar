@@ -1,33 +1,18 @@
 <div class="main">
-	<h1>Gráficos</h1>
-  <!-- <form>
-  	<mat-form-field appearance="fill">
-  <mat-label>Fecha desde</mat-label>
-  <input matInput [matDatepicker]="picker_desde">
-  <mat-datepicker-toggle matSuffix [for]="picker_desde"></mat-datepicker-toggle>
-  <mat-datepicker #picker_desde></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-  <mat-label>Fecha hasta</mat-label>
-  <input matInput [matDatepicker]="picker_hasta">
-  <mat-datepicker-toggle matSuffix [for]="picker_hasta"></mat-datepicker-toggle>
-  <mat-datepicker #picker_hasta></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-  <mat-label>Rubro</mat-label>
-  <mat-select>
-    <mat-option>
-      *ngFor="let food of foods" [value]="food.value" {{food.viewValue}}
-    </mat-option>
-  </mat-select>
-  </mat-form-field>
-  </form> -->
-</div>
-
-<div class="chart">
-  <canvas id="myChart"></canvas>
-</div>
-
-<div>
-  <app-secondary-chart></app-secondary-chart>
+  <div class="main_child">
+    <div class="main_child-div">
+      <canvas id="myChart"></canvas>
+    </div>
+    <div class="main_child-div">
+      <app-donut-chart></app-donut-chart>
+    </div>
+  </div>
+  <div class="main_child">
+    <div class="main_child-div">
+      <app-pie-chart></app-pie-chart>
+    </div>
+    <div class="main_child-div">
+      <app-line-chart></app-line-chart>
+    </div>
+  </div>
 </div>

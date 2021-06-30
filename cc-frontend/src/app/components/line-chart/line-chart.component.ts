@@ -39,6 +39,8 @@ export class LineChartComponent implements OnInit, AfterViewInit {
   type: 'line',
   data,
   options: {
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
           legend: {
               display: false
