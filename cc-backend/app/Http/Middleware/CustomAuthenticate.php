@@ -13,14 +13,14 @@ class CustomAuthenticate
     
     public $default = [0];
     public $modales = [
-        'user' => 'App\Models\user',
-        'departamento' => 'App\Models\departamento',
-        'tipo_relacion' => 'App\Models\tipo_relacion',
-        'rubro' => 'App\Models\rubro',
-        'persona' => 'App\Models\persona',
-        'localidad' => 'App\Models\localidad',
-        'empresa' => 'App\Models\empresa',
-        'empresa_persona' => 'App\Models\empresa_persona',
+        'user' => 'App\Models\User',
+        'departamento' => 'App\Models\Departamento',
+        'tipo_relacion' => 'App\Models\Tipo_relacion',
+        'rubro' => 'App\Models\Rubro',
+        'persona' => 'App\Models\Persona',
+        'localidad' => 'App\Models\Localidad',
+        'empresa' => 'App\Models\Empresa',
+        'empresa_persona' => 'App\Models\Empresa_persona',
     ];
 
     /**
@@ -32,6 +32,7 @@ class CustomAuthenticate
      */
     public function handle($request, Closure $next)
     {
+        return $next($request);
         try {
             $route = $request->route(); 
             $model = null;
