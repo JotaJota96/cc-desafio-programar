@@ -2,6 +2,8 @@
 
 Todo el entorno de desarrollo de este proyecto se basa en Docker. A continuación se muestran los pasos para su preparación.
 
+**Nota:** Una vez realizado todos los pasos, continuar con [esta serie de pasos](../instruciones.md)
+
 Configuración final:
 
 | Recurso          | Contenedor | IP             | Puertos FW |
