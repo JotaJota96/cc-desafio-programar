@@ -8,6 +8,7 @@
 .mat-drawer-container {
     /*height: calc(100% - 64px); /*la altura del contenedor será el 100% - la altura de la navbar*/
     height: 100%;
+    margin-top: 64px;
 }
 
 .mat-drawer {
