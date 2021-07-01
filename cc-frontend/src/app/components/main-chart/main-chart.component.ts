@@ -1,4 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { EmpresasRubroDTO } from 'src/app/classes/empresas-rubro-dto';
+import { ChartService } from 'src/app/services/chart.service';
 
 declare var Chart: any;
 
@@ -10,52 +12,61 @@ declare var Chart: any;
 })
 export class MainChartComponent implements OnInit, AfterViewInit {
 
-  constructor() { 
+  empresas: EmpresasRubroDTO[] = [];
+
+  constructor(private chartSvc: ChartService) { 
 
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+    
   }
 
   ngAfterViewInit(): void {
-      // === include 'setup' then 'config' above ===
-  const labels = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-];
 
- const data = {
-  labels: labels,
-  datasets: [{
-    label: 'My First dataset',
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
-    data: [15, 10, 5, 2, 20, 30, 45],
-  }]
-};
+    this.chartSvc.getEmpresasRubro().subscribe((emp: any) => {
+      this.empresas = emp['principal'];
 
- const config = {
-  type: 'bar',
-  data,
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-          legend: {
-              display: false
+      let labels: any[] = [];
+
+    let datos: any[] = [];
+
+this.empresas.forEach(element => {
+      labels.push(element.nombre)
+      datos.push(element.count)
+    });
+    
+     const data = {
+      labels: labels,
+      datasets: [{
+        label: 'My First dataset',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: datos
+      }]
+    };
+    
+     const config = {
+      type: 'bar',
+      data,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+              legend: {
+                  display: false
+            }
         }
-    }
-  }
-};
-
-  var myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-  );
+      }
+    };
+    
+      var myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+      );
+    })
+  
+  
   }
 
 }
