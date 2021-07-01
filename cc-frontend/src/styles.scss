@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-
+* { 
+  box-sizing: border-box;
+}
 html { height: 100%; }
 body { height: calc(100% - 64px); }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -8,6 +10,41 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   flex: 1 1 auto;
 }
 
+.mat-card {
+  overflow: hidden;
+  mat-card-header {
+      padding: 1rem 0 .5rem!important;
+      margin: -8px 0!important;
+      border-bottom: solid 1px rgba(0, 0, 0, 0.08);
+  }
+  mat-card-actions {
+      padding: 0.5rem!important;
+      margin: 0px -8px -8px -8px!important;
+      background-color: rgb(249, 250, 251, 0.5);
+  }
+  &:not([class*=mat-elevation-z]) {
+    //border: 1px solid rgba(0,0,0,0.125);
+    //box-shadow: none!important;
+    box-shadow: 0 0.125em 0.25em rgb(10 10 10 / 10%), 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%)!important;
+    border-radius: 6px!important;
+    margin-bottom: 0.5rem;
+    position: relative;
+    transition: box-shadow .5s;
+  }
+  &.active {
+      box-shadow:  rgba(0, 0, 0, 0.25) 0px 8px 16px 0px!important;
+  }
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.text-center {text-align: center!important;}
+  
+  .mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button {
+    border-radius: 6px!important;
+  }
 
 /******************************* Grid Bootstrap *****************************/
 /*!
@@ -35,27 +72,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-left: auto;
   }
   
-  @media (min-width: 576px) {
+  @media (min-width: 1440px) {
     .container {
-      max-width: 540px;
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .container {
-      max-width: 720px;
-    }
-  }
-  
-  @media (min-width: 992px) {
-    .container {
-      max-width: 960px;
-    }
-  }
-  
-  @media (min-width: 1200px) {
-    .container {
-      max-width: 1140px;
+      max-width: 1408px;
     }
   }
   
@@ -67,27 +86,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-left: auto;
   }
   
-  @media (min-width: 576px) {
-    .container, .container-sm {
-      max-width: 540px;
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .container, .container-sm, .container-md {
-      max-width: 720px;
-    }
-  }
-  
-  @media (min-width: 992px) {
-    .container, .container-sm, .container-md, .container-lg {
-      max-width: 960px;
-    }
-  }
-  
-  @media (min-width: 1200px) {
+  @media (min-width: 1440px) {
     .container, .container-sm, .container-md, .container-lg, .container-xl {
-      max-width: 1140px;
+      max-width: 1408px;
     }
   }
   

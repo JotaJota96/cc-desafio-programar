@@ -74,7 +74,7 @@ class ResetController extends Controller
                             if ($im !== false) {
                                 $ruta = $model->update[$i]['folder'] . "/" . $picName . ".webp";
                                 $webp = imagewebp($im, $ruta);
-                                $params[$model->update[$i]['name'] . "_webp"] = $ruta; 
+                                $params[$model->update[$i]['name'] . "_webp"] = $ruta;
                                 imagedestroy($im);
                             }
                         }
@@ -113,7 +113,7 @@ class ResetController extends Controller
                         if ($im !== false) {
                             $ruta = "public/".$model->update[$i]['folder']."/".Str::random(20).".webp";
                             $webp = imagewebp($im, $ruta);
-                            $params[$model->update[$i]['name']."_webp"] = "public/".$ruta; 
+                            $params[$model->update[$i]['name']."_webp"] = "public/".$ruta;
                             imagedestroy($im);
                         }
                     }
@@ -141,8 +141,6 @@ class ResetController extends Controller
         $model = $this->model($model);
         if ($model == null) return response("No se encontro", 404);
         if (isset($model['error'])) return response($model['error'], 404);
-        $error = $model::validate($request, 'delete');
-        if (isset($error)) return response($error, 404);
         $Objeto = $model->find($id);
         if ($Objeto == null) return response("No se encontro", 404);
         else return response($Objeto->delete() ? 1: 0, 200);
@@ -173,7 +171,7 @@ class ResetController extends Controller
         if ($model == null) return response("No se encontro", 404);
         $model = $this->model($model_name);
         if (isset($model['error'])) return response($model['error'], 404);
-        
+
         $csvData = $model::all()->toArray();
         $fillable = $model->_fillable();
         if ($fillable == null) return response("No se encontro", 404);
@@ -191,5 +189,5 @@ class ResetController extends Controller
             'Content-Disposition' => 'attachment; filename="'.$model_name.'.csv',
         ]);
     }
-    
+
 }

@@ -9,7 +9,7 @@ import { AbstractService } from './abstract.service';
 export class TipoRelacionService extends AbstractService<TipoRelacionDTO> {
 
   constructor(http:HttpClient) {
-    super(http, 'tipo_de_relacion');
+    super(http, 'tipo_relacion');
   }
 
 }

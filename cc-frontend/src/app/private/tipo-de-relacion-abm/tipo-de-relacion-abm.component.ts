@@ -1,25 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TipoRelacionDTO } from 'src/app/classes/tipo-relacion-dto';
+import { inCardAnimation, inInfoAnimation, inTitleAnimation } from 'src/app/animation';
 import { DialogActionResult, DialogService, DialogType } from 'src/app/services/dialog.service';
 import { TipoRelacionService } from 'src/app/services/tipo-relacion.service';
+import { PaginacionDTO } from 'src/app/classes/paginacion-dto';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
   selector: 'app-tipo-de-relacion-abm',
   templateUrl: './tipo-de-relacion-abm.component.html',
-  styleUrls: ['./tipo-de-relacion-abm.component.scss']
+  styleUrls: ['./tipo-de-relacion-abm.component.scss'],
+  animations: [
+    inCardAnimation,
+    inTitleAnimation,
+    inInfoAnimation
+  ]
 })
 export class TipoDeRelacionABMComponent implements OnInit {
   tableColumns: string[] = ['id', 'nombre', 'acciones']; // columnas de la tabla
-  listaElementos: TipoRelacionDTO[] = []; // Lista de elementos
-
+  listaElementos: PaginacionDTO<TipoRelacionDTO> = new PaginacionDTO<TipoRelacionDTO>(); // Lista de elementos
+  
+  active: boolean = false;
   modoEdicion: boolean = false; // Modo edición / creación
   elementoSeleccionado: TipoRelacionDTO = new TipoRelacionDTO();
 
+  reqGuardar:Promise<any> | null = null;
+  reqListado:Promise<any> | null = null;
+
   public formulario: FormGroup = new FormGroup({});
 
-  constructor(protected dialog: DialogService, protected tipoRelacionService: TipoRelacionService) {
+  constructor(
+    private _snackBar: MatSnackBar,
+    protected dialog: DialogService, 
+    protected tipoRelacionService: TipoRelacionService
+  ) {
     this.resetearFormulario();
   }
 
@@ -28,25 +44,34 @@ export class TipoDeRelacionABMComponent implements OnInit {
     this.cargarLista();
   }
 
-  cargarLista() {
-    this.tipoRelacionService.getAll().subscribe(
-      (data) => {
-        this.listaElementos = data;
-      },
-      (error) => {
-      }
-    );
+  cargarLista(pageElement:any = null) {
+    if (this.reqListado != null) return;
+    this.reqListado = this.tipoRelacionService.getAll(this.preparaParametrosPaginacion(pageElement))
+    this.reqListado.then((data: any) => {
+      this.listaElementos = data;
+    })
+    .catch((error) => {
+      this._snackBar.open(error['error'] ? error['error'].join(", ") : "Algo ha fallado", 'Undo');
+    })
+    .finally(() => {
+      this.reqListado = null;
+    });
 
-    // TODO Borrar este for
-    // for (let index = 1; index < 5; index++) {
-    //   let item: TipoRelacionDTO = new TipoRelacionDTO();
-    //   item.id = index;
-    //   item.nombre = "Relacion" + index;
-    //   this.listaElementos.push(item);
-    // }
+  }
+
+  preparaParametrosPaginacion(params: any) {
+    if (params == null) return null;
+    let ret:any = {};
+    if (params.pageIndex) ret.page = params.pageIndex + 1;
+    if (params.pageSize) ret.limit = params.pageSize;
+    return ret;
   }
 
   seleccionarParaEditar(elemento: TipoRelacionDTO) {
+    this.active = true;
+    setTimeout(() => {
+      this.active = false;
+    }, 500);
     this.elementoSeleccionado = elemento;
     this.resetearFormulario(elemento)
   }
@@ -82,42 +107,38 @@ export class TipoDeRelacionABMComponent implements OnInit {
   }
 
   eliminar() {
-    this.tipoRelacionService.delete(this.elementoSeleccionado.id).subscribe(
-      (data) => {
-        this.cargarLista();
-      },
-      (error) => {
-        this.dialog.openDialog({ type: DialogType.ERROR, useDefault: true })
-      }
-    );
-    this.resetearFormulario();
+    if (!this.elementoSeleccionado.id) {
+      this.dialog.openDialog({ title: "No se ha seleccionado ningun", type: DialogType.ERROR, useDefault: true })
+      return;
+    }
+    this.tipoRelacionService.delete(this.elementoSeleccionado.id)
+    .then((data) => {
+      this.cargarLista();
+    })
+    .catch((error) => {
+      this.dialog.openDialog({ type: DialogType.ERROR, useDefault: true })
+    })
+    .finally(() => {
+      this.resetearFormulario();
+    });
   }
 
   guardar() {
+    if (this.reqGuardar != null) return;
     if (!this.modoEdicion) this.elementoSeleccionado = new TipoRelacionDTO();
-
     this.elementoSeleccionado.nombre = this.formulario.controls['nombre'].value;
-
-    if (this.modoEdicion) {
-      this.tipoRelacionService.update(this.elementoSeleccionado.id, this.elementoSeleccionado).subscribe(
-        (datos) => {
-          this.cargarLista();
-          this.resetearFormulario();
-        },
-        (error) => {
-          this.dialog.openDialog({ type: DialogType.ERROR, useDefault: true })
-        }
-      );
-    } else {
-      this.tipoRelacionService.create(this.elementoSeleccionado).subscribe(
-        (datos) => {
-          this.cargarLista();
-          this.resetearFormulario();
-        },
-        (error) => {
-          this.dialog.openDialog({ type: DialogType.ERROR, useDefault: true })
-        }
-      );
-    }
+    this.reqGuardar = this.elementoSeleccionado.id ? this.tipoRelacionService.update(this.elementoSeleccionado.id, this.elementoSeleccionado) : this.tipoRelacionService.create(this.elementoSeleccionado);
+    this.reqGuardar
+    .then((data) => {
+      this.cargarLista();
+      this.resetearFormulario();
+    })
+    .catch((error) => {
+      this.dialog.openDialog({ type: DialogType.ERROR, useDefault: true })
+    })
+    .finally(() => {
+      this.reqGuardar = null;
+      this.resetearFormulario();
+    });
   }
 }

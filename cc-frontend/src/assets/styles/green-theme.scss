@@ -5,6 +5,11 @@
 
 @include mat-core();
 
+:root {
+  --my-primary-color-200 : #b3d7c2;
+  --my-primary-color-500 : #027a35;
+  --my-primary-color-700 : #015d22;
+}
 
 // GAMA COLORES
 $my-primary-color: (

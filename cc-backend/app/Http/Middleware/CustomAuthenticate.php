@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class CustomAuthenticate
 {
-    
+
     public $default = [0];
     public $modales = [
         'user' => 'App\Models\User',
@@ -32,9 +32,9 @@ class CustomAuthenticate
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        return $this->AccessControl($request, $next);
         try {
-            $route = $request->route(); 
+            $route = $request->route();
             $model = null;
             $reqRole = $this->default;
             $modelName = null;
@@ -64,13 +64,35 @@ class CustomAuthenticate
             $empresa = Empresa_persona::where("persona_id", $User->persona_id)->where("empresa_id", DB::raw($id))->first();
             if ($empresa == null) return response()->json([ "error" => "No tienes permisos para aceder a esta pagina, o el elemento fue eliminado" ], Response::HTTP_OK);
         }
-        return $next($request);
+        return $this->AccessControl($request, $next);
     }
 
     private function resetRole($model, $method)
     {
         if ($model == null) return $this->default;
         return isset($model['request'][$method]) ? $model['request'][$method] : $this->default;
+    }
+    
+    private function AccessControl(&$request, $next)
+    {
+        $headers = [
+            'Access-Control-Allow-Origin'      => '*',
+            'Access-Control-Allow-Methods'     => 'POST, GET, OPTIONS, PUT, DELETE',
+            'Access-Control-Allow-Credentials' => 'true',
+            'Access-Control-Max-Age'           => '86400',
+            'Access-Control-Allow-Headers'     => 'Content-Type, Authorization, X-Requested-With'
+        ];
+
+        if ($request->isMethod('OPTIONS')) {
+            return response()->json('{"method":"OPTIONS"}', 200, $headers);
+        }
+
+        $response = $next($request);
+        foreach($headers as $key => $value) {
+            $response->header($key, $value);
+        }
+        return $response;
+
     }
 
     private function bearer($token = null)
@@ -79,5 +101,5 @@ class CustomAuthenticate
         return substr($token, 7);
     }
 
-     
+
 }
