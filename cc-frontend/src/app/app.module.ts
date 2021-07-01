@@ -1,4 +1,5 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -32,9 +33,8 @@ registerLocaleData(localePy, 'es');
 
     DialogConfirmarModule
   ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA,
-  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

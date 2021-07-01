@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiURL: "http://localhost/cc-desafio-programar/cc-backend/public/"
+  apiURL: "http://localhost:8080"
 };
 
 /*

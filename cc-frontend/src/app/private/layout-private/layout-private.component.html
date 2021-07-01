@@ -10,12 +10,16 @@
             </div>
         </ng-template>
         <mat-nav-list>
-            <mat-list-item routerLinkActive="active" routerLink="">
+            <mat-list-item routerLinkActive="active" routerLink="home">
                 <mat-icon color="primary" class="nav-icon">home</mat-icon>
                 Inicio
             </mat-list-item>
-
-
+            <mat-divider class="my-2"></mat-divider>
+            <mat-list-item routerLinkActive="active" routerLink="chart" >
+              <mat-icon color="primary" class="nav-icon">bar_chart</mat-icon>
+              Gráficos
+            </mat-list-item>
+            <mat-divider class="my-2"></mat-divider>
             <mat-list-item routerLinkActive="active" routerLink="empresa">
                 <mat-icon color="primary" class="nav-icon"> business</mat-icon>
                 Empresas

@@ -32,6 +32,7 @@ class CustomAuthenticate
      */
     public function handle($request, Closure $next)
     {
+        // FIX temporal mientras no haya login
         return $this->AccessControl($request, $next);
         try {
             $route = $request->route();
@@ -100,6 +101,5 @@ class CustomAuthenticate
         if ($token == null || $token == '' || strlen($token) <= 7 || substr($token, 0, 7) != 'Bearer ') return null;
         return substr($token, 7);
     }
-
 
 }

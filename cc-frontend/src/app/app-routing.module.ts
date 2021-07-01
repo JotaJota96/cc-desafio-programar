@@ -9,7 +9,6 @@ const routes: Routes = [
   { path: '**', redirectTo: 'private' }
 ];
 
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
