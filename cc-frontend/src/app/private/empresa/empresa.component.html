@@ -1,0 +1,100 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-sm-12 col-md-4">
+            <h2>{{ elemento.nombre_fantasia }}</h2>
+            <h4>{{ elemento.razon_social }}</h4>
+        </div>
+        <div class="col-sm-12 col-md-8">
+            <h3 [@inInfoAnimation]="{value: ':leave', params: { delay: 0.1} }">General</h3>
+            <mat-card [@inCardAnimation]="{value: ':leave', params: { delay: 0} }">
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item><div>
+                            <span class="key">Rubro Pincipal</span>
+                            <span *ngIf="elemento.rubro">{{ elemento.rubro.nombre }}</span>
+                        </div></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><div>
+                            <span class="key">Rubro Secundario</span>
+                            <span *ngIf="elemento.rubro_secundaria">{{ elemento.rubro_secundaria.nombre }}</span>
+                        </div></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><div>
+                            <span class="key">Fecha de inicio</span>
+                            <span>{{ elemento.fecha_inicio | date : "d 'de' MMMM 'del' yyyy" : 'UTC-3' : 'es'  }}
+                            </span>
+                        </div></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><div>
+                            <span class="key">RUT</span>
+                            <span>{{ elemento.nro_rut }}
+                            </span>
+                        </div></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><div>
+                            <span class="key">BPS</span>
+                            <span>{{ elemento.nro_bps }}</span>
+                        </div></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><div>
+                            <span class="key">Nro. nro_referencia</span>
+                            <span>{{ elemento.nro_referencia }}</span>
+                        </div></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><div>
+                            <span class="key">Direccion</span>
+                            <span>{{ elemento.direccion }}</span>
+                        </div></mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+
+            <h3 [@inInfoAnimation]="{value: ':leave', params: { delay: 0.2} }">Contacto</h3>
+            <mat-card [@inCardAnimation]="{value: ':leave', params: { delay: 0.1} }">
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item><div>
+                            <span class="key">Email</span>
+                            <span>{{ elemento.email }}</span>
+                        </div></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><div>
+                            <span class="key">Telefono</span>
+                            <span>{{ elemento.telefono }}</span>
+                        </div></mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item><div>
+                            <span class="key">Celular</span>
+                            <span>{{ elemento.celular }}</span>
+                        </div></mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+
+            <h3 *ngIf="elemento.empresa_persona" [@inInfoAnimation]="{value: ':leave', params: { delay: 0.3} }">Contacto</h3>
+            <mat-card *ngIf="elemento.empresa_persona" [@inCardAnimation]="{value: ':leave', params: { delay: 0.2} }">
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item *ngFor="let persona of elemento.empresa_persona">
+                            <div *ngIf="persona.persona">
+                                <h4>{{ persona.persona | nombrePersona }}</h4>
+                                <span *ngIf="persona.tipo_relacion && persona.tipo_relacion.nombre">{{ persona.tipo_relacion.nombre }}</span>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+
+            <h3 *ngIf="elemento.observaciones" [@inInfoAnimation]="{value: ':leave', params: { delay: 0.4} }">Observaciones</h3>
+            <mat-card *ngIf="elemento.observaciones" [@inCardAnimation]="{value: ':leave', params: { delay: 0.3} }">
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item><div>
+                            <p>{{ elemento.observaciones }}</p>
+                        </div></mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

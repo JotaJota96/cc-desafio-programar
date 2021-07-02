@@ -72,10 +72,10 @@ $app->configure('app');
 |
 */
 
-/*$app->middleware([
-    App\Http\Middleware\CustomAuthenticate::class
+$app->middleware([
+	'Nord\Lumen\Cors\CorsMiddleware',
+//    App\Http\Middleware\CustomAuthenticate::class
 ]);
-*/
 $app->routeMiddleware([
     'CustomAuthenticate' => App\Http\Middleware\CustomAuthenticate::class,
 ]);
@@ -95,6 +95,8 @@ $app->routeMiddleware([
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Illuminate\Mail\MailServiceProvider::class);
+$app->register('Nord\Lumen\Cors\CorsServiceProvider');
+
 
 /*
 |--------------------------------------------------------------------------

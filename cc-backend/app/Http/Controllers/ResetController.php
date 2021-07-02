@@ -45,50 +45,6 @@ class ResetController extends Controller
         return response()->json($data, $status);
     }
 
-    public function info(Request $request)
-    {
-        $info = [];
-        foreach ($this->model() as $key => $value) {
-            $info[] = [
-                [
-                    "metodo" => "get",
-                    "url" => '/reset/'.$key.'/init'
-                ], [
-                    "metodo" => "get",
-                    "url" => '/reset/'.$key.'/export'
-                ], [
-                    "metodo" => "get",
-                    "url" => '/reset/'.$key.'/estruct'
-                ], [
-                    "metodo" => "get",
-                    "url" => '/reset/'.$key.'/estruct/put'
-                ], [
-                    "metodo" => "get",
-                    "url" => '/reset/'.$key.'/estruct/post'
-                ], [
-                    "metodo" => "get",
-                    "url" => '/reset/'.$key.'/estruct/get'
-                ], [
-                    "metodo" => "get",
-                    "url" => '/reset/'.$key.'/'
-                ], [
-                    "metodo" => "get",
-                    "url" => '/reset/'.$key.'/{id}'
-                ], [
-                    "metodo" => "delete",
-                    "url" => '/reset/'.$key.'/{id}'
-                ], [
-                    "metodo" => "put",
-                    "url" => '/reset/'.$key.'/{id}'
-                ], [
-                    "metodo" => "post",
-                    "url" => '/reset/'.$key.'/'
-                ]
-            ];
-        }
-        return $this->respond(Response::HTTP_OK,  $info );
-    }
-
     /**
      * @queryNameParam:string Parametro de busqueda es q por defecto en caso de ser diferente setear en el model base
      * @incluidRelationships:boolean Parametro de para solicitar dataos completos es full por defecto en caso de ser diferente setear en el model base
@@ -128,7 +84,7 @@ class ResetController extends Controller
             $model = $model::_create($params);
             return response($model, 200);
         } catch (\Throwable $th) {
-            return response($th, 500);
+            return response([$th->getMessage()], 500);
         }
     }
 
@@ -185,8 +141,6 @@ class ResetController extends Controller
         $model = $this->model($model);
         if ($model == null) return response("No se encontro", 404);
         if (isset($model['error'])) return response($model['error'], 404);
-        $error = $model::validate($request, 'delete');
-        if (isset($error)) return response($error, 404);
         $Objeto = $model->find($id);
         if ($Objeto == null) return response("No se encontro", 404);
         else return response($Objeto->delete() ? 1: 0, 200);

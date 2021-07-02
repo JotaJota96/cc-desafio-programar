@@ -34,7 +34,7 @@ class DashboardController extends Controller
                 'secundaria' => $oRubroSecundaria  
             ));
         } catch (\Throwable $th) {
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
 
@@ -48,7 +48,7 @@ class DashboardController extends Controller
                 'secundaria' => $oRubroSecundaria  
             ));
         } catch (\Throwable $th) {
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
     
@@ -57,7 +57,7 @@ class DashboardController extends Controller
             $oRubroPrincipal = $this->_lista_rubro_principal()->get();
             return $this->respond( Response::HTTP_OK, $oRubroPrincipal);
         } catch (\Throwable $th) {
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
 
@@ -66,7 +66,7 @@ class DashboardController extends Controller
             $oRubroSecundaria = $this->_lista_rubro_secundaria()->get();
             return $this->respond( Response::HTTP_OK, $oRubroSecundaria);
         } catch (\Throwable $th) {
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
 
@@ -75,7 +75,7 @@ class DashboardController extends Controller
             if (!is_numeric($id)) return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [ 'No es de tipo numerico'] ] );
             return $this->_lista_rubro_secundaria_empresa($id);
         } catch (\Throwable $th) {
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
 
@@ -83,7 +83,7 @@ class DashboardController extends Controller
         try {
             return $this->_lista_rubro_principal_empresa($id);
         } catch (\Throwable $th) {
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
 
@@ -99,7 +99,7 @@ class DashboardController extends Controller
             if(!isset($param['departamento'])) $res['localidad'] = $this->_lista_localidad()->get();
             return $this->respond( Response::HTTP_OK, $res);
         } catch (\Throwable $th) {
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
 
@@ -108,7 +108,7 @@ class DashboardController extends Controller
             $oDepartamento = $this->_lista_departamento()->get();
             return $this->respond( Response::HTTP_OK, $oDepartamento);
         } catch (\Throwable $th) {
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
 
@@ -119,7 +119,7 @@ class DashboardController extends Controller
                           ->where("localidad.departamento_id", $id)
                           ->paginate();
         } catch (\Throwable $th) {
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
 
@@ -129,7 +129,7 @@ class DashboardController extends Controller
             $oLocalidad = $this->_lista_localidad_departamento($id)->get();
             return $this->respond( Response::HTTP_OK, $oLocalidad);
         } catch (\Throwable $th) {
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
 
@@ -138,7 +138,7 @@ class DashboardController extends Controller
             if (!is_numeric($id)) return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [ 'No es de tipo numerico'] ] );
             return Empresa::where("empresa.localidad_id", $id)->paginate();
         } catch (\Throwable $th) {
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
     
@@ -151,7 +151,7 @@ class DashboardController extends Controller
             if ($month <= 0 || $month > 12) return $this->respond( Response::HTTP_CONFLICT, [ 'error' => ['Eesta fuera de rango'] ] );
             return Empresa::whereMonth("empresa.fecha_inicio", $month)->paginate();
         } catch (\Throwable $th) {
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
 
@@ -174,7 +174,7 @@ class DashboardController extends Controller
                 "altas" => $oMovimintosAlta
             ));
         } catch (\Throwable $th) {
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
 
@@ -188,7 +188,7 @@ class DashboardController extends Controller
             $oMovimintos = $this->_lista_movimintos_baja($year, $month);
             return $this->respond( Response::HTTP_OK, $oMovimintos);
         } catch (\Throwable $th) {
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
 
@@ -202,8 +202,7 @@ class DashboardController extends Controller
             $oMovimintos = $this->_lista_movimintos_alta($year, $month);
             return $this->respond( Response::HTTP_OK, $oMovimintos);
         } catch (\Throwable $th) {
-            dd($th);
-            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th] ] );
+            return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
     }
 

@@ -83,8 +83,9 @@ trait ModelsCustom
     private static function customGetAll($oModels = null, $select = null, $fillable = null, $param = null)
     {
         $oModels = self::customselectAll($oModels, $select, $fillable, $param);
+        if ($param == null) $param = Request()->all();
         $limit = (isset($param["limit"])) ? $param["limit"] : 10;
-        return $oModels->paginate($limit);
+        return (isset($param["simple"])) ? $oModels->get() : $oModels->paginate($limit);
     }
 
     private static function customselectAll($oModels = null, $select = null, $fillable = null, $param = null)

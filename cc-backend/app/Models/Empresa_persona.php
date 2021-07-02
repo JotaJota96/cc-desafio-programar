@@ -33,6 +33,7 @@ class Empresa_persona extends Model
       'created_at',
       'updated_at'
   ];
+  protected $with = ['persona', 'tipo_relacion'];
   static public $rules = array(
     'get' => array(
       'id' => 'numeric',

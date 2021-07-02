@@ -1,4 +1,4 @@
 export class DepartamentoDTO {
-    public id: number | undefined;
-    public nombre: string | undefined;
+    public id?: number;
+    public nombre?: string;
 }

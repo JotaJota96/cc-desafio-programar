@@ -6,7 +6,7 @@ import { AbstractService } from './abstract.service';
 @Injectable({
   providedIn: 'root'
 })
-export class EmpresaService extends AbstractService<EmpresaDTO {
+export class EmpresaService extends AbstractService<EmpresaDTO> {
 
   constructor(http:HttpClient) {
     super(http, 'empresa');

@@ -13,14 +13,14 @@ class CustomAuthenticate
 
     public $default = [0];
     public $modales = [
-        'user' => 'App\Models\user',
-        'departamento' => 'App\Models\departamento',
-        'tipo_relacion' => 'App\Models\tipo_relacion',
-        'rubro' => 'App\Models\rubro',
-        'persona' => 'App\Models\persona',
-        'localidad' => 'App\Models\localidad',
-        'empresa' => 'App\Models\empresa',
-        'empresa_persona' => 'App\Models\empresa_persona',
+        'user' => 'App\Models\User',
+        'departamento' => 'App\Models\Departamento',
+        'tipo_relacion' => 'App\Models\Tipo_relacion',
+        'rubro' => 'App\Models\Rubro',
+        'persona' => 'App\Models\Persona',
+        'localidad' => 'App\Models\Localidad',
+        'empresa' => 'App\Models\Empresa',
+        'empresa_persona' => 'App\Models\Empresa_persona',
     ];
 
     /**
@@ -33,7 +33,7 @@ class CustomAuthenticate
     public function handle($request, Closure $next)
     {
         // FIX temporal mientras no haya login
-        return $next($request);
+        return $this->AccessControl($request, $next);
         try {
             $route = $request->route();
             $model = null;
@@ -49,8 +49,8 @@ class CustomAuthenticate
                 $method = explode('@', $route[1]['uses'])[1];
                 $reqRole = $this->resetRole($model, $method);
             }
-        } catch (\Throwable $th) {
-            return response()->json([ "error" => $th ], Response::HTTP_CONFLICT);
+        } catch (\Throwable $th) {            
+            return response()->json([ "error" => [$th->getMessage()] ], Response::HTTP_CONFLICT);
         }
 
         if ($reqRole == null) return $next($request);
@@ -65,7 +65,7 @@ class CustomAuthenticate
             $empresa = Empresa_persona::where("persona_id", $User->persona_id)->where("empresa_id", DB::raw($id))->first();
             if ($empresa == null) return response()->json([ "error" => "No tienes permisos para aceder a esta pagina, o el elemento fue eliminado" ], Response::HTTP_OK);
         }
-        return $next($request);
+        return $this->AccessControl($request, $next);
     }
 
     private function resetRole($model, $method)
@@ -73,12 +73,33 @@ class CustomAuthenticate
         if ($model == null) return $this->default;
         return isset($model['request'][$method]) ? $model['request'][$method] : $this->default;
     }
+    
+    private function AccessControl(&$request, $next)
+    {
+        $headers = [
+            'Access-Control-Allow-Origin'      => '*',
+            'Access-Control-Allow-Methods'     => 'POST, GET, OPTIONS, PUT, DELETE',
+            'Access-Control-Allow-Credentials' => 'true',
+            'Access-Control-Max-Age'           => '86400',
+            'Access-Control-Allow-Headers'     => 'Content-Type, Authorization, X-Requested-With'
+        ];
+
+        if ($request->isMethod('OPTIONS')) {
+            return response()->json('{"method":"OPTIONS"}', 200, $headers);
+        }
+
+        $response = $next($request);
+        foreach($headers as $key => $value) {
+            $response->header($key, $value);
+        }
+        return $response;
+
+    }
 
     private function bearer($token = null)
     {
         if ($token == null || $token == '' || strlen($token) <= 7 || substr($token, 0, 7) != 'Bearer ') return null;
         return substr($token, 7);
     }
-
 
 }
