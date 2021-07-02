@@ -17,7 +17,7 @@ export class LayoutPrivateComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event:any) {
     if (this.drawer)
-    if ( this.innerWidth > 1280 && event.target.innerWidth <= 1280 ) this.drawer.close();
+    if ( this.innerWidth >= 1280 && event.target.innerWidth < 1280 ) this.drawer.close();
     else if ( this.innerWidth < 1280 && event.target.innerWidth >= 1280 ) this.drawer.open();
     
     this.innerWidth = event.target.innerWidth;
