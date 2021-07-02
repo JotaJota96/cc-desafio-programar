@@ -13,12 +13,16 @@ export class PieChartComponent implements OnInit, AfterViewInit {
 
   empresas: EmpresasRubroDTO[] = [];
 
+  num: number = 0;
+
   constructor(private chartSvc: ChartService) { }
 
   ngOnInit(): void {
+    this.num = this.chartSvc.getData()
   }
 
   ngAfterViewInit(): void {
+    
     this.chartSvc.getEmpresasRubro().subscribe((emp: any) => {
       this.empresas = emp['principal'];
 

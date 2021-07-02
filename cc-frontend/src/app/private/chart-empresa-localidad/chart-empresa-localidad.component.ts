@@ -5,25 +5,26 @@ import { ChartService } from 'src/app/services/chart.service';
 declare var Chart: any;
 
 @Component({
-  selector: 'app-donut-chart',
-  templateUrl: './donut-chart.component.html',
-  styleUrls: ['./donut-chart.component.scss']
+  selector: 'app-chart-empresa-localidad',
+  templateUrl: './chart-empresa-localidad.component.html',
+  styleUrls: ['./chart-empresa-localidad.component.scss']
 })
-export class DonutChartComponent implements OnInit, AfterViewInit {
+export class ChartEmpresaLocalidadComponent implements OnInit, AfterViewInit {
 
   empresas: EmpresasRubroDTO[] = [];
 
-  num: number = 0;
+  tableColumns: string[] = ['departamento', 'cantidad']; // columnas de la tabla
 
-  constructor(private chartSvc: ChartService) { }
+  constructor(private chartSvc: ChartService) {
+    this.chartSvc.setData(2)
+   }
 
   ngOnInit(): void {
-    this.num = this.chartSvc.getData();
   }
 
-  ngAfterViewInit(): void {
-    this.chartSvc.getEmpresasRubro().subscribe((emp: any) => {
-      this.empresas = emp['principal'];
+  ngAfterViewInit() {
+    this.chartSvc.getEmpresasLocalidad().subscribe((emp: any) => {
+      this.empresas = emp['departamento'];
 
       let labels: any[] = [];
 
@@ -61,9 +62,29 @@ export class DonutChartComponent implements OnInit, AfterViewInit {
       };
 
       var myChart = new Chart(
-        document.getElementById('myChartDonut'),
+        document.getElementById('myChartLocalidadDonut'),
         config
       );
+
+      const configPie = {
+        type: 'pie',
+        data,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }
+      };
+
+      var myChartLocalidad = new Chart(
+        document.getElementById('myChartLocalidadPie'),
+        configPie
+      );
     })
-}
+  }
+
 }

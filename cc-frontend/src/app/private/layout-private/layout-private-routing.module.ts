@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainChartComponent } from 'src/app/components/main-chart/main-chart.component';
+import { ChartEmpresaLocalidadComponent } from '../chart-empresa-localidad/chart-empresa-localidad.component';
 import { DepartamentoAbmComponent } from '../departamento-abm/departamento-abm.component';
 import { EmpresaListadoComponent } from '../empresa-listado/empresa-listado.component';
 import { EmpresaComponent } from '../empresa/empresa.component';
@@ -23,7 +24,8 @@ const routes: Routes = [
       { path: 'abm-localidad', component: LocalidadABMComponent },
       { path: 'empresa', component: EmpresaListadoComponent },
       { path: 'empresa/:id', component: EmpresaComponent },
-      { path: 'chart', component: MainChartComponent },
+      { path: 'grafico-empresas-rubro', component: MainChartComponent },
+      { path: 'grafico-empresas-localidad', component: ChartEmpresaLocalidadComponent },
       { path: '**', redirectTo: 'abm-rubro' },
     ]
   }

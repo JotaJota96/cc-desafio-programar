@@ -1,0 +1,39 @@
+<div class="main">
+    <div class="main_child" id="resp">
+      <div class="main_child-div">
+        <app-donut-chart></app-donut-chart>
+      </div>
+      <div class="main_child-div">
+        <app-pie-chart></app-pie-chart>
+      </div>
+    </div>
+    <div class="main_child table-emp">
+      <div class="main_child-div">
+        <table mat-table [dataSource]="empresas" class="w-100">
+          <ng-container matColumnDef="color">
+            <th mat-header-cell *matHeaderCellDef>Color</th>
+            <td width="50" mat-cell *matCellDef="">  </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="departamento">
+            <th mat-header-cell *matHeaderCellDef>Departamento</th>
+            <td width="50" mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="cantidad">
+            <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+            <td width="50" mat-cell *matCellDef="let element"> {{element.count}} </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+          <tr class="mat-row no-data-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              <img src="assets/images/no-registros.png" alt="">
+              <h3>No hay nada para mostrar</h3>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
