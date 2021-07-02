@@ -105,6 +105,12 @@ class DatabaseSeeder extends Seeder
         DB::table('rubro')->insert([ 'nombre' => 'Supermercado' ]);
         DB::table('rubro')->insert([ 'nombre' => 'Joyería' ]);
         DB::table('rubro')->insert([ 'nombre' => 'Óptica' ]);
+        DB::table('rubro')->insert([ 'nombre' => 'Administración' ]);
+        DB::table('rubro')->insert([ 'nombre' => 'Rural' ]);
+        DB::table('rubro')->insert([ 'nombre' => 'Deporte' ]);
+        DB::table('rubro')->insert([ 'nombre' => 'Farmacia' ]);
+        DB::table('rubro')->insert([ 'nombre' => 'Sanitario' ]);
+        DB::table('rubro')->insert([ 'nombre' => 'Construcción' ]);
     }
 
     public function tipo_relacion() {

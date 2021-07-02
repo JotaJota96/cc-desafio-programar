@@ -41,7 +41,6 @@ import { LayoutPrivateComponent } from './layout-private.component';
 import { SecondaryChartComponent } from 'src/app/components/secondary-chart/secondary-chart.component';
 import { MainChartComponent } from 'src/app/components/main-chart/main-chart.component';
 import { PieChartComponent } from 'src/app/components/pie-chart/pie-chart.component';
-import { LineChartComponent } from 'src/app/components/line-chart/line-chart.component';
 import { DonutChartComponent } from 'src/app/components/donut-chart/donut-chart.component';
 
 // Fin Componentes
@@ -67,7 +66,6 @@ import { nombrePersonaModule } from 'src/app/pipes/nombre-persona.module';
     SecondaryChartComponent,
     MainChartComponent,
     PieChartComponent,
-    LineChartComponent,
     DonutChartComponent,
 
     LayoutPrivateComponent
