@@ -23,7 +23,7 @@ $router->get('/', function () use ($router) {
 | Acceso
 |--------------------------------------------------------------------------
 */
-$router->get('/access/login', 'AuthenticationController@login');
+$router->post('/access/login', 'AuthenticationController@login');
 $router->get('/access/hash', 'AuthenticationController@password_hash');
 $router->get('/access/password/iniciar_reset', 'AuthenticationController@send_reset_password');
 $router->post('/access/password/reset', 'AuthenticationController@reset_password');
@@ -91,7 +91,7 @@ $router->get('/dashboard/movimintos/altas', 'DashboardController@lista_moviminto
 $router->get('/dashboard/movimintos/bajas', 'DashboardController@lista_movimintos_baja');
 
 /**
- * Listado de localidad con cantidad de empresas agregadas 
+ * Listado de localidad con cantidad de empresas agregadas
  * convinado con listado de departamentos con cantidad de empresas agregadas
  * @Param departamento No importa el valor solo dara el listado de departamentos
  * /dashboard/localidad?departamento
@@ -144,8 +144,8 @@ $router->get('/{model}/{id}', 'ResetController@get');
  * @Param page(numero) determina la pagina actual
  * @Param q(string) texto por el que se filtraran los atributos
  * @Param full(0|1) determina si enviar atributos secundarios del elemento
- * @Param strict_where(0|1) por defecto 1, determina si atributos de filtro seran estrictos 
- * ejempl: 
+ * @Param strict_where(0|1) por defecto 1, determina si atributos de filtro seran estrictos
+ * ejempl:
  *      /empresa?localidad_id=23&strict_where=0 podra retornara localidad_id: 23 como localidad_id: 623
  *      /empresa?localidad_id=23&strict_where=1 solo retornara localidad_id: 23
  * @Param fillable attibutos, estos se filtaran por medio de un like de no ser exacto
