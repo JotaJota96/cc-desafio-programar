@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, Input } from '@angular/core';
 import { EmpresasRubroDTO } from 'src/app/classes/empresas-rubro-dto';
 import { ChartService } from 'src/app/services/chart.service';
 
@@ -9,21 +9,24 @@ declare var Chart: any;
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.scss']
 })
-export class PieChartComponent implements OnInit, AfterViewInit {
+export class PieChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   empresas: EmpresasRubroDTO[] = [];
 
-  num: number = 0;
+  @Input() num: any;
+
+  myChart: any;
+  su: any;
 
   constructor(private chartSvc: ChartService) { }
 
   ngOnInit(): void {
-    this.num = this.chartSvc.getData()
+
   }
 
   ngAfterViewInit(): void {
-    
-    this.chartSvc.getEmpresasRubro().subscribe((emp: any) => {
+
+    this.su = this.chartSvc.getEmpresasRubro().subscribe((emp: any) => {
       this.empresas = emp['principal'];
 
       let labels: any[] = [];
@@ -31,7 +34,7 @@ export class PieChartComponent implements OnInit, AfterViewInit {
       let datos: any[] = [];
 
       let color: any[] = this.chartSvc.color;
-    
+
       this.empresas.forEach(element => {
         labels.push(element.nombre)
         datos.push(element.count)
@@ -61,10 +64,16 @@ export class PieChartComponent implements OnInit, AfterViewInit {
         }
       };
 
-      var myChart = new Chart(
-        document.getElementById('myChartPie'),
+      var ctx = document.getElementById('myChartPie');
+      this.myChart = new Chart(
+        ctx,
         config
       );
     })
+  }
+
+  ngOnDestroy() {
+    this.su.unsubscribe();
+    if (this.myChart != null) this.myChart.destroy();
   }
 }

@@ -11,14 +11,11 @@ export class LayoutPrivateComponent {
 
   graficas = false;
   listas = false;
-  showComponent: number = 0;
 
   innerWidth: number = 1280;
   constructor(private chartSvc: ChartService) {
     this.innerWidth = window.innerWidth;
     if (this.innerWidth <= 1280 && this.drawer) this.drawer.close();
-
-    console.log(this.showComponent)
   }
 
   @HostListener('window:resize', ['$event'])
@@ -38,11 +35,5 @@ export class LayoutPrivateComponent {
   mostrarLista(){
     if(this.listas) this.listas = false
     else this.listas = true
-  }
-
-  mostrarComponent(num: number){
-    this.showComponent = num
-
-    this.chartSvc.setData(num)
   }
 }

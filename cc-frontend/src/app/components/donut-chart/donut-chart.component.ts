@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, Input } from '@angular/core';
 import { EmpresasRubroDTO } from 'src/app/classes/empresas-rubro-dto';
 import { ChartService } from 'src/app/services/chart.service';
 
@@ -9,20 +9,22 @@ declare var Chart: any;
   templateUrl: './donut-chart.component.html',
   styleUrls: ['./donut-chart.component.scss']
 })
-export class DonutChartComponent implements OnInit, AfterViewInit {
+export class DonutChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   empresas: EmpresasRubroDTO[] = [];
 
-  num: number = 0;
+  @Input() num: any;
+  myChart: any;
+  su: any;
 
   constructor(private chartSvc: ChartService) { }
 
   ngOnInit(): void {
-    this.num = this.chartSvc.getData();
+
   }
 
   ngAfterViewInit(): void {
-    this.chartSvc.getEmpresasRubro().subscribe((emp: any) => {
+    this.su = this.chartSvc.getEmpresasRubro().subscribe((emp: any) => {
       this.empresas = emp['principal'];
 
       let labels: any[] = [];
@@ -60,10 +62,16 @@ export class DonutChartComponent implements OnInit, AfterViewInit {
         }
       };
 
-      var myChart = new Chart(
-        document.getElementById('myChartDonut'),
+      var ctx = document.getElementById('myChartDonut')
+      this.myChart = new Chart(
+        ctx,
         config
       );
     })
-}
+  }
+
+  ngOnDestroy() {
+    this.su.unsubscribe();
+    if (this.myChart != null) this.myChart.destroy();
+  }
 }

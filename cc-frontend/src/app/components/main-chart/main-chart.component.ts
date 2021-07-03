@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { EmpresasRubroDTO } from 'src/app/classes/empresas-rubro-dto';
 import { ChartService } from 'src/app/services/chart.service';
 
@@ -7,24 +7,27 @@ import { ChartService } from 'src/app/services/chart.service';
   templateUrl: './main-chart.component.html',
   styleUrls: ['./main-chart.component.scss']
 })
-export class MainChartComponent implements OnInit, AfterViewInit {
+export class MainChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   empresas: EmpresasRubroDTO[] = [];
- 
+  num: number = 1;
+  su: any;
+
   tableColumns: string[] = ['nombre', 'cantidad']; // columnas de la tabla
 
-  constructor(private chartSvc: ChartService) {
-    this.chartSvc.setData(1)
-  }
+  constructor(private chartSvc: ChartService) { }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
-    this.chartSvc.getEmpresasRubro().subscribe((emp: any) => {
+    this.su = this.chartSvc.getEmpresasRubro().subscribe((emp: any) => {
       this.empresas = emp['principal'];
     })
+  }
 
+  ngOnDestroy() {
+    this.su.unsubscribe();
   }
 
 }
