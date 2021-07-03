@@ -8,6 +8,9 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class LayoutPrivateComponent {
   @ViewChild('drawer', { static: false }) public drawer: MatDrawer | null = null;
 
+  mantenimiento:boolean = false;
+
+
   innerWidth:number = 1280;
   constructor() {
     this.innerWidth = window.innerWidth;
@@ -22,4 +25,10 @@ export class LayoutPrivateComponent {
     
     this.innerWidth = event.target.innerWidth;
   }
+
+  expandirMantenimiento(){
+    if(this.mantenimiento) this.mantenimiento = false
+    else this.mantenimiento = true
+  }
+
 }

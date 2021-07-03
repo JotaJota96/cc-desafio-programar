@@ -32,23 +32,33 @@
                 <mat-icon color="primary" class="nav-icon">perm_identity</mat-icon>
                 Usuarios
             </mat-list-item>
+            
+            <mat-divider class="my-2"></mat-divider>
 
-            <mat-list-item routerLinkActive="active" routerLink="abm-tipo-de-relacion">
-                <mat-icon color="primary" class="nav-icon">scatter_plot</mat-icon>
-                Tipos de relaciones
+            <mat-list-item (click)="expandirMantenimiento()" routerLinkActive="active">
+                <mat-icon color="primary" class="nav-icon">settings</mat-icon>
+                Mantenimiento
             </mat-list-item>
-            <mat-list-item routerLinkActive="active" routerLink="abm-rubro">
-                <mat-icon color="primary" class="nav-icon">supervised_user_circle</mat-icon>
-                Rubros
-            </mat-list-item>
-            <mat-list-item routerLinkActive="active" routerLink="abm-localidad">
-                <mat-icon color="primary" class="nav-icon">room</mat-icon>
-                Localidades
-            </mat-list-item>
-            <mat-list-item routerLinkActive="active" routerLink="abm-departamento">
-                <mat-icon color="primary" class="nav-icon">map</mat-icon>
-                Departamento
-            </mat-list-item>
+            <div [hidden]="!mantenimiento" class="graficos-level">
+                <mat-list-item routerLinkActive="active" routerLink="abm-tipo-de-relacion">
+                    <mat-icon color="primary" class="nav-icon">scatter_plot</mat-icon>
+                    Tipos de relaciones
+                </mat-list-item>
+                <mat-list-item routerLinkActive="active" routerLink="abm-rubro">
+                    <mat-icon color="primary" class="nav-icon">supervised_user_circle</mat-icon>
+                    Rubros
+                </mat-list-item>
+                <mat-list-item routerLinkActive="active" routerLink="abm-localidad">
+                    <mat-icon color="primary" class="nav-icon">room</mat-icon>
+                    Localidades
+                </mat-list-item>
+                <mat-list-item routerLinkActive="active" routerLink="abm-departamento">
+                    <mat-icon color="primary" class="nav-icon">map</mat-icon>
+                    Departamento
+                </mat-list-item>
+            </div>
+            <mat-divider class="my-2"></mat-divider>
+
         </mat-nav-list>
     </mat-drawer>
 
