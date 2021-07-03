@@ -33,4 +33,26 @@ export class AccessService {
     localStorage.setItem("tocken_cc", token);
     localStorage.setItem("user_cc", JSON.stringify(user));
   }
+
+  public deleteLoginData() {
+    localStorage.removeItem("tocken_cc");
+    localStorage.removeItem("user_cc");
+  }
+
+  public getLoggedUser(): UserDTO | undefined {
+    let data = localStorage.getItem("user_cc");
+    if (data == undefined) return undefined;
+    else return JSON.parse(data);
+  }
+
+  public isUserLogged(): boolean {
+    return this.getLoggedUser() != undefined;
+  }
+
+  public isUserInRole(rol:number) {
+    let data = this.getLoggedUser();
+    if (data == undefined) return false;
+    else return data.rol == rol;
+  }
+
 }

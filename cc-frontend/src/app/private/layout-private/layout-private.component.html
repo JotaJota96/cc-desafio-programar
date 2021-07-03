@@ -3,6 +3,9 @@
         [opened]="!innerWidth || innerWidth >= 1280">
         <!-- Iconos: https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/ -->
         <div *ngIf="innerWidth && innerWidth >= 1280;else logo" class="toolbar">
+            <div class="logo-white">
+                <img height="50px" src="assets/images/home-image.png">
+            </div>
         </div>
         <ng-template #logo>
             <div class="logo">
@@ -57,6 +60,13 @@
                     Departamento
                 </mat-list-item>
             </div>
+            <mat-divider class="my-2"></mat-divider>
+
+            <mat-list-item (click)="cerrarSesion()" routerLinkActive="active">
+                <mat-icon color="primary" class="nav-icon">logout</mat-icon>
+                Cerrar sesión
+            </mat-list-item>
+
             <mat-divider class="my-2"></mat-divider>
 
         </mat-nav-list>

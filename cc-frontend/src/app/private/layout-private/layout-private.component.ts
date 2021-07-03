@@ -1,5 +1,7 @@
 import { Component, HostListener, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
+import { AccessService } from 'src/app/services/access.service';
 @Component({
   selector: 'app-layout-private',
   templateUrl: './layout-private.component.html',
@@ -12,7 +14,7 @@ export class LayoutPrivateComponent {
 
 
   innerWidth:number = 1280;
-  constructor() {
+  constructor(private accessService: AccessService, private router: Router) {
     this.innerWidth = window.innerWidth;
     if (this.innerWidth <= 1280 && this.drawer) this.drawer.close();
   }
@@ -24,6 +26,11 @@ export class LayoutPrivateComponent {
     else if ( this.innerWidth < 1280 && event.target.innerWidth >= 1280 ) this.drawer.open();
     
     this.innerWidth = event.target.innerWidth;
+  }
+
+  cerrarSesion(){
+    this.accessService.deleteLoginData();
+    this.router.navigate(['/']);
   }
 
   expandirMantenimiento(){
