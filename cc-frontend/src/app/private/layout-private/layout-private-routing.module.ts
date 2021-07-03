@@ -24,7 +24,7 @@ const routes: Routes = [
       { path: 'empresa', component: EmpresaListadoComponent },
       { path: 'empresa/:id', component: EmpresaComponent },
       { path: 'chart', component: MainChartComponent },
-      { path: '**', redirectTo: 'abm-rubro' },
+      { path: '**', redirectTo: 'home' },
     ]
   }
 ];
