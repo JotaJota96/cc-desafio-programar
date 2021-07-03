@@ -1,3 +1,7 @@
+
+@import '~@angular/material/theming';
+@import './assets/styles/green-theme.scss';
+
 /* You can add global styles to this file, and also import other style files */
 * { 
   box-sizing: border-box;
@@ -9,6 +13,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .spacer {
   flex: 1 1 auto;
 }
+
+.text-primary {
+  color: mat-color($my-palette-primary) !important;
+}
+.text-accent {
+  color: mat-color($my-palette-accent) !important;
+}
+.text-warn {
+  color: mat-color($my-palette-warn) !important;
+}
+
 
 .mat-card {
   overflow: hidden;

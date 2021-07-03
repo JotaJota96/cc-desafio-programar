@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar'; 
 import { MatCardModule } from '@angular/material/card'; 
 // Fin Angular Material
 
@@ -39,6 +40,7 @@ import { LoginComponent } from '../login/login.component';
     MatInputModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
     MatCardModule,
 
     LayoutPublicRoutingModule

@@ -7,7 +7,7 @@
 
   <div class="row">
     <div class="mx-auto col-12 col-sm-8 col-md-6 col-lg-4 pr-md-0">
-      <mat-card [@inCardAnimation]="{value: ':leave', params: { delay: 0.1} }" class="p-2" [class]="{ 'active': true }">
+      <mat-card class="p-2" [class]="{ 'active': true }">
         <mat-card-header>
           <mat-card-title>Ingrese sus datos</mat-card-title>
         </mat-card-header>
@@ -16,19 +16,24 @@
           <form [formGroup]="formulario" class="row">
             <div class="col-12 mt-3">
                 <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Usuario</mat-label>
-                    <input matInput placeholder="Usuario" name="username" formControlName="username">
+                    <mat-label>Correo electrónico</mat-label>
+                    <input matInput placeholder="" name="email" formControlName="email">
                 </mat-form-field>
             </div>
             <div class="col-12 mt-3">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Contraseña</mat-label>
-                    <input matInput type="password" placeholder="Contraseña" name="password" formControlName="password">
+                    <input matInput type="password" placeholder="" name="password" formControlName="password">
                 </mat-form-field>
             </div>
           </form>
         </mat-card-content>
-
+        <mat-card-content>
+          <div class="col-12 mt-3">
+            <span class="text-warn" *ngIf="loginFail">Dirección de correo electrónico o contraseña incorrecta</span>          
+            <mat-progress-bar mode="indeterminate" *ngIf="reqLogin != null"></mat-progress-bar>
+          </div>
+        </mat-card-content>
         <mat-card-actions align="end" class="px-3 mb-2">
           <a mat-button href="./login">Reestablecer mi contraseña</a>
           <button mat-flat-button color="accent" [disabled]="!formulario.valid" (click)="ingresar()">Ingresar</button>
