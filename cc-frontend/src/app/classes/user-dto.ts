@@ -1,10 +1,13 @@
 import { PersonaDTO } from "./persona-dto";
 
 export class UserDTO {
-    public id: number | undefined;
-    public rol: number | undefined;
-    public nickname: string | undefined;
-    public email: string | undefined;
-    public email_verified_at: string | undefined;
-    public persona_id: PersonaDTO | undefined;
+    public id?: number;
+    public rol?: number;
+    public password?: string;
+    public repassword?: string;
+    public nickname?: string;
+    public email?: string;
+    public email_verified_at?: string;
+    public persona_id?: number;
+    public persona?: PersonaDTO;
 }

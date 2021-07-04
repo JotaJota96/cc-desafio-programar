@@ -6,6 +6,7 @@ import { DepartamentoDTO } from 'src/app/classes/departamento-dto';
 import { PaginacionDTO } from 'src/app/classes/paginacion-dto';
 import { DepartamentoService } from 'src/app/services/departamento.service';
 import { DialogActionResult, DialogService, DialogType } from 'src/app/services/dialog.service';
+import { MsgService } from 'src/app/services/msg.service';
 import { RubroService } from 'src/app/services/rubro.service';
 
 @Component({
@@ -29,10 +30,12 @@ export class DepartamentoAbmComponent implements OnInit {
 
   reqGuardar:Promise<any> | null = null;
   reqListado:Promise<any> | null = null;
+  error:string = ""
 
   public formulario: FormGroup = new FormGroup({});
 
   constructor(
+    private msg: MsgService,
     private _snackBar: MatSnackBar,
     protected dialog: DialogService, 
     protected service: DepartamentoService
@@ -52,7 +55,7 @@ export class DepartamentoAbmComponent implements OnInit {
       this.listaElementos = data;
     })
     .catch((error) => {
-      this._snackBar.open(error['error'] ? error['error'].join(", ") : "Algo ha fallado", 'Undo');
+      this.error = error['error']['error'] ? error['error']['error'].join(", ") : this.msg.txt("falla");
     })
     .finally(() => {
       this.reqListado = null;
@@ -96,7 +99,7 @@ export class DepartamentoAbmComponent implements OnInit {
 
     // vaciar formulario
     this.formulario = new FormGroup({
-      nombre: new FormControl('', [Validators.required])
+      nombre: new FormControl('', [Validators.required,  Validators.minLength(4), Validators.maxLength(200)])
     });
     this.elementoSeleccionado = new DepartamentoDTO();
 
@@ -109,7 +112,7 @@ export class DepartamentoAbmComponent implements OnInit {
 
   eliminar() {
     if (!this.elementoSeleccionado.id) {
-      this.dialog.openDialog({ title: "No se ha seleccionado ningun", type: DialogType.ERROR, useDefault: true })
+      this.dialog.openDialog({ title: this.msg.txt("noSeleccionoDelete"), type: DialogType.ERROR, useDefault: true })
       return;
     }
     this.service.delete(this.elementoSeleccionado.id)

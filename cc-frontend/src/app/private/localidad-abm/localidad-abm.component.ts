@@ -8,6 +8,7 @@ import { PaginacionDTO } from 'src/app/classes/paginacion-dto';
 import { DepartamentoService } from 'src/app/services/departamento.service';
 import { DialogActionResult, DialogService, DialogType } from 'src/app/services/dialog.service';
 import { LocalidadService } from 'src/app/services/localidad.service';
+import { MsgService } from 'src/app/services/msg.service';
 
 @Component({
   selector: 'app-localidad-abm',
@@ -34,10 +35,12 @@ export class LocalidadABMComponent implements OnInit {
   reqGuardar:Promise<any> | null = null;
   reqListado:Promise<any> | null = null;
   reqListadoDepartamento:Promise<any> | null = null;
+  error:string = ""
   
   public formulario: FormGroup = new FormGroup({});
 
   constructor(
+    private msg: MsgService,
     private _snackBar: MatSnackBar,
     protected dialog: DialogService, 
     protected service: LocalidadService, 
@@ -61,7 +64,7 @@ export class LocalidadABMComponent implements OnInit {
       
     })
     .catch((error) => {
-      this._snackBar.open(error['error'] ? error['error'].join(", ") : "Algo ha fallado", 'Undo');
+      this.error = error['error']['error'] ? error['error']['error'].join(", ") : this.msg.txt("falla");
     })
     .finally(() => {
       this.reqListadoDepartamento = null;
@@ -84,7 +87,7 @@ export class LocalidadABMComponent implements OnInit {
       this.listaElementos = data;
     })
     .catch((error) => {
-      this._snackBar.open(error['error'] ? error['error'].join(", ") : "Algo ha fallado", 'Undo');
+      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt("falla"), 'Undo');
     })
     .finally(() => {
       this.reqListado = null;
@@ -126,7 +129,7 @@ export class LocalidadABMComponent implements OnInit {
 
     // vaciar formulario
     this.formulario = new FormGroup({
-      nombre: new FormControl('', [Validators.required]),
+      nombre: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(200)]),
       departamento_id: new FormControl('', [Validators.required])
     });
     this.elementoSeleccionado = new LocalidadDTO();
@@ -141,7 +144,7 @@ export class LocalidadABMComponent implements OnInit {
 
   eliminar() {
     if (!this.elementoSeleccionado.id) {
-      this.dialog.openDialog({ title: "No se ha seleccionado ningun", type: DialogType.ERROR, useDefault: true })
+      this.dialog.openDialog({ title: this.msg.txt("noSeleccionoDelete"), type: DialogType.ERROR, useDefault: true })
       return;
     }
     this.service.delete(this.elementoSeleccionado.id)
@@ -171,7 +174,7 @@ export class LocalidadABMComponent implements OnInit {
       error = Object.values(error['error']).map((arr:any) => arr.join(", ") );
       console.log(error.join(", "));
 
-      this.dialog.openDialog({ message: error ? error.join(", ") : "Parece que ha avido un error si este persiste comuniquese con el administrador", type: DialogType.ERROR, useDefault: true })
+      this.dialog.openDialog({ message: error ? error.join(", ") : this.msg.txt("falla"), type: DialogType.ERROR, useDefault: true })
     })
     .finally(() => {
       this.reqGuardar = null;

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use \Crypt;
 use App\Traits\ModelsCustom;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Persona extends Model
 {
@@ -96,6 +97,9 @@ class Persona extends Model
     'empresa_persona' => 'App\Models\Empresa_persona'
   ];
 
+  protected function onSelectAll($model) {
+    return $model;
+  }
   //Relationships
   public function empresa_persona() 
   { 
@@ -103,7 +107,7 @@ class Persona extends Model
   }
   public function user() 
   { 
-    return $this->hasMany('App\Models\User'); 
+    return $this->hasOne('App\Models\User'); 
   }
   
 }

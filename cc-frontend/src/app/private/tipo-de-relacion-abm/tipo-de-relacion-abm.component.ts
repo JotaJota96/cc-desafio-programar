@@ -6,6 +6,7 @@ import { DialogActionResult, DialogService, DialogType } from 'src/app/services/
 import { TipoRelacionService } from 'src/app/services/tipo-relacion.service';
 import { PaginacionDTO } from 'src/app/classes/paginacion-dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MsgService } from 'src/app/services/msg.service';
 
 
 @Component({
@@ -28,10 +29,12 @@ export class TipoDeRelacionABMComponent implements OnInit {
 
   reqGuardar:Promise<any> | null = null;
   reqListado:Promise<any> | null = null;
+  error:string = ""
 
-  public formulario: FormGroup = new FormGroup({});
+  public formulario: FormGroup | null = null;
 
   constructor(
+    private msg: MsgService,
     private _snackBar: MatSnackBar,
     protected dialog: DialogService, 
     protected tipoRelacionService: TipoRelacionService
@@ -51,7 +54,7 @@ export class TipoDeRelacionABMComponent implements OnInit {
       this.listaElementos = data;
     })
     .catch((error) => {
-      this._snackBar.open(error['error'] ? error['error'].join(", ") : "Algo ha fallado", 'Undo');
+      this.error = error['error']['error'] ? error['error']['error'].join(", ") : this.msg.txt("falla");
     })
     .finally(() => {
       this.reqListado = null;
@@ -95,7 +98,7 @@ export class TipoDeRelacionABMComponent implements OnInit {
 
     // vaciar formulario
     this.formulario = new FormGroup({
-      nombre: new FormControl('', [Validators.required])
+      nombre: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(200)])
     });
     this.elementoSeleccionado = new TipoRelacionDTO();
 
@@ -108,7 +111,10 @@ export class TipoDeRelacionABMComponent implements OnInit {
 
   eliminar() {
     if (!this.elementoSeleccionado.id) {
-      this.dialog.openDialog({ title: "No se ha seleccionado ningun", type: DialogType.ERROR, useDefault: true })
+      this.dialog.openDialog({ 
+        title: this.msg.txt("noSeleccionoDelete"), 
+        type: DialogType.ERROR, 
+        useDefault: true })
       return;
     }
     this.tipoRelacionService.delete(this.elementoSeleccionado.id)
@@ -124,7 +130,7 @@ export class TipoDeRelacionABMComponent implements OnInit {
   }
 
   guardar() {
-    if (this.reqGuardar != null) return;
+    if (this.reqGuardar != null || this.formulario == null) return;
     if (!this.modoEdicion) this.elementoSeleccionado = new TipoRelacionDTO();
     this.elementoSeleccionado.nombre = this.formulario.controls['nombre'].value;
     this.reqGuardar = this.elementoSeleccionado.id ? this.tipoRelacionService.update(this.elementoSeleccionado.id, this.elementoSeleccionado) : this.tipoRelacionService.create(this.elementoSeleccionado);

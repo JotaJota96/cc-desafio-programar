@@ -12,7 +12,7 @@
         <mat-nav-list>
             <mat-list-item routerLinkActive="active" routerLink="home">
                 <mat-icon color="primary" class="nav-icon">home</mat-icon>
-                Inicio
+                {{ 'navInicio' | msg }}
             </mat-list-item>
             <mat-divider class="my-2"></mat-divider>
             <mat-list-item routerLinkActive="active" routerLink="chart" >
@@ -22,32 +22,32 @@
             <mat-divider class="my-2"></mat-divider>
             <mat-list-item routerLinkActive="active" routerLink="empresa">
                 <mat-icon color="primary" class="nav-icon"> business</mat-icon>
-                Empresas
+                {{ 'navEmpresas' | msg }}
             </mat-list-item>
-            <mat-list-item>
+            <mat-list-item routerLinkActive="active" routerLink="persona">
                 <mat-icon color="primary" class="nav-icon"> person_pin</mat-icon>
-                Personas
+                {{ 'navPersonas' | msg }}
             </mat-list-item>
-            <mat-list-item>
+            <mat-list-item routerLinkActive="active" routerLink="user">
                 <mat-icon color="primary" class="nav-icon">perm_identity</mat-icon>
-                Usuarios
+                {{ 'navUsuarios' | msg }}
             </mat-list-item>
 
             <mat-list-item routerLinkActive="active" routerLink="abm-tipo-de-relacion">
                 <mat-icon color="primary" class="nav-icon">scatter_plot</mat-icon>
-                Tipos de relaciones
+                {{ 'navTiposRelaciones' | msg }}
             </mat-list-item>
             <mat-list-item routerLinkActive="active" routerLink="abm-rubro">
                 <mat-icon color="primary" class="nav-icon">supervised_user_circle</mat-icon>
-                Rubros
+                {{ 'navRubros' | msg }}
             </mat-list-item>
             <mat-list-item routerLinkActive="active" routerLink="abm-localidad">
                 <mat-icon color="primary" class="nav-icon">room</mat-icon>
-                Localidades
+                {{ 'navLocalidades' | msg }}
             </mat-list-item>
             <mat-list-item routerLinkActive="active" routerLink="abm-departamento">
                 <mat-icon color="primary" class="nav-icon">map</mat-icon>
-                Departamento
+                {{ 'navDepartamento' | msg }}
             </mat-list-item>
         </mat-nav-list>
     </mat-drawer>
@@ -57,7 +57,7 @@
             <button *ngIf="innerWidth && innerWidth < 1280" mat-icon-button (click)="drawer.toggle()">
                 <mat-icon>menu</mat-icon>
             </button>
-            <span class="ml-3">Gestion de asociados</span>
+            <span class="ml-3">{{ 'tituoDash' | msg }}</span>
             <span class="spacer"></span>
         </mat-toolbar>
         <main>

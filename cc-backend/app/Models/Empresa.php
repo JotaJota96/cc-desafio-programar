@@ -59,7 +59,6 @@ class Empresa extends Model
       'telefono' => 'max:255',
       'nro_referencia' => 'max:255',
       'observaciones' => 'max:4294967295',
-      'logo' => 'max:255',
       'deleted_at' => 'date',
       'created_at' => 'date',
       'updated_at' => 'date'
@@ -78,11 +77,10 @@ class Empresa extends Model
       'telefono' => 'max:255',
       'nro_referencia' => 'max:255',
       'observaciones' => 'max:4294967295',
-      'logo' => 'max:255',
     ),
     'put' => array(
-      'nro_rut' => 'max:255|required|unique:empresa',
-      'nro_bps' => 'max:255|required|unique:empresa',
+      'nro_rut' => 'max:255|required',
+      'nro_bps' => 'max:255|required',
       'localidad_id' => 'numeric|exists:localidad,id',
       'rubro_principal_id' => 'required|numeric|exists:rubro,id',
       'rubro_secundaria_id' => 'numeric|exists:rubro,id',
@@ -94,7 +92,6 @@ class Empresa extends Model
       'telefono' => 'max:255',
       'nro_referencia' => 'max:255',
       'observaciones' => 'max:4294967295',
-      'logo' => 'max:255'
     ),
     'delete' => array(
       'id' => 'numeric|required'

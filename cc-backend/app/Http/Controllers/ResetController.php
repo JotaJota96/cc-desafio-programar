@@ -55,7 +55,7 @@ class ResetController extends Controller
     {
         try {
             $model = $this->model($model);
-            if ($model == null) return response("No se encontro", 404);
+            if ($model == null) return response([ "error" => ["No se encontro"]], 404);
             if (isset($model['error'])) return response($model['error'], 404);
             $params = $request->all();
             $error = $model::validate($request, 'post');
@@ -90,12 +90,12 @@ class ResetController extends Controller
 
     public function put(Request $request, $model, $id)
     {
-        if (!isset($id) || !is_numeric($id)) return response("Identificador no valido", 404);
+        if (!isset($id) || !is_numeric($id)) return response([ "error" => ["Identificador no valido"]], 404);
         $model = $this->model($model);
-        if (!isset($model) || $model == null) return response("No se encontro", 404);
+        if (!isset($model) || $model == null) return response([ "error" => ["No se encontro"]], 404);
         if (isset($model['error'])) return response($model['error'], 404);
         $model = $model->find($id);
-        if ($model == null) return response("No se encontro", 404);
+        if ($model == null) return response([ "error" => ["No se encontro"]], 404);
         $params = $request->all();
         $error = $model::validate($request, 'put');
         if (isset($error)) return response($error, 404);
@@ -120,15 +120,16 @@ class ResetController extends Controller
                 }
             }
         }
+        $params = $model::onUpdate($params);
         $model->update($params);
         return response($model->toArray(), 200);
     }
 
     public function get(Request $request, $model, $id)
     {
-        if (!isset($id) || !is_numeric($id)) return response("Identificador no valido", 404);
+        if (!isset($id) || !is_numeric($id)) return response([ "error" => ["Identificador no valido"]], 404);
         $model = $this->model($model);
-        if ($model == null) return response("No se encontro", 404);
+        if ($model == null) return response([ "error" => ["No se encontro"]], 404);
         $error = $model::validate($request, 'get');
         if (isset($error)) return response($error, 404);
         if (isset($model['error'])) return response($model['error'], 404);
@@ -137,12 +138,12 @@ class ResetController extends Controller
 
     public function delete(Request $request, $model, $id)
     {
-        if (!isset($id) || !is_numeric($id)) return response("Identificador no valido", 404);
+        if (!isset($id) || !is_numeric($id)) return response([ "error" => ["Identificador no valido"]], 404);
         $model = $this->model($model);
-        if ($model == null) return response("No se encontro", 404);
+        if ($model == null) return response([ "error" => ["No se encontro"]], 404);
         if (isset($model['error'])) return response($model['error'], 404);
         $Objeto = $model->find($id);
-        if ($Objeto == null) return response("No se encontro", 404);
+        if ($Objeto == null) return response([ "error" => ["No se encontro"]], 404);
         else return response($Objeto->delete() ? 1: 0, 200);
 
     }
@@ -150,7 +151,7 @@ class ResetController extends Controller
     public function gets(Request $request, $model)
     {
         $model = $this->model($model);
-        if ($model == null) return response("No se encontro", 404);
+        if ($model == null) return response([ "error" => ["No se encontro"]], 404);
         $error = $model::validate($request, 'get');
         if (isset($error)) return response($error, 404);
         if (isset($model['error'])) return response($model['error'], 404);
@@ -160,7 +161,7 @@ class ResetController extends Controller
     public function caunt(Request $request, $model)
     {
         $model = $this->model($model);
-        if ($model == null) return response("No se encontro", 404);
+        if ($model == null) return response([ "error" => ["No se encontro"]], 404);
         if (isset($model['error'])) return response($model['error'], 404);
         return response($model::_caunt(), 200);
     }
@@ -168,13 +169,13 @@ class ResetController extends Controller
     public function export(Request $request, $model)
     {
         $model_name = $model;
-        if ($model == null) return response("No se encontro", 404);
+        if ($model == null) return response([ "error" => ["No se encontro"]], 404);
         $model = $this->model($model_name);
         if (isset($model['error'])) return response($model['error'], 404);
 
         $csvData = $model::all()->toArray();
         $fillable = $model->_fillable();
-        if ($fillable == null) return response("No se encontro", 404);
+        if ($fillable == null) return response([ "error" => ["No se encontro"]], 404);
         $csv = fopen($model_name.'.csv', 'w');
         fputcsv($csv, $fillable, ",");
         foreach ($csvData as $row){

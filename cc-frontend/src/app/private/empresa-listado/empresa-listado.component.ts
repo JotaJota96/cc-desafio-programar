@@ -6,6 +6,7 @@ import { EmpresaDTO } from 'src/app/classes/empresa-dto';
 import { PaginacionDTO } from 'src/app/classes/paginacion-dto';
 import { DialogActionResult, DialogService, DialogType } from 'src/app/services/dialog.service';
 import { EmpresaService } from 'src/app/services/empresa.service';
+import { MsgService } from 'src/app/services/msg.service';
 
 @Component({
   selector: 'app-empresa-listado',
@@ -21,17 +22,21 @@ export class EmpresaListadoComponent implements OnInit {
   tableColumns: string[] = [
     'id', 'logo', 'nombre_fantasia', 'nro_rut', 'nro_bps', 'acciones']; // columnas de la tabla
   listaElementos: PaginacionDTO<EmpresaDTO> = new PaginacionDTO<EmpresaDTO>(); // Lista de elementos
+  search:string = '';
   
   active: boolean = false;
   modoEdicion: boolean = false; // Modo edición / creación
   elementoSeleccionado: EmpresaDTO = new EmpresaDTO();
 
+  timeGuardar:any = null;
   reqGuardar:Promise<any> | null = null;
   reqListado:Promise<any> | null = null;
+  error:string = ""
 
   public formulario: FormGroup = new FormGroup({});
 
   constructor(
+    private msg: MsgService,
     private _snackBar: MatSnackBar,
     protected dialog: DialogService, 
     protected service: EmpresaService
@@ -51,17 +56,25 @@ export class EmpresaListadoComponent implements OnInit {
       this.listaElementos = data;
     })
     .catch((error) => {
-      this._snackBar.open(error['error'] ? error['error'].join(", ") : "Algo ha fallado", 'Undo');
+      this.error = error['error']['error'] ? error['error']['error'].join(", ") : this.msg.txt("falla");
     })
     .finally(() => {
       this.reqListado = null;
     });
+  }
 
+  buscar() {
+    if (this.timeGuardar != null) clearTimeout(this.timeGuardar);
+    this.timeGuardar = setTimeout(() => {
+      this.cargarLista();
+      this.timeGuardar = null;
+    }, 100);
   }
 
   preparaParametrosPaginacion(params: any) {
-    if (params == null) return null;
     let ret:any = {};
+    if (this.search) ret.q = this.search.trim();
+    if (params == null) return ret;
     if (params.pageIndex) ret.page = params.pageIndex + 1;
     if (params.pageSize) ret.limit = params.pageSize;
     return ret;
@@ -108,7 +121,7 @@ export class EmpresaListadoComponent implements OnInit {
 
   eliminar() {
     if (!this.elementoSeleccionado.id) {
-      this.dialog.openDialog({ title: "No se ha seleccionado ningun", type: DialogType.ERROR, useDefault: true })
+      this.dialog.openDialog({ title: this.msg.txt("noSeleccionoDelete"), type: DialogType.ERROR, useDefault: true })
       return;
     }
     this.service.delete(this.elementoSeleccionado.id)
@@ -140,5 +153,8 @@ export class EmpresaListadoComponent implements OnInit {
       this.reqGuardar = null;
       this.resetearFormulario();
     });
+  }
+  logo(src:string) {
+    return src ? src : "assets/images/no-logo.png";
   }
 }

@@ -90,7 +90,7 @@ class CreateTable extends Migration
             $table->foreign('rubro_secundaria_id')->references('id')->on('rubro');
             $table->date('fecha_inicio')->nullable();
             $table->longText('observaciones')->nullable();
-            $table->string('logo')->nullable();
+            $table->longText('logo')->nullable();
             $table->SoftDeletes();	
             $table->timestamps();
         });

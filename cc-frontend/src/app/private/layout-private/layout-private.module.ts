@@ -27,6 +27,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRippleModule } from '@angular/material/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 // Fin Angular Material
 
@@ -45,6 +47,7 @@ import { LineChartComponent } from 'src/app/components/line-chart/line-chart.com
 import { DonutChartComponent } from 'src/app/components/donut-chart/donut-chart.component';
 
 // Fin Componentes
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 // Service
 import { DialogService } from 'src/app/services/dialog.service';
@@ -52,6 +55,14 @@ import { DepartamentoAbmComponent } from '../departamento-abm/departamento-abm.c
 import { EmpresaListadoComponent } from '../empresa-listado/empresa-listado.component';
 import { EmpresaComponent } from '../empresa/empresa.component';
 import { nombrePersonaModule } from 'src/app/pipes/nombre-persona.module';
+import { EmpresaEditarComponent } from '../empresa-editar/empresa-editar.component';
+import { ModalCropperComponent } from 'src/app/private/dialogs/modal-cropper/modal-cropper.component';
+import { ModalPersonaModule } from '../dialogs/modal-persona/modal-persona.module';
+import { MsgModule } from 'src/app/pipes/msg.module';
+import { ErrorModule } from 'src/app/pipes/error.module';
+import { PersonaAbmComponent } from '../persona-abm/persona-abm.component';
+import { UsuarioAbmComponent } from '../usuario-abm/usuario-abm.component';
+import { ModalUserModule } from '../dialogs/modal-user/modal-user.module';
 // Fin Service
 
 @NgModule({
@@ -60,6 +71,8 @@ import { nombrePersonaModule } from 'src/app/pipes/nombre-persona.module';
     LocalidadABMComponent,
     TipoDeRelacionABMComponent,
     DepartamentoAbmComponent,
+    PersonaAbmComponent,
+    UsuarioAbmComponent,
     HomeComponent,
     EmpresaListadoComponent,
     EmpresaComponent,
@@ -69,14 +82,18 @@ import { nombrePersonaModule } from 'src/app/pipes/nombre-persona.module';
     PieChartComponent,
     LineChartComponent,
     DonutChartComponent,
+    EmpresaEditarComponent,
 
-    LayoutPrivateComponent
+    LayoutPrivateComponent,
+    ModalCropperComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
+
+    ImageCropperModule,
 
     MatButtonModule,
     MatToolbarModule,
@@ -100,10 +117,17 @@ import { nombrePersonaModule } from 'src/app/pipes/nombre-persona.module';
     MatDialogModule,
     MatPaginatorModule,
     MatRippleModule,
-
+    MatAutocompleteModule,
+    MatTooltipModule,
+    
     DialogConfirmarModule,
     nombrePersonaModule,
     LayoutPrivateRoutingModule,
+    
+    MsgModule,
+    ErrorModule,
+    ModalUserModule,
+    ModalPersonaModule,
   ],
   exports: [
     RubroABMComponent,
@@ -114,7 +138,7 @@ import { nombrePersonaModule } from 'src/app/pipes/nombre-persona.module';
   ],
   providers: [DialogService],
   schemas: [
-    CUSTOM_ELEMENTS_SCHEMA,
+    CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA
   ],
 })
 export class LayoutPrivateModule {}

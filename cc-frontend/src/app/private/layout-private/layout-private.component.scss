@@ -83,3 +83,20 @@ mat-nav-list {
 .mat-expansion-panel-header-title {
     font-weight: bold;
 }
+
+::ng-deep {
+  .acciones-tool {
+    button {
+      mat-icon {
+        filter: grayscale(0.5);
+        opacity: 0.8;
+        transition: opacity .2s, transform .2s, filter .2s;
+      }
+      &:hover mat-icon {
+        filter: grayscale(0);
+        transform: scale(1.2);
+        opacity: 1;
+      }
+    }
+  }
+}

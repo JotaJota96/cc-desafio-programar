@@ -10,6 +10,7 @@ use App\Traits\ModelsCustom;
 
 use App\Models\Persona as Persona;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Model
 {
@@ -62,7 +63,7 @@ class User extends Model
       'password' => 'min:6|max:255|required'
     ),
     'put' => array(
-      'email' => 'max:255|email|unique:user',
+      'email' => 'max:255|email',
       'token' => 'max:255|unique:user',
       'persona_id' => 'numeric|exists:persona,id',
       'rol' => 'numeric',
@@ -81,6 +82,14 @@ class User extends Model
       'updated_at' => 'datetime:Y-m-d H:i:s'
   );
   
+  protected static function onUpdate(&$param) {
+    if (isset($param['password'])) {
+      if (isset($param['repassword']) && $param['repassword'] == $param['password']) $param['password'] = Hash::make($param['password']);
+      else unset($param['password']);
+    };
+    return $param;
+  }
+
   static public function validate($data, $rule_type)
   {
     $validator = Validator::make( $data->all(), User::$rules[$rule_type] );

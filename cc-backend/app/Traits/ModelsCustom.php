@@ -29,7 +29,7 @@ trait ModelsCustom
         if ($oModels == null) $oModels = new self;
         self::addFull(Request()->all(), $oModels);
         $oModels = $oModels->find($id);
-        return $oModels ? $oModels : [];
+        return $oModels ? $oModels : null;
     }
     
     public static function _caunt($oModels = null, $select = null, $fillable = null, $param = null)
@@ -68,6 +68,7 @@ trait ModelsCustom
             self::_createBelongsTo($param, $oModels);
             self::_createHasOne($param, $oModels);
             $validatedData = self::_validate('get');
+            $param = self::onCreate($param);
             $oModels = self::create($param);
             self::_createHasMany($param, $oModels);
             DB::commit();
@@ -85,7 +86,7 @@ trait ModelsCustom
         $oModels = self::customselectAll($oModels, $select, $fillable, $param);
         if ($param == null) $param = Request()->all();
         $limit = (isset($param["limit"])) ? $param["limit"] : 10;
-        return (isset($param["simple"])) ? $oModels->get() : $oModels->paginate($limit);
+        return (isset($param["simple"])) ? $oModels->limit(10)->get() : $oModels->paginate($limit);
     }
 
     private static function customselectAll($oModels = null, $select = null, $fillable = null, $param = null)
@@ -236,6 +237,17 @@ trait ModelsCustom
             }
         }
     }
+
+    // Funcion colback
+    public static function onCreate(&$param) {
+        return $param;
+    }
+    public static function onUpdate(&$param) {
+        return $param;
+    }
+    public function onSelectAll($model) {
+    }
+    
     
     // Creacion de nomenglaturas de database
     public static function _createNameForingkey($oModelsTemp = null) 

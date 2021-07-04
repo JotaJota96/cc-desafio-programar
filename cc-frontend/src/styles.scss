@@ -10,6 +10,27 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   flex: 1 1 auto;
 }
 
+.error {
+  width: 100%;
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  img {
+      width: 100px;
+      max-width: 20%;
+  }
+  h3 {
+      margin: 1rem 0 0 0;
+      font-weight: 500;
+      max-width: 300px;
+      opacity: 0.8;
+  }
+  p {
+      opacity: 0.6;
+  }
+}
 .mat-card {
   overflow: hidden;
   mat-card-header {

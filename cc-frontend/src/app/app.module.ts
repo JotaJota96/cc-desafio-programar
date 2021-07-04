@@ -30,7 +30,6 @@ registerLocaleData(localePy, 'es');
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-
     DialogConfirmarModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

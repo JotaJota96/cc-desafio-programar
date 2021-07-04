@@ -45,7 +45,7 @@ table {
 mat-list {
     padding: 0;
     mat-list-item {
-        div {
+        div.items {
             display: flex;
             span {
                 width: calc(100% - 200px);
@@ -58,6 +58,17 @@ mat-list {
                 }
             }
         }
+        mat-icon {
+            opacity: 0.3;
+        }
+        h4 {
+            opacity: 1;
+            color: #2d3748;
+            font-weight: 500;
+        }
+        span {
+            opacity: 0.5;
+        }
     }
 }
 .info {
@@ -65,4 +76,32 @@ mat-list {
     padding: 1.5rem 1.5rem 0.25rem 0.5rem;
     border-left: solid 3px #ddd;
     color: #666;
+}
+.logo {
+    border: solid 2px #ddd;
+    border-radius: 8px!important;
+    max-width: 100px;
+    width: 100%;
+}
+
+.noEmpresa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    img {
+        max-height: 50vh;
+        max-width: 50vw;
+        object-fit: scale-down;
+    }
+    h2 {
+        text-align: center;
+        color: rgba(0, 0, 0, 0.3);
+        font-weight: 500;
+        font-size: 1.2rem;
+        max-width: 500px;
+        position: relative;
+    }
 }
