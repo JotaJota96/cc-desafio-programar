@@ -96,7 +96,7 @@ $app->routeMiddleware([
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 $app->register('Nord\Lumen\Cors\CorsServiceProvider');
-$app->register(Laravel\Tinker\TinkerServiceProvider::class);
+//$app->register(Laravel\Tinker\TinkerServiceProvider::class);
 
 
 /*

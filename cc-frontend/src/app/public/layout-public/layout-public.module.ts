@@ -13,11 +13,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar'; 
 import { MatCardModule } from '@angular/material/card'; 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 // Fin Angular Material
 
 // Componentes
 import { LayoutPublicComponent } from './layout-public.component';
 import { LoginComponent } from '../login/login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogConfirmarModule } from 'src/app/private/dialogs/dialog-confirmar/dialog-confirmar.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogService } from 'src/app/services/dialog.service';
 // Fin Componentes
 
 // Service
@@ -42,13 +47,17 @@ import { LoginComponent } from '../login/login.component';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatCardModule,
+    MatDialogModule,
+    MatSnackBarModule,
 
+    DialogConfirmarModule,
     LayoutPublicRoutingModule
   ],
   exports: [
     LoginComponent,
     LayoutPublicComponent
   ],
+  providers: [DialogService],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
   ],

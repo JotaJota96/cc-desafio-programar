@@ -1,6 +1,5 @@
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,10 +7,16 @@ import { environment } from 'src/environments/environment';
 })
 export class ChartService {
 
-  constructor(private http: HttpClient) { }
-
-  getEmpresasRubro(){
-    return this.http.get(environment.apiURL + '/dashboard/rubro');
+  constructor(private http: HttpClient) {
   }
 
+  color = ['#f98866', '#ff420e', '#FFC947', '#0A1931', '#80bd9e', '#89da59', '#3EDBF0', '#04009A', '#F0EBCC', '#77ACF1'];
+
+  getEmpresasRubro(data:any = {}) {
+    return this.http.get(environment.apiURL + '/dashboard/rubro',{params:data}).toPromise();
+  }
+
+  getEmpresasLocalidad(data:any = {}) {
+    return this.http.get(environment.apiURL + '/dashboard/localidad',{params:data}).toPromise();
+  }
 }

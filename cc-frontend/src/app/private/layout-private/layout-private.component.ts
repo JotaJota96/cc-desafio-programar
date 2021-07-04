@@ -2,6 +2,7 @@ import { Component, HostListener, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { AccessService } from 'src/app/services/access.service';
+
 @Component({
   selector: 'app-layout-private',
   templateUrl: './layout-private.component.html',
@@ -9,22 +10,22 @@ import { AccessService } from 'src/app/services/access.service';
 })
 export class LayoutPrivateComponent {
   @ViewChild('drawer', { static: false }) public drawer: MatDrawer | null = null;
-
   mantenimiento:boolean = false;
+  graficas = false;
+  listas = false;
 
+  innerWidth: number = 1280;
 
-  innerWidth:number = 1280;
   constructor(private accessService: AccessService, private router: Router) {
     this.innerWidth = window.innerWidth;
     if (this.innerWidth <= 1280 && this.drawer) this.drawer.close();
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event:any) {
+  onResize(event: any) {
     if (this.drawer)
-    if ( this.innerWidth >= 1280 && event.target.innerWidth < 1280 ) this.drawer.close();
-    else if ( this.innerWidth < 1280 && event.target.innerWidth >= 1280 ) this.drawer.open();
-    
+      if ( this.innerWidth >= 1280 && event.target.innerWidth < 1280 ) this.drawer.close();
+      else if ( this.innerWidth < 1280 && event.target.innerWidth >= 1280 ) this.drawer.open();
     this.innerWidth = event.target.innerWidth;
   }
 
@@ -38,4 +39,13 @@ export class LayoutPrivateComponent {
     else this.mantenimiento = true
   }
 
+  mostrar(){
+    if(this.graficas) this.graficas = false
+    else this.graficas = true
+  }
+
+  mostrarLista(){
+    if(this.listas) this.listas = false
+    else this.listas = true
+  }
 }

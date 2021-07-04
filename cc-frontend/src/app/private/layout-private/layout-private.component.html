@@ -18,10 +18,47 @@
                 {{ 'navInicio' | msg }}
             </mat-list-item>
             <mat-divider class="my-2"></mat-divider>
-            <mat-list-item routerLinkActive="active" routerLink="chart" >
-              <mat-icon color="primary" class="nav-icon">bar_chart</mat-icon>
-              Gráficos
+            <mat-list-item (click)="mostrar()" routerLinkActive="active">
+                <mat-icon color="primary" class="nav-icon">bar_chart</mat-icon>
+                Gráficos
             </mat-list-item>
+            <div [hidden]="!graficas" class="graficos-level">
+                <mat-list-item routerLinkActive="active" routerLink="grafico-empresas-rubro">
+                    <mat-icon color="primary" class="nav-icon">data_usage</mat-icon>
+                    Empresas por rubro
+                </mat-list-item>
+                <mat-list-item routerLinkActive="active" routerLink="grafico-empresas-localidad">
+                    <mat-icon color="primary" class="nav-icon">pie_chart</mat-icon>
+                    Empresas por localidad
+                </mat-list-item>
+              </div>
+            <mat-divider class="my-2"></mat-divider>
+            <mat-list-item (click)="mostrarLista()" routerLinkActive="active">
+                <mat-icon color="primary" class="nav-icon">list</mat-icon>
+                Listados
+            </mat-list-item>
+            <div [hidden]="!listas" class="graficos-level">
+                <mat-list-item routerLinkActive="active">
+                    <mat-icon color="primary" class="nav-icon">receipt_long</mat-icon>
+                    Empresas por rubro
+                </mat-list-item>
+                <mat-list-item routerLinkActive="active">
+                    <mat-icon color="primary" class="nav-icon">mobiledata_off</mat-icon>
+                    Altas y bajas del mes
+                </mat-list-item>
+                <mat-list-item routerLinkActive="active">
+                    <mat-icon color="primary" class="nav-icon">cake</mat-icon>
+                    Aniversario empresa
+                </mat-list-item>
+                <mat-list-item routerLinkActive="active">
+                    <mat-icon color="primary" class="nav-icon">perm_contact_calendar</mat-icon>
+                    Empresas y contactos
+                </mat-list-item>
+                <mat-list-item routerLinkActive="active">
+                    <mat-icon color="primary" class="nav-icon">hail</mat-icon>
+                    Emprendedores por rubro
+                </mat-list-item>
+              </div>
             <mat-divider class="my-2"></mat-divider>
             <mat-list-item routerLinkActive="active" routerLink="empresa">
                 <mat-icon color="primary" class="nav-icon"> business</mat-icon>

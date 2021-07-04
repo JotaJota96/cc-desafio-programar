@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginGuard } from 'src/app/guards/login.guard';
+import { EmpresaComponent } from 'src/app/private/empresa/empresa.component';
 import { LoginComponent } from '../login/login.component';
 import { LayoutPublicComponent } from './layout-public.component';
 
@@ -10,6 +11,7 @@ const routes: Routes = [
     component: LayoutPublicComponent,
     children: [
       { path: 'login', canActivate: [LoginGuard], component: LoginComponent },
+      { path: 'empresa/:id', component: EmpresaComponent },
       { path: '**', redirectTo: 'login' },
     ]
   }

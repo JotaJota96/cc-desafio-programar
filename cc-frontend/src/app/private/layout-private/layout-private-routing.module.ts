@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainChartComponent } from 'src/app/components/main-chart/main-chart.component';
+import { ChartEmpresaLocalidadComponent } from '../chart-empresa-localidad/chart-empresa-localidad.component';
 import { DepartamentoAbmComponent } from '../departamento-abm/departamento-abm.component';
 import { EmpresaEditarComponent } from '../empresa-editar/empresa-editar.component';
 import { EmpresaListadoComponent } from '../empresa-listado/empresa-listado.component';
@@ -31,6 +32,8 @@ const routes: Routes = [
       { path: 'persona', component: PersonaAbmComponent },
       { path: 'user', component: UsuarioAbmComponent },
       { path: 'chart', component: MainChartComponent },
+      { path: 'grafico-empresas-rubro', component: MainChartComponent },
+      { path: 'grafico-empresas-localidad', component: ChartEmpresaLocalidadComponent },
       { path: '**', redirectTo: 'home' },
     ]
   }

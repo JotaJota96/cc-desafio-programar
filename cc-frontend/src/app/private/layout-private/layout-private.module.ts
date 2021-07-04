@@ -41,11 +41,10 @@ import { HomeComponent } from '../home/home.component';
 import { DialogConfirmarModule } from '../dialogs/dialog-confirmar/dialog-confirmar.module';
 import { LayoutPrivateComponent } from './layout-private.component';
 
-import { SecondaryChartComponent } from 'src/app/components/secondary-chart/secondary-chart.component';
 import { MainChartComponent } from 'src/app/components/main-chart/main-chart.component';
 import { PieChartComponent } from 'src/app/components/pie-chart/pie-chart.component';
-import { LineChartComponent } from 'src/app/components/line-chart/line-chart.component';
 import { DonutChartComponent } from 'src/app/components/donut-chart/donut-chart.component';
+import { ChartEmpresaLocalidadComponent } from 'src/app/private/chart-empresa-localidad/chart-empresa-localidad.component';
 
 // Fin Componentes
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -78,12 +77,11 @@ import { ModalUserModule } from '../dialogs/modal-user/modal-user.module';
     EmpresaListadoComponent,
     EmpresaComponent,
 
-    SecondaryChartComponent,
     MainChartComponent,
     PieChartComponent,
-    LineChartComponent,
     DonutChartComponent,
     EmpresaEditarComponent,
+    ChartEmpresaLocalidadComponent,
 
     LayoutPrivateComponent,
     ModalCropperComponent,

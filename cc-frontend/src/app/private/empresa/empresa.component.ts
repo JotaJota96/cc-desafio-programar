@@ -47,6 +47,9 @@ export class EmpresaComponent implements OnInit {
     });
   }
 
+  logo(src:string = '') {
+    return src ? src : "assets/images/no-logo.png";
+  }
   cargarEmpresa(id:string = '') {
     this.reqCargar = this.service.get(id, { 'full':null })
     this.reqCargar.then((data: any) => {

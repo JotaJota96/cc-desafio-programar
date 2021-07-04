@@ -16,9 +16,8 @@
           </div>
           <ng-template #tabla>
             <table mat-table [dataSource]="listaElementos.data ? listaElementos.data : []" class="w-100">
-
-              <ng-container matColumnDef="nombre">
-                <th mat-header-cell *matHeaderCellDef>Nombre</th>
+              <ng-container matColumnDef="departamento">
+                <th mat-header-cell *matHeaderCellDef>Departamento</th>
                 <td width="50" mat-cell *matCellDef="let element"> {{element.nombre}} </td>
               </ng-container>
 
