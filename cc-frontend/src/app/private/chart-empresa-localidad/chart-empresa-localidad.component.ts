@@ -1,31 +1,40 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { EmpresasRubroDTO } from 'src/app/classes/empresas-rubro-dto';
+import { PaginacionDTO } from 'src/app/classes/paginacion-dto';
 import { ChartService } from 'src/app/services/chart.service';
+import { inCardAnimation, inInfoAnimation, inTitleAnimation } from 'src/app/animation';
 
 declare var Chart: any;
 
 @Component({
   selector: 'app-chart-empresa-localidad',
   templateUrl: './chart-empresa-localidad.component.html',
-  styleUrls: ['./chart-empresa-localidad.component.scss']
+  styleUrls: ['./chart-empresa-localidad.component.scss'],
+  animations: [
+    inCardAnimation, inInfoAnimation, inTitleAnimation
+  ]
 })
-export class ChartEmpresaLocalidadComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ChartEmpresaLocalidadComponent implements OnInit, AfterViewInit {
 
   empresas: EmpresasRubroDTO[] = [];
 
+  listaElementos: PaginacionDTO<EmpresasRubroDTO> = new PaginacionDTO<EmpresasRubroDTO>(); // Lista de elementos
+  reqListado: Promise<any> | null = null;
+
   tableColumns: string[] = ['departamento', 'cantidad']; // columnas de la tabla
   num: number = 2;
-  su: any;
 
-  constructor(private chartSvc: ChartService) {
+  constructor(private chartSvc: ChartService, private _snackBar: MatSnackBar) {
 
   }
 
   ngOnInit(): void {
+    this.cargarLista();
   }
 
   ngAfterViewInit() {
-    this.su = this.chartSvc.getEmpresasLocalidad().subscribe((emp: any) => {
+    this.chartSvc.getEmpresasLocalidad().then((emp: any) => {
       this.empresas = emp['departamento'];
 
       let labels: any[] = [];
@@ -89,8 +98,26 @@ export class ChartEmpresaLocalidadComponent implements OnInit, AfterViewInit, On
     })
   }
 
+  cargarLista(pageElement: any = null) {
+    if (this.reqListado != null) return;
+    this.reqListado = this.chartSvc.getEmpresasLocalidad(this.preparaParametrosPaginacion(pageElement))
+    this.reqListado.then((data: any) => {
+      this.listaElementos = data['departamento'];
+    })
+      .catch((error) => {
+        this._snackBar.open(error['error'] ? error['error'].join(", ") : "Algo ha fallado", 'Undo');
+      })
+      .finally(() => {
+        this.reqListado = null;
+      });
 
-  ngOnDestroy() {
-    this.su.unsubscribe();
+  }
+
+  preparaParametrosPaginacion(params: any) {
+    let ret: any = { paginado: null };
+    if (params == null) return ret;
+    if (params.pageIndex) ret.page = params.pageIndex + 1;
+    if (params.pageSize) ret.limit = params.pageSize;
+    return ret;
   }
 }

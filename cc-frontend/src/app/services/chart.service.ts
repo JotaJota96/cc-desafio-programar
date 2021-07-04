@@ -12,11 +12,11 @@ export class ChartService {
 
   color = ['#f98866', '#ff420e', '#FFC947', '#0A1931', '#80bd9e', '#89da59', '#3EDBF0', '#04009A', '#F0EBCC', '#77ACF1'];
 
-  getEmpresasRubro() {
-    return this.http.get(environment.apiURL + '/dashboard/rubro');
+  getEmpresasRubro(data:any = {}) {
+    return this.http.get(environment.apiURL + '/dashboard/rubro',{params:data}).toPromise();
   }
 
-  getEmpresasLocalidad() {
-    return this.http.get(environment.apiURL + '/dashboard/localidad');
+  getEmpresasLocalidad(data:any = {}) {
+    return this.http.get(environment.apiURL + '/dashboard/localidad',{params:data}).toPromise();
   }
 }

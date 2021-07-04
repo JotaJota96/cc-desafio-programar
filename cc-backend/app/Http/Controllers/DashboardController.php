@@ -27,11 +27,13 @@ class DashboardController extends Controller
 
     public function lista_rubro(Request $request) {
         try {
-            $oRubroPrincipal = $this->_lista_rubro_principal()->get();
-            $oRubroSecundaria = $this->_lista_rubro_secundaria()->get();
+            $param = $request->all();
+            $limite = isset($param['limit'])?$param['limit']:10;
+            $oRubroPrincipal = $this->_lista_rubro_principal();
+            $oRubroSecundaria = $this->_lista_rubro_secundaria();
             return $this->respond( Response::HTTP_OK, array(
-                'principal' => $oRubroPrincipal,
-                'secundaria' => $oRubroSecundaria  
+                'principal' =>isset($param['paginado'])?$oRubroPrincipal->paginate($limite):$oRubroPrincipal->get(),
+                'secundaria' =>isset($param['paginado'])?$oRubroSecundaria->paginate($limite):$oRubroSecundaria->get()  
             ));
         } catch (\Throwable $th) {
             return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
@@ -95,9 +97,13 @@ class DashboardController extends Controller
         try {
             $param = $request->all();
             $res = array();
-            if(!isset($param['localidad'])) $res['departamento'] = $this->_lista_departamento()->get();
-            if(!isset($param['departamento'])) $res['localidad'] = $this->_lista_localidad()->get();
-            return $this->respond( Response::HTTP_OK, $res);
+            $limite = isset($param['limit'])?$param['limit']:10;
+            if(!isset($param['localidad'])) $oDepartamento = $this->_lista_departamento();
+            if(!isset($param['departamento'])) $oLocalidad = $this->_lista_localidad();
+            return $this->respond( Response::HTTP_OK, array(
+                'departamento' => isset($param['paginado'])?$oDepartamento->paginate($limite):$oDepartamento->get(),
+                'localidad' => isset($param['paginado'])?$oLocalidad->paginate($limite):$oLocalidad->get(),
+            ));
         } catch (\Throwable $th) {
             return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }

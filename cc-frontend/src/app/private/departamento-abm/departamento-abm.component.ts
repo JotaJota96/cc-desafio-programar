@@ -57,7 +57,6 @@ export class DepartamentoAbmComponent implements OnInit {
     .finally(() => {
       this.reqListado = null;
     });
-
   }
 
   preparaParametrosPaginacion(params: any) {

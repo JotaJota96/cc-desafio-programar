@@ -15,7 +15,6 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() num: any;
   myChart: any;
-  su: any;
 
   constructor(private chartSvc: ChartService) { }
 
@@ -24,7 +23,7 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.su = this.chartSvc.getEmpresasRubro().subscribe((emp: any) => {
+    this.chartSvc.getEmpresasRubro().then((emp: any) => {
       this.empresas = emp['principal'];
 
       let labels: any[] = [];
@@ -71,7 +70,6 @@ export class DonutChartComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.su.unsubscribe();
     if (this.myChart != null) this.myChart.destroy();
   }
 }

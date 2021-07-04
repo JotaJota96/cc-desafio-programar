@@ -1,6 +1,6 @@
 import { Component, HostListener, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { ChartService } from 'src/app/services/chart.service';
+
 @Component({
   selector: 'app-layout-private',
   templateUrl: './layout-private.component.html',
@@ -13,7 +13,7 @@ export class LayoutPrivateComponent {
   listas = false;
 
   innerWidth: number = 1280;
-  constructor(private chartSvc: ChartService) {
+  constructor() {
     this.innerWidth = window.innerWidth;
     if (this.innerWidth <= 1280 && this.drawer) this.drawer.close();
   }
