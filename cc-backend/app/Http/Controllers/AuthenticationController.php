@@ -55,14 +55,11 @@ class AuthenticationController extends Controller
                 'password' => 'required|max:255|min:3',
             ));
             if($validator->fails()){
-                return $this->respond( Response::HTTP_CONFLICT, $validator->messages()->toArray() );
+                return $this->respond( Response::HTTP_UNAUTHORIZED, $validator->messages()->toArray() );
             }
             $User = User::where('email', $params['email'])->first();
-            if ($User == null) {
-                return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [ "No se encontro el usuario" ] ] );
-            }
-            if (!Hash::check($params['password'], $User->password)) {
-                return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [ "El password no coincide" ] ] );
+            if ($User == null || !Hash::check($params['password'], $User->password)) {
+                return $this->respond( Response::HTTP_UNAUTHORIZED, [ 'error' => [ "Datos de inicio de sesión incorrectas" ] ] );
             }
             $User->token = $this->generate_token();
             $User->expires_at = (new DateTime())->modify('+1 day');

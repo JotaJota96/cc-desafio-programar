@@ -31,7 +31,7 @@ const routes: Routes = [
       { path: 'persona', component: PersonaAbmComponent },
       { path: 'user', component: UsuarioAbmComponent },
       { path: 'chart', component: MainChartComponent },
-      { path: '**', redirectTo: 'abm-rubro' },
+      { path: '**', redirectTo: 'home' },
     ]
   }
 ];

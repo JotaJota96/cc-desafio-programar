@@ -11,6 +11,7 @@ use DateTime;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -136,7 +137,7 @@ class DatabaseSeeder extends Seeder
                 'persona_id' => $personas[$i]->id,
                 'rol' => 1,
                 'nickname' => $faker->unique()->userName,
-                'password' => null,
+                'password' => Hash::make('1234'),
                 'email_verified_at' => $date[0],
                 'deleted_at' => $date[1],
                 'created_at' => $date[2],

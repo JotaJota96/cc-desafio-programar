@@ -33,20 +33,20 @@ export class MsgService {
     noAccessText: 'Su usuario no tiene los permisos para realisar esta accion',
     // Pagina Departamento
     tituloDepartamento: "Departamentos",
-    infoDepartamento: "En esta seccion se crearan los rubros que se asignaran a las empresas",
+    infoDepartamento: "Los elementos que se crean y editan en esta sección, son las departamentos del país.",
     // Pagina TiposRelacion
     tituloTiposRelacion: "Tipos de relacion",
-    infoTiposRelacion: "Los elementos que se crean y editan en esta seccion seran los que se utilizen para relacionar personas a las empresas",
+    infoTiposRelacion: "Los elementos que se crean y editan en esta sección, son los utilizados para definir la relacion entre las personas y las empresas",
     attrNombreTipoRelacion: "Nombre del tipo de relacion",
     placeholderNombreTipoRelacion: "Empleado, electricista, contador",
     // Pagina Rubro
     tituloRubro: "Rubros",
-    infoRubro: "En esta seccion se crearan los rubros que se asignaran a las empresas",
+    infoRubro: "Los elementos que se crean y editan en esta sección, son los rubros a los que se pueden dedicar las empresas.",
     attrNombreRubro: "Nombre del rubro",
     placeholderNombreRubro: "Tiendas, supermercado, joyeria",
     // Pagina Rubro
     tituloLocalidad: "Localidad",
-    infoLocalidad: "En esta seccion se crearan las localidades de cada departamento",
+    infoLocalidad: "Los elementos que se crean y editan en esta sección, son las localidades pertenecientes a cada departamento del país.",
     attrNombreDepartamento: "Departamento al que pretenece",
     placeholderNombreDepartamento: "San Jose, Montevideo...",
     attrNombreLocalidad: "Departamento al que pretenece",
@@ -145,8 +145,10 @@ export class MsgService {
     navRubros: "Rubros",
     navLocalidades: "Localidades",
     navDepartamento: "Departamento",
-
+    navMantenimiento: "Mantenimiento",
+    
     // Generios de paginas
+    cerrarSesion: "Cerrar sesión",
     vacio: "No hay nada para mostrar",
     cancelar: "Cancelar",
     guardar: "Guardar",

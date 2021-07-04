@@ -22,6 +22,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips'; 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar'; 
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCardModule } from '@angular/material/card'; 
 import { MatDialogModule } from '@angular/material/dialog';
@@ -112,6 +113,7 @@ import { ModalUserModule } from '../dialogs/modal-user/modal-user.module';
     MatNativeDateModule,
     MatChipsModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
     MatStepperModule,
     MatCardModule,
     MatDialogModule,
