@@ -6,93 +6,102 @@ import { Injectable } from '@angular/core';
 export class MsgService {
 
   private _msg:any = {
-    falla: "Parece que algo salio mal",
-    noSeleccionoDelete: "No ha seleccionado ningun elemento para eliminar",
-    noId: "No se recivio un identidicador valido",
-    noImagen: "No se recibio ninguna imagen",
-    noImagenTipo: "No se cargo ningun archivo, o el el archivo no es de tipo imagen",
-    siCargoImagen: "la imagen se cargo correctamente",
-    siGuardoEmpresa: "Se guardaron los cambios de manera exitosa",
-    noRecivioPersona: "No se recibio ninguna persona",
-    siRecivioPersona: "Se ha recivido los datos de la persona de manera correcta",
-    seleccionoTipoRelacion: "Se ha seleccionado el tipo de relacion",
-    desSeleccionoTipoRelacion: "Se ha deseleccionado el tipo de relacion",
-    errorPedirTipoRelcaion: "Parece que algo a salido mal al intentar ovtener los tipos de relacion",
-    canceladoGuardarTipoRelcaion: "Parece que se cancelo el guardado",
-    GuardarTipoRelcaion: "El tipo de relacion se guardo correctamente",
-    seleccionoPersona: "Se a seleccionado a la persona",
+    falla: "Parece que algo salió mal",
+    noSeleccionoDelete: "No ha seleccionado ningún elemento para eliminar",
+    noId: "No se recibió un identificador valido",
+    noImagen: "No se recibió ninguna imagen",
+    noImagenTipo: "No se cargó ningún archivo, o el archivo no es de tipo imagen",
+    siCargoImagen: "La imagen se cargó correctamente",
+    siGuardoEmpresa: "Se han guardado los cambios correctamente",
+    noRecivioPersona: "No se recibió ninguna persona",
+    siRecivioPersona: "Se ha recibido los datos de la persona de manera correcta",
+    seleccionoTipoRelacion: "Se ha seleccionado el tipo de relación",
+    desSeleccionoTipoRelacion: "Se ha deseleccionado el tipo de relación",
+    errorPedirTipoRelcaion: "Parece que algo salió mal al intentar obtener los tipos de relación",
+    canceladoGuardarTipoRelcaion: "Parece que se canceló el guardado",
+    GuardarTipoRelcaion: "El tipo de relación se guardó correctamente",
+    seleccionoPersona: "Se ha seleccionado a la persona",
     desSeleccionoPersona: "Se a deseleccionado a la persona",
-    errorListadoPersona: "Algo salio mal al autocopletar el listado de personas",
-    seleccionoPersonaEmpresa: "Se ha seleccionado una integrante de la empresa para la edicion",
-    canceloEliminacionPersonaEmpresa: "Se a cancelado la eliminacion",
+    errorListadoPersona: "Algo salio mal al autocompletar el listado de personas",
+    seleccionoPersonaEmpresa: "Se ha seleccionado una integrante de la empresa para la edición",
+    canceloEliminacionPersonaEmpresa: "Se a cancelado la eliminación",
     eliminacionCorrecta: "Se elimino correctamente",
-    errorEliminacionPersonaEmpresa: "Algo salio mal en la eliminacion",
+    errorEliminacionPersonaEmpresa: "Algo salio mal en la eliminación",
     noGuardoEmpresaTitulo: "No ha guardado la empresa",
     noGuardoEmpresaText: "Necesita guardar la empresa antes de poder agregar personal",
     noAccessTitulo: 'No tiene acceso',
-    noAccessText: 'Su usuario no tiene los permisos para realisar esta accion',
-    // Pagina Departamento
+    noAccessText: 'Su usuario no tiene los permisos para realizar esta acción',
+
+    // Página Departamento
     tituloDepartamento: "Departamentos",
     infoDepartamento: "Los elementos que se crean y editan en esta sección, son las departamentos del país.",
-    // Pagina TiposRelacion
-    tituloTiposRelacion: "Tipos de relacion",
-    infoTiposRelacion: "Los elementos que se crean y editan en esta sección, son los utilizados para definir la relacion entre las personas y las empresas",
-    attrNombreTipoRelacion: "Nombre del tipo de relacion",
+
+    // Página TiposRelacion
+    tituloTiposRelacion: "Tipos de relación",
+    infoTiposRelacion: "Los elementos que se crean y editan en esta sección, son los utilizados para definir la relación entre las personas y las empresas",
+    attrNombreTipoRelacion: "Nombre del tipo de relación",
     placeholderNombreTipoRelacion: "Empleado, electricista, contador",
-    // Pagina Rubro
+
+    // Página Rubro
     tituloRubro: "Rubros",
     infoRubro: "Los elementos que se crean y editan en esta sección, son los rubros a los que se pueden dedicar las empresas.",
     attrNombreRubro: "Nombre del rubro",
-    placeholderNombreRubro: "Tiendas, supermercado, joyeria",
-    // Pagina Rubro
+    placeholderNombreRubro: "Tiendas, supermercado, joyería",
+
+    // Página Rubro
     tituloLocalidad: "Localidad",
     infoLocalidad: "Los elementos que se crean y editan en esta sección, son las localidades pertenecientes a cada departamento del país.",
-    attrNombreDepartamento: "Departamento al que pretenece",
+    attrNombreDepartamento: "Departamento al que pertenece",
     placeholderNombreDepartamento: "San Jose, Montevideo...",
-    attrNombreLocalidad: "Departamento al que pretenece",
-    placeholderNombreLocalidad: "San Jose, Montevideo...",
-    // Pagina Rubro
+    attrNombreLocalidad: "Departamento al que pertenece",
+    placeholderNombreLocalidad: "San José, Montevideo...",
+
+    // Página Rubro
     tituloEmpresas: "Empresas",
     tooltipAgregarPersona: "Agregar persona nueva",
-    tooltipAgregarTipoRelacion: "Guardar relacion",
-    tooltipAgregarLogo: "Arrasatre una imagen o clike para cambiar logo",
-    // Pagina Persona
+    tooltipAgregarTipoRelacion: "Guardar relación",
+    tooltipAgregarLogo: "Arrastre una imagen aquí para cambiar el logo",
+
+    // Página Persona
     tituloPersona: "Personas",
     siRecivioUser: "El usuario guardo exitosamente",
-    noRecivioUser: "No se recibio ningun cambio",
+    noRecivioUser: "No se recibió ningún cambio",
     formNickname: "Nick",
     formPlaceholderNickname: "Sobre nombre",
-    formPassword: "Password",
+    formPassword: "Contraseña",
     formPlaceholderPassword: "************",
-    formRepassword: "Repetir password",
+    formRepassword: "Repetir contraseña",
     formPlaceholderRepassword: "************",
     formRol: "Rol",
     formPlaceholderRol: "Administrador/Usuario",
     admin: "Administrador",
     user: "Usuario",
-    errorRecogePersona: "Algo salio mal no se pudo identificar a la persona",
-    infoUser: "Esta seccion se encarga de guardar y gestionar los usuarios en el sistema",
-    // Paginas Empresa
-    noIdentificado: 'No se reconocio el identificador o el elemento fue eliminado',
+    errorRecogePersona: "Algo salió mal no se pudo identificar a la persona",
+    infoUser: "Esta sección se encarga de guardar y gestionar los usuarios en el sistema",
+
+    // Páginas Empresa
+    noIdentificado: 'No se reconoció el identificador o el elemento fue eliminado',
     subTituloGeneral: "General",
     subTituloContacto: "Contacto",
     subTituloIntegrantes: "Integrantes",
     subTituloObservaciones: "Observaciones",
-    keyRubroPincipal: "Rubro Pincipal",
+    keyRubroPincipal: "Rubro Principal",
     keyRubroSecundario: "Rubro Secundario",
     keyFechaInicio: "Fecha de inicio",
     keyRUT: "RUT",
     keyBPS: "BPS",
-    keyNroReferencia: "Nro. nro_referencia",
-    keyDireccion: "Direccion",
+    keyNroReferencia: "Nro. referencia",
+    keyDireccion: "Dirección",
     keyEmail: "Email",
-    keyTelefono: "Telefono",
+    keyTelefono: "Teléfono",
     keyCelular: "Celular",
-    //Pagina Persona
+
+    // Página Persona
     tituloUser: "Usuario",
     thNickname: "Nick",
     thRol: "Rol",
-    //Atributos de formularios
+
+    // Atributos de formularios
     formPrimerNombre: "Primer nombre",
     formPlaceholderPrimerNombre: "Mauro, Dayana...",
     formSegundoNombre: "Segundo nombre",
@@ -100,16 +109,16 @@ export class MsgService {
     formPrimerApellido: "Primer apellido",
     formPlaceholderPrimerApellido: "Perez, Silva...",
     formSegundoApellido: "Segundo apellido",
-    formPlaceholderSegundoApellido: "Correa, Mendez...",
+    formPlaceholderSegundoApellido: "Correa, Mendaz...",
     formDepartamento: 'Departamento',
-    formPlaceholderDepartamento: 'San jose, Colonia...',
+    formPlaceholderDepartamento: 'San José, Colonia...',
     formLocalidad: 'Localidad',
-    formPlaceholderLocalidad: 'Juan la caze, Libertad...',
+    formPlaceholderLocalidad: 'Juan lacaze, Libertad...',
     formRubroPrincipal: 'Rubro Principal',
     formPlaceholderRubroPrincipal: 'Supermercado, Tienda...',
     formRubroSecundario: 'Rubro Secundario',
-    formPlaceholderRubroSecundario: 'Herreria, Fontaneria...',
-    formRazonSocial: 'Razon Social',
+    formPlaceholderRubroSecundario: 'Herrería, Fontanería...',
+    formRazonSocial: 'Razón Social',
     formPlaceholderRazonSocial: '123456789',
     formNombreFantasia: 'Nombre Fantasia',
     formPlaceholderNombreFantasia: 'Copsa, Conaprole...',
@@ -135,8 +144,9 @@ export class MsgService {
     formPlaceholderRelacion: 'Diseñador, Socio...',
     formPersona: 'Persona',
     formPlaceholderPersona: 'Mauro, Maximiliano...',
-    //Layout
-    tituoDash: "Gestion de asociados",
+
+    // Layout
+    tituoDash: "Gestión de asociados",
     navInicio: "Inicio",
     navEmpresas: "Empresas",
     navPersonas: "Personas",
@@ -146,8 +156,8 @@ export class MsgService {
     navLocalidades: "Localidades",
     navDepartamento: "Departamento",
     navMantenimiento: "Mantenimiento",
-    
-    // Generios de paginas
+
+    // Genéricos de páginas
     cerrarSesion: "Cerrar sesión",
     vacio: "No hay nada para mostrar",
     cancelar: "Cancelar",
@@ -166,7 +176,6 @@ export class MsgService {
     buscar: "Buscar",
     placeholderBuscar: "Buscar",
     errorListado: "Parece que no se pudo obtener el listado",
-
     thID: "ID",
     thNombre: "Nombre",
     thPrimerNombre: "Primer nombre",
@@ -178,23 +187,23 @@ export class MsgService {
     thEmail: "Email",
     thDepartamento: "Departamento",
     thCargo: "Cargo",
-    thlogo: "Logo", 
-    thbps: "BPS", 
-    thrut: "RUT", 
+    thlogo: "Logo",
+    thbps: "BPS",
+    thrut: "RUT",
   }
   private _error:any = {
-    email: "no es un email valido",
+    email: "no es un email válido",
     required: "el campo es obligatorio",
     noSonIguales: "Las contraseñas no coinciden"
   }
   private _pattern:any = {
-    "/^[0-9]{12}$/": "tiene que ser un numero de 12 digitos",
-    "/^[0-9]{9}$/": "tiene que ser un numero de 9 digitos",
-    "/^[0-9]{6}$/": "tiene que ser un numero de 6 digitos",
+    "/^[0-9]{12}$/": "tiene que ser un número de 12 dígitos",
+    "/^[0-9]{9}$/": "tiene que ser un número de 9 dígitos",
+    "/^[0-9]{6}$/": "tiene que ser un número de 6 dígitos",
   }
 
-  minlength = (numeri:number = 0) => "tiene que tener almenos " + numeri.toString() + " caracteres" 
-  maxlength = (numeri:number = 0) => "no puede tener mas de " + numeri.toString() + " caracteres" 
+  minlength = (numeri:number = 0) => "tiene que tener al menos " + numeri.toString() + " caracteres" 
+  maxlength = (numeri:number = 0) => "no puede tener más de " + numeri.toString() + " caracteres" 
       
 
   constructor() { }
