@@ -6,7 +6,7 @@ export class EmpresaDTO {
     public id: number | undefined;
     public razon_social: string | undefined;
     public nombre_fantasia: string | undefined;
-    public logo: string | undefined;
+    public logo: string  = '';
 
     public rubro_principal_id: number | undefined;
     public rubro_secundaria_id: number | undefined;

@@ -49,7 +49,7 @@ export class ModalPersonaComponent implements OnInit {
       this.dialogRef.close({ persona : data });
     })
     .catch((error) => {
-      this._snackBar.open(error['error'] ? this.msg.error(error['error']): this.msg.txt("falla"), 'Undo');
+      this._snackBar.open(error['error'] ? this.msg.error(error['error']): this.msg.txt("falla"),'', { duration: 500 });
     })
     .finally(() => {
       this.reqGuardar = null;

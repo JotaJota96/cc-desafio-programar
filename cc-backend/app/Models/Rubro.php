@@ -14,6 +14,7 @@ class Rubro extends Model
   use SoftDeletes;
   use ModelsCustom;
 
+  protected $LimitSelect = -1;
   protected $table = 'rubro';
 
   protected $fillable = [

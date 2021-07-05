@@ -16,6 +16,7 @@ class Localidad extends Model
   use SoftDeletes;
   use ModelsCustom;
 
+  protected $LimitSelect = -1;
   protected $table = 'localidad';
   protected $fillable = [
       'id',

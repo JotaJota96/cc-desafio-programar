@@ -79,7 +79,7 @@
                             </tr>
                         </table>
                         <mat-paginator
-                            *ngIf="listaElementos.data.length > 0"
+                            *ngIf="isPaginado && listaElementos.data.length > 0"
                             (page)="cargarLista($event)"
                             [pageIndex]="listaElementos.current_page - 1"
                             [length]="listaElementos.total"

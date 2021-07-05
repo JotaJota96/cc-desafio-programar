@@ -36,15 +36,14 @@ export class ModalUserComponent implements OnInit {
       rol: new FormControl( user.rol, [Validators.required]),
       nickname: new FormControl( user.nickname, [Validators.required, Validators.minLength(4), Validators.maxLength(200)]),
       email: new FormControl( user.email, [Validators.email, Validators.required, Validators.minLength(4), Validators.maxLength(200)]),
-      password: new FormControl( user.password, [Validators.required, Validators.minLength(8), Validators.maxLength(200)]),
-      repassword: new FormControl( user.password, [Validators.required, Validators.minLength(8), Validators.maxLength(200)]),
+      password: new FormControl( user.password, [Validators.minLength(8), Validators.maxLength(200)]),
+      repassword: new FormControl( user.password, [Validators.minLength(8), Validators.maxLength(200)]),
     }, this.validarQueSeanIguales);
   }
 
   validarQueSeanIguales: ValidatorFn = (): ValidationErrors | null => {
     const password = this.formulario?.controls['password']?.value || ''
     const repassword = this.formulario?.controls['repassword']?.value || ''
-    console.log(password == '', repassword == '' , password === repassword);
     return (password == '' && repassword == '') || password === repassword
       ? null
       : { noSonIguales: true }
@@ -58,7 +57,7 @@ export class ModalUserComponent implements OnInit {
       this.dialogRef.close({ user : data });
     })
     .catch((error) => {
-      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt("falla"), 'Undo');
+      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt("falla"),'', { duration: 500 });
     })
     .finally(() => {
       this.reqGuardar = null;

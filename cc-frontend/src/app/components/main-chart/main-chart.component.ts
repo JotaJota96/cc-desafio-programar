@@ -45,7 +45,7 @@ export class MainChartComponent implements OnInit, AfterViewInit {
       this.listaElementos = data['principal'];
     })
       .catch((error) => {
-        this._snackBar.open(error['error'] ? error['error'].join(", ") : "Algo ha fallado", 'Undo');
+        this._snackBar.open(error['error'] ? error['error'].join(", ") : "Algo ha fallado",'', { duration: 500 });
       })
       .finally(() => {
         this.reqListado = null;

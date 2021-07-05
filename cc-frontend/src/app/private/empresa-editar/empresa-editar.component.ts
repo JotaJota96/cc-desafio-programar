@@ -23,6 +23,8 @@ import { Observable } from 'rxjs';
 import { debounceTime, map, startWith, switchMap } from 'rxjs/operators';
 import { ModalPersonaComponent } from '../dialogs/modal-persona/modal-persona.component';
 import { MsgService } from 'src/app/services/msg.service';
+import { UserDTO } from 'src/app/classes/user-dto';
+import { AccessService } from 'src/app/services/access.service';
 
 export enum Role {
   ADMIN = 0,
@@ -71,6 +73,7 @@ export class EmpresaEditarComponent implements OnInit {
   public formulario: FormGroup = new FormGroup({});
 
   constructor(
+    private accessService: AccessService,
     private msg: MsgService,
     private router: Router,
     private route: ActivatedRoute,
@@ -84,10 +87,12 @@ export class EmpresaEditarComponent implements OnInit {
     protected serviceTipoRelacion: TipoRelacionService,
     protected serviceRubro: RubroService
   ) {
+    this.isAdmin = this.accessService.isUserInRole(0); 
     this.resetearFormulario();
     this.resetearFormularioEmpresaPersona();
   }
   mostrarForm:boolean = false;
+  noEmpresa:boolean = false;
 
   ngOnInit(): void {
     this.cargarListaDepartamento();
@@ -97,9 +102,11 @@ export class EmpresaEditarComponent implements OnInit {
       this.id = params.get('id') || '';
       if (this.id == null || this.id == '') {
         this.mostrarForm = true;
+        this.noEmpresa = true;
       } else if (isNaN(parseInt(this.id))) {
-        this._snackBar.open(this.msg.txt('noId'), 'Undo');
+        this._snackBar.open(this.msg.txt('noId'),'', { duration: 500 });
         this.mostrarForm = true;
+        this.noEmpresa = true;
       } else {
         this.cargarEmpresa(this.id);
         this.cargarListaEmpresaPersona();
@@ -158,18 +165,17 @@ export class EmpresaEditarComponent implements OnInit {
       this.formulario.controls['fecha_inicio'].setValue(this.elemento.fecha_inicio);
       this.formulario.controls['observaciones'].setValue(this.elemento.observaciones);
     }
-    console.log(this.formulario);
-    
   }
 
   cargarEmpresa(id:string = '') {
     this.reqCargar = this.service.get(id, { 'full':null })
-    this.reqCargar.then((data: any) => {
+    this.reqCargar.then((data: any = null) => {
       this.elemento = data;
+      if (data) this.noEmpresa = true;
       this.resetearFormulario();
     })
     .catch((error) => {
-      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt('falla'), 'Undo');
+      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt('falla'),'', { duration: 500 });
     })
     .finally(() => {
       this.mostrarForm = true;
@@ -186,7 +192,7 @@ export class EmpresaEditarComponent implements OnInit {
       this.listaTipoRelacion = data;
     })
     .catch((error) => {
-      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt('falla'), 'Undo');
+      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt('falla'),'', { duration: 500 });
     })
     .finally(() => {
       this.reqListadoTipoRelacion = null;
@@ -204,7 +210,7 @@ export class EmpresaEditarComponent implements OnInit {
       });
     })
     .catch((error) => {
-      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt('falla'), 'Undo');
+      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt('falla'),'', { duration: 500 });
     })
     .finally(() => {
       this.reqListadoDepartamento = null;
@@ -217,7 +223,7 @@ export class EmpresaEditarComponent implements OnInit {
       this.listaRubro = data;
     })
     .catch((error) => {
-      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt('falla'), 'Undo');
+      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt('falla'),'', { duration: 500 });
     })
     .finally(() => {
       this.reqListadoRubro = null;
@@ -227,7 +233,7 @@ export class EmpresaEditarComponent implements OnInit {
 
   cortarImagen(event:any) {
     if (!event.target || !event.target.files || event.target.files.length == 0 || event.target.files[0].type.indexOf("image/") == -1) {
-      this._snackBar.open(this.msg.txt('noImagenTipo'), 'Undo');
+      this._snackBar.open(this.msg.txt('noImagenTipo'),'', { duration: 500 });
       event.target.value = [];
       return;
     } 
@@ -235,9 +241,9 @@ export class EmpresaEditarComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.elemento.logo = result;
-        this._snackBar.open(this.msg.txt('siCargoImagen'), 'Undo');
+        this._snackBar.open(this.msg.txt('siCargoImagen'),'', { duration: 500 });
       } else {
-        this._snackBar.open(this.msg.txt('noImagen'), 'Undo');
+        this._snackBar.open(this.msg.txt('noImagen'),'', { duration: 500 });
       }
     });
   }
@@ -276,7 +282,7 @@ export class EmpresaEditarComponent implements OnInit {
         this.id = data.id
         this.router.navigate(['private/empresa/'+data.id+"/edit"])
       }
-      this._snackBar.open(this.msg.txt('siGuardoEmpresa'), 'Undo');
+      this._snackBar.open(this.msg.txt('siGuardoEmpresa'),'', { duration: 500 });
     })
     .catch((error) => {
       error = Object.values(error['error']).map((arr:any) => arr.join(", ") );
@@ -333,14 +339,14 @@ export class EmpresaEditarComponent implements OnInit {
       if (this.formularioEmpresaPersona.controls['tipo_relacion'].value != this.autocompletados.tipo_relacion  && this.autocompletados.tipo_relacion != null) {
         this.formularioEmpresaPersona.controls['tipo_relacion_id'].setValue('');
         this.autocompletados.tipo_relacion = null;
-        this._snackBar.open(this.msg.txt('desSeleccionoTipoRelacion'), 'Undo');
+        this._snackBar.open(this.msg.txt('desSeleccionoTipoRelacion'),'', { duration: 500 });
       }
       const filterValue = value.toLowerCase();
       this.reqFilterTipoRelacion = this.serviceTipoRelacion.getAll({ simple: null, q : filterValue, limit : 10}) as Promise<TipoRelacionDTO[]>;
       this.reqFilterTipoRelacion
         .then((data) => res(data))
         .catch((data) => {
-          this._snackBar.open(this.msg.txt('errorPedirTipoRelcaion'), 'Undo');
+          this._snackBar.open(this.msg.txt('errorPedirTipoRelcaion'),'', { duration: 500 });
           error(data)
         })
         .finally(() => this.reqFilterTipoRelacion = null);
@@ -351,7 +357,7 @@ export class EmpresaEditarComponent implements OnInit {
     if (id == null) return;
     this.autocompletados.tipo_relacion = this.formularioEmpresaPersona.controls['tipo_relacion'].value;
     this.formularioEmpresaPersona.controls['tipo_relacion_id'].setValue(id);
-    this._snackBar.open(this.msg.txt('seleccionoTipoRelacion'), 'Undo');
+    this._snackBar.open(this.msg.txt('seleccionoTipoRelacion'),'', { duration: 500 });
   }
   confirmaGuardaTipoRelacion(): void {
     if (!this.access(Role.ADMIN)) {
@@ -374,7 +380,7 @@ export class EmpresaEditarComponent implements OnInit {
       if (result == DialogActionResult.ACCEPT) {
         this.guardaTipoRelacion();
       } else {
-        this._snackBar.open(this.msg.txt('canceladoGuardarTipoRelcaion'), 'Undo');
+        this._snackBar.open(this.msg.txt('canceladoGuardarTipoRelcaion'),'', { duration: 500 });
       }
     });
   }
@@ -388,7 +394,7 @@ export class EmpresaEditarComponent implements OnInit {
       this.formularioEmpresaPersona.controls['tipo_relacion_id'].setValue(data.id);
       this.formularioEmpresaPersona.controls['tipo_relacion'].setValue(data.nombre);
       this.autocompletados.tipo_relacion = data.nombre;
-      this._snackBar.open(this.msg.txt('GuardarTipoRelcaion'), 'Undo');
+      this._snackBar.open(this.msg.txt('GuardarTipoRelcaion'),'', { duration: 500 });
       this.cargarListaTipoRelacion();
     })
     .catch((error) => {
@@ -416,14 +422,14 @@ export class EmpresaEditarComponent implements OnInit {
       if (this.formularioEmpresaPersona.controls['persona'].value != this.autocompletados.persona && this.autocompletados.persona != null) {
         this.formularioEmpresaPersona.controls['persona_id'].setValue('');
         this.autocompletados.persona = null;
-        this._snackBar.open(this.msg.txt('desSeleccionoPersona'), 'Undo');
+        this._snackBar.open(this.msg.txt('desSeleccionoPersona'),'', { duration: 500 });
       }
       const filterValue = value.toLowerCase();
       this.reqFilterPersona = this.servicePersona.getAll({ simple: null, q : filterValue, limit : 10}) as Promise<PersonaDTO[]>;
       this.reqFilterPersona
         .then((data) => res(data))
         .catch((data) => {
-          this._snackBar.open(this.msg.txt('errorListadoPersona'), 'Undo');
+          this._snackBar.open(this.msg.txt('errorListadoPersona'),'', { duration: 500 });
           error(data)
         })
         .finally(() => this.reqFilterPersona = null);
@@ -433,12 +439,12 @@ export class EmpresaEditarComponent implements OnInit {
     if (id == null) return;
     this.autocompletados.persona = this.formularioEmpresaPersona.controls['persona'].value;
     this.formularioEmpresaPersona.controls['persona_id'].setValue(id);
-    this._snackBar.open(this.msg.txt('seleccionoPersona'), 'Undo');
+    this._snackBar.open(this.msg.txt('seleccionoPersona'),'', { duration: 500 });
   }
   /* Fin de Preparacion para filtros del autocompletado Persona*/
 
   creaPersona() {
-    if (!this.access(Role.ADMIN)) {
+    if (!this.access(Role.ADMIN_USUARIO)) {
       this.dialog.openDialog({ 
         title: this.msg.txt('noAccessTitulo'), 
         message: this.msg.txt('noAccessText'), 
@@ -456,9 +462,9 @@ export class EmpresaEditarComponent implements OnInit {
         this.formularioEmpresaPersona.controls['persona'].setValue(nombre);
         this.formularioEmpresaPersona.controls['persona_id'].setValue(result.persona.id);
         this.autocompletados.persona = nombre;
-        this._snackBar.open(this.msg.txt('siRecivioPersona'), 'Undo');
+        this._snackBar.open(this.msg.txt('siRecivioPersona'),'', { duration: 500 });
       } else {
-        this._snackBar.open(this.msg.txt('noRecivioPersona'), 'Undo');
+        this._snackBar.open(this.msg.txt('noRecivioPersona'),'', { duration: 500 });
       }
     });
   }
@@ -494,7 +500,7 @@ export class EmpresaEditarComponent implements OnInit {
       this.listadoEmpresaPersona = data;
     })
     .catch((error) => {
-      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt('falla'), 'Undo');
+      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt('falla'),'', { duration: 500 });
     })
     .finally(() => {
       this.reqListadoEmpresaPersona = null;
@@ -508,7 +514,7 @@ export class EmpresaEditarComponent implements OnInit {
     }, 500);
     this.elementoPersonaEmpresaSeleccionado = elemento;
     this.resetearFormularioEmpresaPersona(elemento)
-    this._snackBar.open(this.msg.txt('seleccionoPersonaEmpresa'), 'Undo');
+    this._snackBar.open(this.msg.txt('seleccionoPersonaEmpresa'),'', { duration: 500 });
   }
 
   seleccionarPersonaEmpresaEliminar(elemento: EmpresaPersonaDTO) {
@@ -529,7 +535,7 @@ export class EmpresaEditarComponent implements OnInit {
       if (result == DialogActionResult.CONFIRM) {
         this.eliminarPersonaEmpresa();
       } else {
-        this._snackBar.open(this.msg.txt('canceloEliminacionPersonaEmpresa'), 'Undo');
+        this._snackBar.open(this.msg.txt('canceloEliminacionPersonaEmpresa'),'', { duration: 500 });
         this.resetearFormularioEmpresaPersona();
       }
     });
@@ -551,11 +557,11 @@ export class EmpresaEditarComponent implements OnInit {
     }
     this.serviceEmpresaPersona.delete(this.elementoPersonaEmpresaSeleccionado.id)
     .then((data) => {
-      this._snackBar.open(this.msg.txt('eliminacionCorrecta'), 'Undo');
+      this._snackBar.open(this.msg.txt('eliminacionCorrecta'),'', { duration: 500 });
       this.cargarListaEmpresaPersona();
     })
     .catch((error) => {
-      this._snackBar.open(this.msg.txt('errorEliminacionPersonaEmpresa'), 'Undo');
+      this._snackBar.open(this.msg.txt('errorEliminacionPersonaEmpresa'),'', { duration: 500 });
       this.dialog.openDialog({ type: DialogType.ERROR, useDefault: true })
     })
     .finally(() => {
@@ -631,7 +637,7 @@ export class EmpresaEditarComponent implements OnInit {
       this.serviceEmpresaPersona.create(this.elementoPersonaEmpresaSeleccionado);
     this.reqGuardarEmpresaPersona
     .then((data) => {
-      this._snackBar.open(this.msg.txt('guardadoPersonaEmpresa'), 'Undo');
+      this._snackBar.open(this.msg.txt('guardadoPersonaEmpresa'),'', { duration: 500 });
       this.cargarListaEmpresaPersona();
       this.resetearFormularioEmpresaPersona();
     })
@@ -639,18 +645,23 @@ export class EmpresaEditarComponent implements OnInit {
       this.dialog.openDialog({ type: DialogType.ERROR, useDefault: true })
     })
     .finally(() => {
-      this.reqGuardar = null;
+      this.reqGuardarEmpresaPersona = null;
       this.resetearFormularioEmpresaPersona();
     });
   }
 
   // Chequea si tiene permiso
   access(req_role:Role) {
-    // llamar servicio de login 
+    if (req_role == Role.INVITADO) return true;
+    if ((req_role == Role.ADMIN || req_role == Role.ADMIN_USUARIO) && this.isAdmin) return true;
+    const user = this.accessService.getLoggedUser();
+    if (user == undefined || user.persona == undefined || user.persona.empresa_persona == undefined) return false;
+    this.idMisEmpresa = [];
+    user.persona.empresa_persona.forEach((empresa_persona:EmpresaPersonaDTO) => {
+      this.idMisEmpresa.push(empresa_persona.empresa_id?.toString() || '');
+    });
     return (
-      (req_role == Role.INVITADO) ||
-      (req_role == Role.ADMIN && this.isAdmin) ||
-      (req_role == Role.USUARIO && this.idMisEmpresa.toString() == this.id) ||
+      (req_role == Role.USUARIO && this.idMisEmpresa.includes(this.id)) ||
       (req_role == Role.ADMIN_USUARIO && (this.isAdmin || this.idMisEmpresa.includes(this.id)))
     );
   }

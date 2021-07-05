@@ -149,8 +149,6 @@ export class UsuarioAbmComponent implements OnInit {
   validarQueSeanIguales: ValidatorFn = (): ValidationErrors | null => {
     const password = this.formulario?.controls['password']?.value || ''
     const repassword = this.formulario?.controls['repassword']?.value || ''
-    console.log(password == '', repassword == '' , password === repassword);
-    
     return (password == '' && repassword == '') || password === repassword
       ? null
       : { noSonIguales: true }
@@ -200,7 +198,6 @@ export class UsuarioAbmComponent implements OnInit {
   PreparefilterPersona(): Observable<PersonaDTO[]> {
     if (!this.formulario || !this.formulario.controls || !this.formulario.controls['persona']) 
       return new Observable<PersonaDTO[]>();
-    console.log(this.formulario.controls['persona']);
     return this.formulario.controls['persona'].valueChanges.pipe(
       startWith(''),
       debounceTime(300),
@@ -209,21 +206,19 @@ export class UsuarioAbmComponent implements OnInit {
   }
   oldPersona:string | null = null;
   filterPersona(value: string): Promise<PersonaDTO[]> {
-    console.log("dsds");
-    
     return new Promise((res, error) => {
       if (value == null || value == '') res([]);
       if (this.formulario.controls['persona'].value != this.oldPersona && this.oldPersona != null) {
         this.formulario.controls['persona_id'].setValue('');
         this.oldPersona = null;
-        this._snackBar.open(this.msg.txt('desSeleccionoPersona'), 'Undo');
+        this._snackBar.open(this.msg.txt('desSeleccionoPersona'),'', { duration: 500 });
       }
       const filterValue = value.toLowerCase();
       this.reqFilterPersona = this.servicePersona.getAll({ simple: null, q : filterValue, limit : 10}) as Promise<PersonaDTO[]>;
       this.reqFilterPersona
         .then((data) => res(data))
         .catch((data) => {
-          this._snackBar.open(this.msg.txt('errorListadoPersona'), 'Undo');
+          this._snackBar.open(this.msg.txt('errorListadoPersona'),'', { duration: 500 });
         })
         .finally(() => this.reqFilterPersona = null);
     });
@@ -232,7 +227,7 @@ export class UsuarioAbmComponent implements OnInit {
     if (id == null) return;
     this.oldPersona = this.formulario.controls['persona'].value;
     this.formulario.controls['persona_id'].setValue(id);
-    this._snackBar.open(this.msg.txt('seleccionoPersona'), 'Undo');
+    this._snackBar.open(this.msg.txt('seleccionoPersona'),'', { duration: 500 });
   }
 
   creaPersona(elemento: PersonaDTO = new PersonaDTO()) {
@@ -242,9 +237,9 @@ export class UsuarioAbmComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.persona) {
         this.cargarLista();
-        this._snackBar.open(this.msg.txt('siRecivioPersona'), 'Undo');
+        this._snackBar.open(this.msg.txt('siRecivioPersona'),'', { duration: 500 });
       } else {
-        this._snackBar.open(this.msg.txt('noRecivioPersona'), 'Undo');
+        this._snackBar.open(this.msg.txt('noRecivioPersona'),'', { duration: 500 });
       }
     });
   }

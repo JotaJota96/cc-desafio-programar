@@ -40,9 +40,13 @@ export class AccessService {
   }
 
   public getLoggedUser(): UserDTO | undefined {
-    let data = localStorage.getItem("user_cc");
-    if (data == undefined) return undefined;
-    else return JSON.parse(data);
+    try {
+      let data = localStorage.getItem("user_cc");
+      if (data == undefined) return undefined;
+      else return JSON.parse(data);
+    } catch (error) {
+      return undefined;
+    }
   }
 
   public isUserLogged(): boolean {

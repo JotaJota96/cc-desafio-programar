@@ -5,7 +5,6 @@ import { PrivateLayoutGuard } from './guards/private-layout.guard';
 const routes: Routes = [
   { 
     path: 'private',
-    canActivate: [PrivateLayoutGuard],
     loadChildren: () => import('./private/layout-private/layout-private.module').then(m => m.LayoutPrivateModule)
   },
   { 

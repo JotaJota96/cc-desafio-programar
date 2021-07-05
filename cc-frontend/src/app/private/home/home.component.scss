@@ -2,10 +2,31 @@
     width: 100%;
     height: inherit;;
 }
-.home-image {
-    display: block;
-    margin: auto;
-    width: 70%;
-    height: auto;
+.home-card {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    mat-card {
+        padding: 2rem 5rem;
+        width: 100%;
+        h3 {
+            text-align: center;
+        }
+        .card {
+            padding: 2rem 5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: cubic-bezier(0.075, 0.82, 0.165, 1) all .5s;
+            &:hover {
+                background-color: rgba(0,0,0,.02);
+            }
+        }
+    }
 }
-
+.logo {
+    max-width: 70%;
+    width: 400px;
+    margin: auto;
+    display: block;
+}

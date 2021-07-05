@@ -80,13 +80,12 @@ trait ModelsCustom
         return null;
     }
 
-
     private static function customGetAll($oModels = null, $select = null, $fillable = null, $param = null)
     {
+        $limit = (isset($param["limit"])) ? ($param["limit"]) : (isset($oModels->LimitSelect) ? $oModels->LimitSelect : 10);
         $oModels = self::customselectAll($oModels, $select, $fillable, $param);
         if ($param == null) $param = Request()->all();
-        $limit = (isset($param["limit"])) ? $param["limit"] : 10;
-        return (isset($param["simple"])) ? $oModels->limit(10)->get() : $oModels->paginate($limit);
+        return (isset($param["simple"])) ? ($limit == -1 ? $oModels->get() : $oModels->limit($limit)->get()) : ($limit == -1 ? $oModels->paginate() : $oModels->paginate($limit));
     }
 
     private static function customselectAll($oModels = null, $select = null, $fillable = null, $param = null)

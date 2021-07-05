@@ -3,16 +3,36 @@
         [opened]="!innerWidth || innerWidth >= 1280">
         <!-- Iconos: https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/ -->
         <div *ngIf="innerWidth && innerWidth >= 1280;else logo" class="toolbar">
-            <div class="logo-white">
+            <div class="logo-white" (click)="start()">
                 <img height="50px" src="assets/images/home-image.png">
             </div>
         </div>
         <ng-template #logo>
-            <div class="logo">
+            <div class="logo" (click)="start()">
                 <img height="50px" src="assets/images/home-image.png">
             </div>
         </ng-template>
-        <mat-nav-list>
+        <ng-template #nav_user>
+            <mat-nav-list>
+                <mat-list-item routerLinkActive="active" routerLink="home">
+                    <mat-icon color="primary" class="nav-icon">home</mat-icon>
+                    {{ 'navInicio' | msg }}
+                </mat-list-item>
+                <mat-divider class="my-2"></mat-divider>
+                <mat-list-item routerLinkActive="active" routerLink="empresa">
+                    <mat-icon color="primary" class="nav-icon"> business</mat-icon>
+                    {{ 'navEmpresas' | msg }}
+                </mat-list-item>
+                <mat-divider class="my-2"></mat-divider>
+                <mat-list-item (click)="cerrarSesion()" routerLinkActive="active">
+                    <mat-icon color="primary" class="nav-icon">logout</mat-icon>
+                    {{ 'cerrarSesion' | msg }}
+                </mat-list-item>
+                <mat-divider class="my-2"></mat-divider>
+            
+            </mat-nav-list>
+        </ng-template>
+        <mat-nav-list *ngIf="user?.rol == 0;else nav_user">
             <mat-list-item routerLinkActive="active" routerLink="home">
                 <mat-icon color="primary" class="nav-icon">home</mat-icon>
                 {{ 'navInicio' | msg }}
@@ -72,7 +92,6 @@
                 <mat-icon color="primary" class="nav-icon">perm_identity</mat-icon>
                 {{ 'navUsuarios' | msg }}
             </mat-list-item>
-            
             <mat-divider class="my-2"></mat-divider>
             <mat-list-item (click)="expandirMantenimiento()" routerLinkActive="active">
                 <mat-icon color="primary" class="nav-icon">settings</mat-icon>
@@ -97,14 +116,11 @@
                 </mat-list-item>
             </div>
             <mat-divider class="my-2"></mat-divider>
-
             <mat-list-item (click)="cerrarSesion()" routerLinkActive="active">
                 <mat-icon color="primary" class="nav-icon">logout</mat-icon>
                 {{ 'cerrarSesion' | msg }}
             </mat-list-item>
-
             <mat-divider class="my-2"></mat-divider>
-
         </mat-nav-list>
     </mat-drawer>
 
