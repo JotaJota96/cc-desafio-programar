@@ -7,9 +7,22 @@ import { environment } from 'src/environments/environment';
 })
 export class ListService {
 
+  fecha = new Date();
+  mes = this.fecha.getMonth() + 1;
+
   constructor(private http: HttpClient) { }
 
-  getEmpresasPorRubro(id: number){
-    this.http.get(environment.apiURL + '/dashboard/rubro/' + id);
+  getEmpresasPorRubro(data:any = {}){
+    return this.http.get(environment.apiURL + '/dashboard/rubro/' + data['data']).toPromise();
+  }
+
+  getEmpresasAltasBajas(data:any){
+    return this.http.get(environment.apiURL + '/dashboard/rubro/' + data).toPromise();
+  }
+
+  getEmpresasAniversario(data:any){
+    if(data == null || data == undefined || data == '') data = this.mes;
+
+    return this.http.get(environment.apiURL + '/dashboard/aniversario/' + data).toPromise();
   }
 }

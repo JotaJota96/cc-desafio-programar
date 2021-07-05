@@ -155,7 +155,7 @@ class DashboardController extends Controller
         try {
             if (!is_numeric($month)) return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [ 'No es de tipo numerico'] ] );
             if ($month <= 0 || $month > 12) return $this->respond( Response::HTTP_CONFLICT, [ 'error' => ['Eesta fuera de rango'] ] );
-            return Empresa::whereMonth("empresa.fecha_inicio", $month)->paginate();
+            return Empresa::whereMonth("empresa.fecha_inicio", $month)->orderBy('empresa.fecha_inicio', 'ASC')->paginate();
         } catch (\Throwable $th) {
             return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
@@ -224,7 +224,8 @@ class DashboardController extends Controller
     private function _lista_localidad() {
         return Empresa::select(DB::raw("localidad.nombre as nombre, localidad.id"), DB::raw("COUNT(localidad.id) as count"))
         ->join("localidad", "localidad.id", "=", "empresa.localidad_id")
-        ->groupBy("empresa.localidad_id");
+        ->groupBy("empresa.localidad_id")
+        ->orderby("count", "DESC");
     }
 
     private function _lista_localidad_departamento($id) {
@@ -240,20 +241,24 @@ class DashboardController extends Controller
         return Empresa::select(DB::raw("departamento.nombre as nombre, localidad.departamento_id"), DB::raw("COUNT(localidad.id) as count"))
             ->join("localidad", "localidad.id", "=", "empresa.localidad_id")
             ->join("departamento", "departamento.id", "=", "localidad.departamento_id")
-            ->groupBy("localidad.departamento_id");
+            ->groupBy("localidad.departamento_id")
+            ->orderby("count", "DESC");
     }
     
     // Rubros
     private function _lista_rubro_secundaria() {
         return Empresa::select(DB::raw("rubro.nombre as nombre"), DB::raw("COUNT(rubro.id) as count"))
         ->join("rubro", "rubro.id", "=", "empresa.rubro_secundaria_id")
+        ->orderby("count", "DESC")
         ->groupBy("empresa.rubro_secundaria_id");
     }
 
     private function _lista_rubro_principal() {
         return Empresa::select(DB::raw("rubro.nombre as nombre"), DB::raw("COUNT(rubro.id) as count"))
             ->join("rubro", "rubro.id", "=", "empresa.rubro_principal_id")
+            ->orderby("count", "DESC")
             ->groupBy("empresa.rubro_principal_id");
+            
     }
 
     private function _lista_rubro_secundaria_empresa($id) {

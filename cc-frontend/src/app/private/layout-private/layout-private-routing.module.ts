@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainChartComponent } from 'src/app/components/main-chart/main-chart.component';
+import { AltaBajaMesComponent } from '../alta-baja-mes/alta-baja-mes.component';
+import { AniversarioEmpresaComponent } from '../aniversario-empresa/aniversario-empresa.component';
 import { ChartEmpresaLocalidadComponent } from '../chart-empresa-localidad/chart-empresa-localidad.component';
 import { DepartamentoAbmComponent } from '../departamento-abm/departamento-abm.component';
 import { EmpresaListadoComponent } from '../empresa-listado/empresa-listado.component';
+import { EmpresaRubroComponent } from '../empresa-rubro/empresa-rubro.component';
 import { EmpresaComponent } from '../empresa/empresa.component';
 import { HomeComponent } from '../home/home.component';
 import { LocalidadABMComponent } from '../localidad-abm/localidad-abm.component';
@@ -26,6 +29,9 @@ const routes: Routes = [
       { path: 'empresa/:id', component: EmpresaComponent },
       { path: 'grafico-empresas-rubro', component: MainChartComponent },
       { path: 'grafico-empresas-localidad', component: ChartEmpresaLocalidadComponent },
+      { path: 'empresas-rubro', component: EmpresaRubroComponent },
+      { path: 'altas-bajas-mes', component: AltaBajaMesComponent },
+      { path: 'aniversario-empresa', component: AniversarioEmpresaComponent },
       { path: '**', redirectTo: 'abm-rubro' },
     ]
   }

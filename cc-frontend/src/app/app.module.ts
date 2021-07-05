@@ -21,7 +21,7 @@ registerLocaleData(localePy, 'es');
 @NgModule({
   declarations: [
     AppComponent
-  ],
+    ],
   imports: [
     BrowserModule,
     RouterModule,

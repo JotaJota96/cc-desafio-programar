@@ -43,6 +43,10 @@ import { PieChartComponent } from 'src/app/components/pie-chart/pie-chart.compon
 import { DonutChartComponent } from 'src/app/components/donut-chart/donut-chart.component';
 import { ChartEmpresaLocalidadComponent } from 'src/app/private/chart-empresa-localidad/chart-empresa-localidad.component';
 
+import { EmpresaRubroComponent } from 'src/app/private/empresa-rubro/empresa-rubro.component';
+import { AltaBajaMesComponent } from 'src/app/private/alta-baja-mes/alta-baja-mes.component';
+import { AniversarioEmpresaComponent } from 'src/app/private/aniversario-empresa/aniversario-empresa.component';
+
 // Fin Componentes
 
 // Service
@@ -67,6 +71,10 @@ import { nombrePersonaModule } from 'src/app/pipes/nombre-persona.module';
     PieChartComponent,
     DonutChartComponent,
     ChartEmpresaLocalidadComponent,
+
+    EmpresaRubroComponent,
+    AltaBajaMesComponent,
+    AniversarioEmpresaComponent,
 
     LayoutPrivateComponent
   ],
