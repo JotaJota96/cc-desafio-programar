@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class CustomAuthenticate
 {
 
-    public $default = [0];
+    public $default = [0,1];
     public $modales = [
         'user' => 'App\Models\User',
         'departamento' => 'App\Models\Departamento',
@@ -43,10 +43,10 @@ class CustomAuthenticate
             $method = null;
             $id = null;
             if (
-                sizeof($route) > 2 && 
-                isset($route[2]['model']) && 
-                $route[2]['model'] != null && 
-                isset($route[1]['uses']) && 
+                sizeof($route) > 2 &&
+                isset($route[2]['model']) &&
+                $route[2]['model'] != null &&
+                isset($route[1]['uses']) &&
                 isset(explode('@', $route[1]['uses'])[1])
             ) {
                 $id = isset($route[2]['id']) ? $route[2]['id'] : null;
