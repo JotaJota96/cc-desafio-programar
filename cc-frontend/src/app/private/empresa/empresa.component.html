@@ -8,14 +8,16 @@
             <mat-spinner> </mat-spinner>
         </div>
         <div class="row" *ngIf="reqCargar == null">
-            <div class="col-sm-12 col-md-4">
+            <div class="col-12">
                 <img class="logo" [src]="logo(elemento.logo)">
                 <div>
                     <h2 class="text-center">{{ elemento.nombre_fantasia }}</h2>
                     <h4 class="text-center">{{ elemento.razon_social }}</h4>
                 </div>    
             </div>
-            <div class="col-sm-12 col-md-8">
+        </div>
+        <div class="row" *ngIf="reqCargar == null">
+            <div class="col-12 col-md-6">
                 <h3 [@inInfoAnimation]="{value: ':leave', params: { delay: 0.1} }">{{ 'subTituloGeneral' | msg }}</h3>
                 <mat-card [@inCardAnimation]="{value: ':leave', params: { delay: 0} }" class="p-0">
                     <mat-card-content>
@@ -101,6 +103,20 @@
                     </mat-card-content>
                 </mat-card>
 
+                <h3 *ngIf="elemento.observaciones" [@inInfoAnimation]="{value: ':leave', params: { delay: 0.4} }">{{ 'subTituloObservaciones' | msg }}</h3>
+                <mat-card *ngIf="elemento.observaciones" [@inCardAnimation]="{value: ':leave', params: { delay: 0.3} }" class="p-0">
+                    <mat-card-content>
+                        <mat-list>
+                            <mat-list-item>
+                                <div class="items">
+                                    <p>{{ elemento.observaciones }}</p>
+                                </div>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="col-12 col-md-6">
                 <h3 *ngIf="elemento.empresa_persona && elemento.empresa_persona.length > 0" [@inInfoAnimation]="{value: ':leave', params: { delay: 0.3} }">{{ 'subTituloIntegrantes' | msg }}</h3>
                 <mat-card *ngIf="elemento.empresa_persona" [@inCardAnimation]="{value: ':leave', params: { delay: 0.2} }" class="p-0">
                     <mat-card-content>
@@ -119,18 +135,6 @@
                     </mat-card-content>
                 </mat-card>
 
-                <h3 *ngIf="elemento.observaciones" [@inInfoAnimation]="{value: ':leave', params: { delay: 0.4} }">{{ 'subTituloObservaciones' | msg }}</h3>
-                <mat-card *ngIf="elemento.observaciones" [@inCardAnimation]="{value: ':leave', params: { delay: 0.3} }" class="p-0">
-                    <mat-card-content>
-                        <mat-list>
-                            <mat-list-item>
-                                <div class="items">
-                                    <p>{{ elemento.observaciones }}</p>
-                                </div>
-                            </mat-list-item>
-                        </mat-list>
-                    </mat-card-content>
-                </mat-card>
             </div>
         </div>
     </ng-template>

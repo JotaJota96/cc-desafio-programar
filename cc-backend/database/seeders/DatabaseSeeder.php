@@ -124,10 +124,10 @@ class DatabaseSeeder extends Seeder
     public function persona($faker) {
         for ($i=0; $i < 1000; $i++) { 
             DB::table('persona')->insert([ 
-                'nombre_1' => $faker->name,
-                'nombre_2' => $faker->name,
-                'apellide_1' => $faker->name,
-                'apellide_2' => $faker->name,
+                'nombre_1' => $faker->firstName(),
+                'nombre_2' => $faker->firstName(),
+                'apellide_1' => $faker->lastName(),
+                'apellide_2' => $faker->lastName(),
                 'email' => $faker->unique()->safeEmail,
                 'celular' => $faker->phoneNumber,
             ]);
@@ -136,6 +136,20 @@ class DatabaseSeeder extends Seeder
 
     public function user($faker) {
         $personas = Persona::inRandomOrder()->limit(300)->get();
+
+        $date = $this->randomDate();
+        DB::table('user')->insert([ 
+            'email' => 'admin@admin.com',
+            'persona_id' => null,
+            'rol' => 0,
+            'nickname' => 'admin',
+            'password' => Hash::make('1234'),
+            'email_verified_at' => $date[0],
+            'deleted_at' => $date[1],
+            'created_at' => $date[2],
+            'updated_at' => $date[3]
+        ]);
+
         for ($i=0; $i < 300; $i++) { 
             $date = $this->randomDate();
             DB::table('user')->insert([ 

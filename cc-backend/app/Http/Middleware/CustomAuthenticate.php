@@ -49,7 +49,7 @@ class CustomAuthenticate
                 $method = explode('@', $route[1]['uses'])[1];
                 $reqRole = $this->resetRole($model, $method);
             }
-        } catch (\Throwable $th) {            
+        } catch (\Throwable $th) {
             return response()->json([ "error" => [$th->getMessage()] ], Response::HTTP_CONFLICT);
         }
 
@@ -73,11 +73,11 @@ class CustomAuthenticate
         if ($model == null) return $this->default;
         return isset($model['request'][$method]) ? $model['request'][$method] : $this->default;
     }
-    
+
     private function AccessControl(&$request, $next)
     {
         $headers = [
-            'Access-Control-Allow-Origin'      => '*',
+            // 'Access-Control-Allow-Origin'      => '*',
             'Access-Control-Allow-Methods'     => 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
             'Access-Control-Allow-Credentials' => 'true',
             'Access-Control-Max-Age'           => '86400',
