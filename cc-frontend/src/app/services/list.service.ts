@@ -14,7 +14,7 @@ export class ListService {
   }
 
   getEmpresasAltasBajas(data:any){
-    return this.http.get(environment.apiURL + '/dashboard/rubro/' + data).toPromise();
+    return this.http.get(environment.apiURL + '/dashboard/movimintos?month=' + data['month'] + '&year' + data['year'], {params:data}).toPromise();
   }
 
   getEmpresasAniversario(data:any){

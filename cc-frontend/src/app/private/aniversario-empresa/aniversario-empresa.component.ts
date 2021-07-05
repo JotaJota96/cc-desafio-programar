@@ -42,7 +42,6 @@ export class AniversarioEmpresaComponent implements OnInit {
     this.reqListado = this.listSvc.getEmpresasAniversario(this.paramsPaginacion)
     this.reqListado.then((data: any) => {
       this.listaElementos = data;
-      console.log(this.listaElementos)
     })
     .catch((error) => {
       this._snackBar.open(error['error'] ? error['error'].join(", ") : "Algo ha fallado", 'Regresar');
@@ -54,7 +53,7 @@ export class AniversarioEmpresaComponent implements OnInit {
 
   obtenerMes(mesFiltro: any){
     this.mesSeleccionado = mesFiltro;
-    this.cargarLista();
+    this.paginado(mesFiltro);
   }
 
   paginado(pageElement:any) {
