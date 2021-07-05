@@ -87,7 +87,7 @@ export class LocalidadABMComponent implements OnInit {
       this.listaElementos = data;
     })
     .catch((error) => {
-      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt("falla"), 'Undo');
+      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt("falla"),'', { duration: 500 });
     })
     .finally(() => {
       this.reqListado = null;
@@ -172,8 +172,6 @@ export class LocalidadABMComponent implements OnInit {
     })
     .catch((error) => {
       error = Object.values(error['error']).map((arr:any) => arr.join(", ") );
-      console.log(error.join(", "));
-
       this.dialog.openDialog({ message: error ? error.join(", ") : this.msg.txt("falla"), type: DialogType.ERROR, useDefault: true })
     })
     .finally(() => {

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainChartComponent } from 'src/app/components/main-chart/main-chart.component';
+import { PrivateLayoutGuard } from 'src/app/guards/private-layout.guard';
 import { ChartEmpresaLocalidadComponent } from '../chart-empresa-localidad/chart-empresa-localidad.component';
 import { DepartamentoAbmComponent } from '../departamento-abm/departamento-abm.component';
 import { EmpresaEditarComponent } from '../empresa-editar/empresa-editar.component';
@@ -20,20 +21,20 @@ const routes: Routes = [
     path: '',
     component: LayoutPrivateComponent,
     children: [
-      { path: 'home', component: HomeComponent },
-      { path: 'abm-rubro', component: RubroABMComponent },
-      { path: 'abm-tipo-de-relacion', component: TipoDeRelacionABMComponent },
-      { path: 'abm-departamento', component: DepartamentoAbmComponent },
-      { path: 'abm-localidad', component: LocalidadABMComponent },
-      { path: 'empresa', component: EmpresaListadoComponent },
-      { path: 'empresa/crear', component: EmpresaEditarComponent },
-      { path: 'empresa/:id', component: EmpresaComponent },
-      { path: 'empresa/:id/edit', component: EmpresaEditarComponent },
-      { path: 'persona', component: PersonaAbmComponent },
-      { path: 'user', component: UsuarioAbmComponent },
-      { path: 'chart', component: MainChartComponent },
-      { path: 'grafico-empresas-rubro', component: MainChartComponent },
-      { path: 'grafico-empresas-localidad', component: ChartEmpresaLocalidadComponent },
+      { path: 'home',                           canActivate: [PrivateLayoutGuard], data: { roles: [ 0, 1 ] },   component: HomeComponent },
+      { path: 'abm-rubro',                      canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: RubroABMComponent },
+      { path: 'abm-tipo-de-relacion',           canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: TipoDeRelacionABMComponent },
+      { path: 'abm-departamento',               canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: DepartamentoAbmComponent },
+      { path: 'abm-localidad',                  canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: LocalidadABMComponent },
+      { path: 'empresa',                        canActivate: [PrivateLayoutGuard], data: { roles: [ 0, 1 ] }, component: EmpresaListadoComponent },
+      { path: 'empresa/crear',                  canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: EmpresaEditarComponent },
+      { path: 'empresa/:id',                    canActivate: [PrivateLayoutGuard], data: { roles: [ 0, 1 ] }, component: EmpresaComponent },
+      { path: 'empresa/:id/edit',               canActivate: [PrivateLayoutGuard], data: { roles: [ 0, 1 ] }, component: EmpresaEditarComponent },
+      { path: 'persona',                        canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: PersonaAbmComponent },
+      { path: 'user',                           canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: UsuarioAbmComponent },
+      { path: 'chart',                          canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: MainChartComponent },
+      { path: 'grafico-empresas-rubro',         canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: MainChartComponent },
+      { path: 'grafico-empresas-localidad',     canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: ChartEmpresaLocalidadComponent },
       { path: '**', redirectTo: 'home' },
     ]
   }

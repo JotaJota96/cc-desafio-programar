@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { inCardAnimation, inInfoAnimation, inTitleAnimation } from 'src/app/animation';
 import { EmpresaDTO } from 'src/app/classes/empresa-dto';
+import { EmpresaPersonaDTO } from 'src/app/classes/empresa-persona-dto';
 import { PaginacionDTO } from 'src/app/classes/paginacion-dto';
+import { PersonaDTO } from 'src/app/classes/persona-dto';
+import { UserDTO } from 'src/app/classes/user-dto';
+import { AccessService } from 'src/app/services/access.service';
 import { DialogActionResult, DialogService, DialogType } from 'src/app/services/dialog.service';
 import { EmpresaService } from 'src/app/services/empresa.service';
 import { MsgService } from 'src/app/services/msg.service';
+import { PersonaService } from 'src/app/services/persona.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-empresa-listado',
@@ -32,15 +39,20 @@ export class EmpresaListadoComponent implements OnInit {
   reqGuardar:Promise<any> | null = null;
   reqListado:Promise<any> | null = null;
   error:string = ""
-
+  admin:boolean = true;
+  isPaginado:boolean = true;
   public formulario: FormGroup = new FormGroup({});
 
   constructor(
     private msg: MsgService,
     private _snackBar: MatSnackBar,
     protected dialog: DialogService, 
-    protected service: EmpresaService
+    protected service: EmpresaService,
+    private accessService: AccessService, 
+    protected servicePersona: PersonaService,
+    private router: Router
   ) {
+    this.admin = this.accessService.isUserInRole(0);
     this.resetearFormulario();
   }
 
@@ -49,13 +61,31 @@ export class EmpresaListadoComponent implements OnInit {
     this.cargarLista();
   }
 
-  cargarLista(pageElement:any = null) {
+  cargarLista(pageElement:any = {}) {
     if (this.reqListado != null) return;
-    this.reqListado = this.service.getAll(this.preparaParametrosPaginacion(pageElement))
-    this.reqListado.then((data: any) => {
-      this.listaElementos = data;
-    })
-    .catch((error) => {
+    if (!this.admin) {
+      const USER:UserDTO | undefined = this.accessService.getLoggedUser();
+      if (!USER || USER.persona_id == undefined) {
+        this.router.navigate(['/']);
+        return;
+      }
+      pageElement['full'] = 1;
+      this.reqListado = this.servicePersona.get(USER.persona_id, this.preparaParametrosPaginacion(pageElement));
+      this.reqListado.then((data: PersonaDTO) => {
+        this.listaElementos = new PaginacionDTO<EmpresaDTO>();
+        if (data.empresa_persona) data.empresa_persona.map((ep:EmpresaPersonaDTO) => {
+          if (ep.empresa) this.listaElementos.data.push(ep.empresa);
+        })
+      })
+      this.isPaginado = false;
+    } else {
+      this.isPaginado = true;
+      this.reqListado = this.service.getAll(this.preparaParametrosPaginacion(pageElement));
+      this.reqListado.then((data: any) => {
+        this.listaElementos = data;
+      })
+    }
+    this.reqListado.catch((error) => {
       this.error = error['error']['error'] ? error['error']['error'].join(", ") : this.msg.txt("falla");
     })
     .finally(() => {
@@ -77,6 +107,7 @@ export class EmpresaListadoComponent implements OnInit {
     if (params == null) return ret;
     if (params.pageIndex) ret.page = params.pageIndex + 1;
     if (params.pageSize) ret.limit = params.pageSize;
+    if (params.full) ret.full = params.full;
     return ret;
   }
 

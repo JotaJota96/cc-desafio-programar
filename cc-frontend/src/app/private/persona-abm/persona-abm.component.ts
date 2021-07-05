@@ -101,15 +101,15 @@ export class PersonaAbmComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.persona) {
         this.cargarLista();
-        this._snackBar.open(this.msg.txt('siRecivioPersona'), 'Undo');
+        this._snackBar.open(this.msg.txt('siRecivioPersona'),'', { duration: 500 });
       } else {
-        this._snackBar.open(this.msg.txt('noRecivioPersona'), 'Undo');
+        this._snackBar.open(this.msg.txt('noRecivioPersona'),'', { duration: 500 });
       }
     });
   }
   guardaAcceso(elemento: UserDTO = new UserDTO(), id:number|null = null) {
     if (elemento == null && id == null) {
-      this._snackBar.open(this.msg.txt('errorRecogePersona'), 'Undo');
+      this._snackBar.open(this.msg.txt('errorRecogePersona'),'', { duration: 500 });
       return;
     }
     if (elemento == null) {
@@ -122,9 +122,9 @@ export class PersonaAbmComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.user) {
         this.cargarLista();
-        this._snackBar.open(this.msg.txt('siRecivioUser'), 'Undo');
+        this._snackBar.open(this.msg.txt('siRecivioUser'),'', { duration: 500 });
       } else {
-        this._snackBar.open(this.msg.txt('noRecivioUser'), 'Undo');
+        this._snackBar.open(this.msg.txt('noRecivioUser'),'', { duration: 500 });
       }
     });
   }
@@ -136,7 +136,7 @@ export class PersonaAbmComponent implements OnInit {
     }
     this.service.delete(this.elementoSeleccionado.id)
     .then((data) => {
-      this._snackBar.open(this.msg.txt("eliminacionCorrecta"), 'Undo');
+      this._snackBar.open(this.msg.txt("eliminacionCorrecta"),'', { duration: 500 });
       this.cargarLista();
     })
     .catch((error) => {

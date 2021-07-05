@@ -10,6 +10,7 @@ const routes: Routes = [
     path: '',
     component: LayoutPublicComponent,
     children: [
+      { path: '', redirectTo: 'login' },
       { path: 'login', canActivate: [LoginGuard], component: LoginComponent },
       { path: 'empresa/:id', component: EmpresaComponent },
       { path: '**', redirectTo: 'login' },

@@ -20,7 +20,7 @@ registerLocaleData(localePy, 'es');
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

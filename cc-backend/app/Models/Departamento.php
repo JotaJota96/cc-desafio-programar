@@ -49,6 +49,7 @@ class Departamento extends Model
   );
   
 
+  protected $LimitSelect = -1;
 
   static public $messages = array(
     

@@ -40,7 +40,7 @@ export class EmpresaComponent implements OnInit {
       } else if (isNaN(parseInt(this.id))) {
         this.id = null;
         this.noEmpresa = true;
-        this._snackBar.open(this.msg.txt('noId'), 'Undo');
+        this._snackBar.open(this.msg.txt('noId'),'', { duration: 500 });
       } else {
         this.cargarEmpresa(this.id);
       }
@@ -58,7 +58,7 @@ export class EmpresaComponent implements OnInit {
     })
     .catch((error) => {
       this.noEmpresa = true;
-      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt("falla"), 'Undo');
+      this._snackBar.open(error['error'] ? error['error'].join(", ") : this.msg.txt("falla"),'', { duration: 500 });
     })
     .finally(() => {
       this.reqCargar = null;
