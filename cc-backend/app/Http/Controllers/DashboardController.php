@@ -43,8 +43,10 @@ class DashboardController extends Controller
     public function lista_rubro_empresa(Request $request, $id) {
         try {
             if (!is_numeric($id)) return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [ 'No es de tipo numerico'] ] );
-            $oRubroPrincipal = $this->_lista_rubro_principal_empresa($id);
-            $oRubroSecundaria = $this->_lista_rubro_secundaria_empresa($id);
+            $param = $request->all();
+            $limite = isset($param['limit'])?$param['limit']:10;
+            $oRubroPrincipal = $this->_lista_rubro_principal_empresa($id, $limite);
+            $oRubroSecundaria = $this->_lista_rubro_secundaria_empresa($id, $limite);
             return $this->respond( Response::HTTP_OK, array(
                 'principal' => $oRubroPrincipal,
                 'secundaria' => $oRubroSecundaria  
@@ -153,9 +155,11 @@ class DashboardController extends Controller
      */
     public function lista_aniversario_empresa(Request $request, $month) {
         try {
+            $param = $request->all();
+            $limite = isset($param['limit'])?$param['limit']:10;
             if (!is_numeric($month)) return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [ 'No es de tipo numerico'] ] );
             if ($month <= 0 || $month > 12) return $this->respond( Response::HTTP_CONFLICT, [ 'error' => ['Eesta fuera de rango'] ] );
-            return Empresa::whereMonth("empresa.fecha_inicio", $month)->paginate();
+            return Empresa::whereMonth("empresa.fecha_inicio", $month)->orderBy('empresa.fecha_inicio', 'ASC')->paginate($limite);
         } catch (\Throwable $th) {
             return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
         }
@@ -167,12 +171,13 @@ class DashboardController extends Controller
     public function lista_movimintos(Request $request) {
         try {
             $param = $request->all();
+            $limite = isset($param['limit'])?$param['limit']:10;
             $validator = Validator::make( $param, [ 'month' => 'integer|min:1|max:13', 'year' => 'integer|min:1000|max:'.date("Y") ] );
             if($validator->fails()) return $this->respond( Response::HTTP_CONFLICT, [ 'error' => $validator->messages()->toArray() ] );
             $year = isset($param['year']) ? $param['year'] : date("Y");
             $month = isset($param['month']) ? $param['month'] : date("m");
-            $oMovimintosBaja = $this->_lista_movimintos_baja($year, $month);
-            $oMovimintosAlta = $this->_lista_movimintos_alta($year, $month);
+            $oMovimintosBaja = $this->_lista_movimintos_baja($year, $month, $limite);
+            $oMovimintosAlta = $this->_lista_movimintos_alta($year, $month, $limite);
 
 
             return $this->respond( Response::HTTP_OK, array(
@@ -187,11 +192,12 @@ class DashboardController extends Controller
     public function lista_movimintos_baja(Request $request) {
         try {
             $param = $request->all();
+            $limite = isset($param['limit'])?$param['limit']:10;
             $validator = Validator::make( $param, [ 'month' => 'integer|min:1|max:13', 'year' => 'integer|min:1000|max:'.date("Y") ] );
             if($validator->fails()) return $this->respond( Response::HTTP_CONFLICT, [ 'error' => $validator->messages()->toArray() ] );
             $year = isset($param['year']) ? $param['year'] : date("Y");
             $month = isset($param['month']) ? $param['month'] : date("m");
-            $oMovimintos = $this->_lista_movimintos_baja($year, $month);
+            $oMovimintos = $this->_lista_movimintos_baja($year, $month, $limite);
             return $this->respond( Response::HTTP_OK, $oMovimintos);
         } catch (\Throwable $th) {
             return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
@@ -201,11 +207,12 @@ class DashboardController extends Controller
     public function lista_movimintos_alta(Request $request) {
         try {
             $param = $request->all();
+            $limite = isset($param['limit'])?$param['limit']:10;
             $validator = Validator::make( $param, [ 'month' => 'integer|min:1|max:13', 'year' => 'integer|min:1000|max:'.date("Y") ] );
             if($validator->fails()) return $this->respond( Response::HTTP_CONFLICT, [ 'error' => $validator->messages()->toArray() ] );
             $year = isset($param['year']) ? $param['year'] : date("Y");
             $month = isset($param['month']) ? $param['month'] : date("m");
-            $oMovimintos = $this->_lista_movimintos_alta($year, $month);
+            $oMovimintos = $this->_lista_movimintos_alta($year, $month, $limite);
             return $this->respond( Response::HTTP_OK, $oMovimintos);
         } catch (\Throwable $th) {
             return $this->respond( Response::HTTP_CONFLICT, [ 'error' => [$th->getMessage()] ] );
@@ -224,7 +231,8 @@ class DashboardController extends Controller
     private function _lista_localidad() {
         return Empresa::select(DB::raw("localidad.nombre as nombre, localidad.id"), DB::raw("COUNT(localidad.id) as count"))
         ->join("localidad", "localidad.id", "=", "empresa.localidad_id")
-        ->groupBy("empresa.localidad_id");
+        ->groupBy("empresa.localidad_id")
+        ->orderby("count", "DESC");
     }
 
     private function _lista_localidad_departamento($id) {
@@ -240,43 +248,48 @@ class DashboardController extends Controller
         return Empresa::select(DB::raw("departamento.nombre as nombre, localidad.departamento_id"), DB::raw("COUNT(localidad.id) as count"))
             ->join("localidad", "localidad.id", "=", "empresa.localidad_id")
             ->join("departamento", "departamento.id", "=", "localidad.departamento_id")
-            ->groupBy("localidad.departamento_id");
+            ->groupBy("localidad.departamento_id")
+            ->orderby("count", "DESC");
     }
     
     // Rubros
     private function _lista_rubro_secundaria() {
         return Empresa::select(DB::raw("rubro.nombre as nombre"), DB::raw("COUNT(rubro.id) as count"))
         ->join("rubro", "rubro.id", "=", "empresa.rubro_secundaria_id")
+        ->orderby("count", "DESC")
         ->groupBy("empresa.rubro_secundaria_id");
     }
 
     private function _lista_rubro_principal() {
         return Empresa::select(DB::raw("rubro.nombre as nombre"), DB::raw("COUNT(rubro.id) as count"))
             ->join("rubro", "rubro.id", "=", "empresa.rubro_principal_id")
+            ->orderby("count", "DESC")
             ->groupBy("empresa.rubro_principal_id");
+            
     }
 
-    private function _lista_rubro_secundaria_empresa($id) {
-        return Empresa::where("empresa.rubro_secundaria_id", $id)->paginate();
+    private function _lista_rubro_secundaria_empresa($id, $limite) {
+        return Empresa::where("empresa.rubro_secundaria_id", $id)->paginate($limite);
     }
 
-    private function _lista_rubro_principal_empresa($id) {
-        return Empresa::where("empresa.rubro_principal_id", $id)->paginate();
+    private function _lista_rubro_principal_empresa($id, $limite) {
+        return Empresa::where("empresa.rubro_principal_id", $id)->paginate($limite);
     }
 
     // Movimintos
-    private function _lista_movimintos_alta($year, $month) {
+    private function _lista_movimintos_alta($year, $month, $limite) {
         $oList = Empresa::whereYear("empresa.created_at", $year)
                       ->whereMonth("empresa.created_at", $month)
-                      ->paginate();
+                      ->paginate($limite);
         $oList->setCollection( $oList->getCollection()->makeVisible( 'created_at' ) );
         return $oList;
     }
 
-    private function _lista_movimintos_baja($year, $month) {
+    private function _lista_movimintos_baja($year, $month, $limite) {
         $oList = Empresa::whereYear("empresa.deleted_at", $year)
                       ->whereMonth("empresa.deleted_at", $month)
-                      ->paginate();
+                      ->withTrashed()
+                      ->paginate($limite);
         $oList->setCollection( $oList->getCollection()->makeVisible( 'created_at' ) );
         return $oList;
     }

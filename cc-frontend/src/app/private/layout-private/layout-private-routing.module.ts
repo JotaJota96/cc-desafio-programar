@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainChartComponent } from 'src/app/components/main-chart/main-chart.component';
 import { PrivateLayoutGuard } from 'src/app/guards/private-layout.guard';
+import { AltaBajaMesComponent } from '../alta-baja-mes/alta-baja-mes.component';
+import { AniversarioEmpresaComponent } from '../aniversario-empresa/aniversario-empresa.component';
 import { ChartEmpresaLocalidadComponent } from '../chart-empresa-localidad/chart-empresa-localidad.component';
 import { DepartamentoAbmComponent } from '../departamento-abm/departamento-abm.component';
 import { EmpresaEditarComponent } from '../empresa-editar/empresa-editar.component';
 import { EmpresaListadoComponent } from '../empresa-listado/empresa-listado.component';
+import { EmpresaRubroComponent } from '../empresa-rubro/empresa-rubro.component';
 import { EmpresaComponent } from '../empresa/empresa.component';
 import { HomeComponent } from '../home/home.component';
 import { LocalidadABMComponent } from '../localidad-abm/localidad-abm.component';
@@ -32,7 +35,9 @@ const routes: Routes = [
       { path: 'empresa/:id/edit',               canActivate: [PrivateLayoutGuard], data: { roles: [ 0, 1 ] }, component: EmpresaEditarComponent },
       { path: 'persona',                        canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: PersonaAbmComponent },
       { path: 'user',                           canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: UsuarioAbmComponent },
-      { path: 'chart',                          canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: MainChartComponent },
+      { path: 'empresas-rubro',                 canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: EmpresaRubroComponent },
+      { path: 'altas-bajas-mes',                canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: AltaBajaMesComponent },
+      { path: 'aniversario-empresa',            canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: AniversarioEmpresaComponent },
       { path: 'grafico-empresas-rubro',         canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: MainChartComponent },
       { path: 'grafico-empresas-localidad',     canActivate: [PrivateLayoutGuard], data: { roles: [ 0 ] },    component: ChartEmpresaLocalidadComponent },
       { path: '**', redirectTo: 'home' },

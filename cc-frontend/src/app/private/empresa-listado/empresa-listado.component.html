@@ -17,6 +17,9 @@
                 <input matInput [disabled]="reqListado != null || error != ''" placeholder="{{ 'placeholderBuscar' | msg }}" [(ngModel)]="search" (change)="buscar()">
             </mat-form-field>
         </div>
+        <div [@inCardAnimation] class="col-md-12 mb-3" *ngIf="admin">
+            <span>Total de empresas activas: {{ totalEmpresasActivas }} </span>
+        </div>
         <div class="col-12">
             <mat-card [@inCardAnimation]="{value: ':leave', params: { delay: 0.1} }" class="py-0 px-0">
                 <mat-card-content>

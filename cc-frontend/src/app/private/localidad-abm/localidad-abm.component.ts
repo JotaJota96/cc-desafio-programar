@@ -60,8 +60,7 @@ export class LocalidadABMComponent implements OnInit {
     this.reqListadoDepartamento = this.serviceDepartamento.getAll({ 'simple' : null })
     this.reqListadoDepartamento.then((data: any) => {
       this.listaDepartamento = data;
-      data.map((dep:any) => { this.nameDepartamento[dep.id] = dep.nombre } );
-      
+      data.map((dep:any) => { this.nameDepartamento[dep.id] = dep.nombre });
     })
     .catch((error) => {
       this.error = error['error']['error'] ? error['error']['error'].join(", ") : this.msg.txt("falla");

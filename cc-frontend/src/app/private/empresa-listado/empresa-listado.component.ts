@@ -43,6 +43,8 @@ export class EmpresaListadoComponent implements OnInit {
   isPaginado:boolean = true;
   public formulario: FormGroup = new FormGroup({});
 
+  totalEmpresasActivas: number = 0;
+
   constructor(
     private msg: MsgService,
     private _snackBar: MatSnackBar,
@@ -82,6 +84,7 @@ export class EmpresaListadoComponent implements OnInit {
       this.isPaginado = true;
       this.reqListado = this.service.getAll(this.preparaParametrosPaginacion(pageElement));
       this.reqListado.then((data: any) => {
+        this.totalEmpresasActivas = data["total"];
         this.listaElementos = data;
       })
     }

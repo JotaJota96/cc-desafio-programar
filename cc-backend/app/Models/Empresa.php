@@ -40,7 +40,6 @@ class Empresa extends Model
       'updated_at'
   ];
   protected $hidden = [
-      'deleted_at',
       'updated_at'
   ];
   static public $rules = array(
@@ -99,7 +98,7 @@ class Empresa extends Model
   );
 
   protected $casts = array(
-      'deleted_at' => 'datetime:Y-m-d H:i:s',
+      'deleted_at' => 'datetime:Y-m-d',
       'created_at' => 'datetime:Y-m-d H:i:s',
       'updated_at' => 'datetime:Y-m-d H:i:s'
   );
