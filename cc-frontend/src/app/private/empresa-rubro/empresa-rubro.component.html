@@ -15,9 +15,9 @@
                 <div class="col-12 mt-3">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Filtrar rubros</mat-label>
-                        <mat-select>
+                        <mat-select [(ngModel)]="key">
                             <mat-option *ngFor="let rubro of listaRubros"
-                                (click)="filter('data', rubro.id)" [value]="rubro.id">
+                                (click)="filter(rubro.id)" [value]="rubro.id">
                                 {{rubro.nombre}}
                             </mat-option>
                         </mat-select>
@@ -69,7 +69,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <mat-paginator *ngIf="listaElementos.data.length > 0" (page)="cargarLista($event)"
+                        <mat-paginator *ngIf="listaElementos.data.length > 0" (page)="paginado($event)"
                             [pageIndex]="listaElementos.current_page - 1" [length]="listaElementos.total"
                             [pageSize]="listaElementos.per_page" [pageSizeOptions]="[1, 5, 10, 20]"
                             showFirstLastButtons></mat-paginator>

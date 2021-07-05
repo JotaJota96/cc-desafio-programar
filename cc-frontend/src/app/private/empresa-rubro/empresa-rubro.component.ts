@@ -36,7 +36,6 @@ export class EmpresaRubroComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarListaRubros();
-    this.cargarLista();
   }
 
   cargarListaRubros() {
@@ -50,20 +49,24 @@ export class EmpresaRubroComponent implements OnInit {
       this._snackBar.open(error['error'] ? error['error'].join(", ") : "Algo ha fallado", 'Regresar');
     })
     .finally(() => {
+      this.key = this.listaRubros.length > 0 ? this.listaRubros[0].id?.toString() || 0 : 0;
+      this.cargarLista(this.preparaParametrosPaginacion());
       this.reqListadoRubro = null;
     });
   }
 
-  filter(key:string, value:string | number | undefined) {
-    this.paramsPaginacion[key] = value;
-    this.cargarLista(this.paramsPaginacion);
+  key: string | number = 1
+
+  filter( value:string | number | undefined) {
+    this.key = value || 1;
+    this.cargarLista(this.preparaParametrosPaginacion());
   }
 
   paginado(pageElement:any) {
     this.cargarLista(this.preparaParametrosPaginacion(pageElement));
   }
 
-  cargarLista(pageElement:any = null) {
+  cargarLista(pageElement:any = {}) {
     if (this.reqListado != null) return;
     this.reqListado = this.listSvc.getEmpresasPorRubro(pageElement)
     this.reqListado.then((data: any) => {
@@ -77,8 +80,9 @@ export class EmpresaRubroComponent implements OnInit {
     });
   }
 
-  preparaParametrosPaginacion(params: any) {
-    if (params == null) return null;
+  preparaParametrosPaginacion(params: any = {}) {
+    this.paramsPaginacion = {data: this.key}
+    if (params == null) return this.paramsPaginacion;
     if (params.pageIndex) this.paramsPaginacion.page = params.pageIndex + 1;
     if (params.pageSize) this.paramsPaginacion.limit = params.pageSize;
     return this.paramsPaginacion;

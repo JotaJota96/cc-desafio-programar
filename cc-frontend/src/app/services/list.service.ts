@@ -7,13 +7,10 @@ import { environment } from 'src/environments/environment';
 })
 export class ListService {
 
-  fecha = new Date();
-  mes = this.fecha.getMonth() + 1;
-
   constructor(private http: HttpClient) { }
 
   getEmpresasPorRubro(data:any = {}){
-    return this.http.get(environment.apiURL + '/dashboard/rubro/' + data['data']).toPromise();
+    return this.http.get(environment.apiURL + '/dashboard/rubro/' + data['data'], {params:data}).toPromise();
   }
 
   getEmpresasAltasBajas(data:any){
@@ -21,8 +18,6 @@ export class ListService {
   }
 
   getEmpresasAniversario(data:any){
-    if(data == null || data == undefined || data == '') data = this.mes;
-
-    return this.http.get(environment.apiURL + '/dashboard/aniversario/' + data).toPromise();
+    return this.http.get(environment.apiURL + '/dashboard/aniversario/' + data['month'],  {params:data}).toPromise();
   }
 }
