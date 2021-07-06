@@ -1,0 +1,18 @@
+::ng-deep .mat-dialog-container {
+    border-radius: 8px!important;
+}
+.box-msg {
+    display: flex;
+    mat-icon {
+        margin: 1rem 24px 0 0;
+        opacity: 0.5;
+        font-size: 30px;
+    }
+}
+.mat-dialog-actions {
+    margin: 1rem -1rem -1rem -1rem!important;
+    background-color: rgb(249, 250, 251, 0.7)!important;
+    border-radius: 6px!important;
+    padding: 0.5rem;
+    min-height: auto;
+}

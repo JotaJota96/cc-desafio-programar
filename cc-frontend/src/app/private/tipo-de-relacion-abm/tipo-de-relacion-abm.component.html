@@ -1,0 +1,93 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 [@inTitleAnimation] class="mt-2">{{ 'tituloTiposRelacion' | msg }}</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-4 pr-md-0">
+            <mat-card [@inCardAnimation]="{value: ':leave', params: { delay: 0.1} }" class="p-2" [class]="{ 'active': active }">
+                <mat-card-header>
+                    <mat-card-title>{{ 'crearEditar' | msg }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="px-2"  *ngIf="formulario != null">
+                    <form [formGroup]="formulario" class="row">
+                        <div class="col-12 mt-3">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>*{{ 'attrNombreTipoRelacion' | msg }}</mat-label>
+                                <input [disabled]="error != ''" matInput placeholder="{{ 'placeholderNombreTipoRelacion' | msg }}" name="nombre" formControlName="nombre">
+                                <mat-hint *ngIf="this.formulario.controls['nombre'].errors">{{ this.formulario.controls['nombre'].errors | error }}</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </form>
+                </mat-card-content>
+                <mat-card-actions align="end" class="px-3 mb-2">
+                    <button mat-stroked-button (click)="resetearFormulario()" class="mr-2">{{ 'cancelar' | msg }}</button>
+                    <button mat-flat-button color="accent" [disabled]="error != '' || !formulario || !formulario.valid || reqGuardar != null" (click)="guardar()">{{ 'guardar' | msg }}</button>
+                </mat-card-actions>
+            </mat-card>
+            <div [@inInfoAnimation]="{value: ':leave', params: { delay: 0.3} }" class="info d-sm-none d-md-block">
+                <p>{{ 'infoTiposRelacion' | msg }}</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-8">
+            <mat-card [@inCardAnimation]="{value: ':leave', params: { delay: 0.2} }" class="py-0 px-0">
+                <mat-card-content>
+                    <div class="spinner" *ngIf="reqListado != null;else tabla">
+                        <mat-spinner></mat-spinner>
+                    </div>
+                    <ng-template #tabla>
+                        <div class="error" *ngIf="error != ''">
+                            <img src="assets/images/error.png" alt="">
+                            <h3>{{ 'errorListado' | msg }} </h3>
+                            <p>{{ error }}</p>
+                        </div>
+                        <table mat-table *ngIf="error == ''" [dataSource]="listaElementos.data ? listaElementos.data : []" class="w-100">
+
+                            <ng-container matColumnDef="id">
+                                <th width="50" mat-header-cell *matHeaderCellDef>{{ 'thID' | msg }}</th>
+                                <td width="50" matRipple (click)="seleccionarParaEditar(element)" mat-cell *matCellDef="let element"> {{element.id}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="nombre">
+                                <th mat-header-cell *matHeaderCellDef>{{ 'thNombre' | msg }}</th>
+                                <td mat-cell (click)="seleccionarParaEditar(element)" *matCellDef="let element"> {{element.nombre}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="acciones">
+                                <th width="105" class="text-center" mat-header-cell *matHeaderCellDef>{{ 'thAcciones' | msg }}</th>
+                                <td width="105" class="text-center acciones-tool" mat-cell *matCellDef="let element">
+                                    <button mat-icon-button color="accent" matTooltip="{{ 'edit' | msg }}" (click)="seleccionarParaEditar(element)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="warn" matTooltip="{{ 'delete' | msg }}" (click)="seleccionarParaEliminar(element)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+                            <tr class="mat-row no-data-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">
+                                    <img src="assets/images/no-registros.png" alt="">
+                                    <h3>{{ 'vacio' | msg }}</h3>
+                                </td>
+                            </tr>
+                        </table>
+                        <mat-paginator 
+                            *ngIf="error == '' && listaElementos.data.length > 0"
+                            (page)="cargarLista($event)"
+                            [pageIndex]="listaElementos.current_page - 1"
+                            [length]="listaElementos.total"
+                            [pageSize]="listaElementos.per_page ? listaElementos.per_page : 10"
+                            [pageSizeOptions]="[1, 5, 10, 20]" 
+                            showFirstLastButtons
+                        ></mat-paginator>
+                    </ng-template>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

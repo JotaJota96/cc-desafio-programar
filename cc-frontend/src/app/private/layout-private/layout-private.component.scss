@@ -1,0 +1,122 @@
+
+.mat-toolbar {
+    position: fixed; /* sticky = lo oculta al hacer scroll, fixed = siempre lo muestra */
+    position: -webkit-sticky; /* Para macOS/iOS Safari */
+    top: 0; /* Fija a la parte superior */
+    z-index: 1000; /* Ningun elemento se superpondrá por encima */
+}
+
+.mat-drawer-container {
+    /*height: calc(100% - 64px); /*la altura del contenedor será el 100% - la altura de la navbar*/
+    height: 100vh;
+    main {
+        height: 100%;
+        overflow-y: scroll;
+    }
+}
+
+.mat-drawer {
+    background-color: rgba(243, 243, 243);
+    padding: 64px 0px 0px 0px;
+    .toolbar {
+        background-color: var(--my-primary-color-700);
+        width: 100%;
+        height: 64px;
+        display: block;
+        position: absolute;
+        top: 0;
+    }
+    .logo {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        border-bottom: solid 1px rgba(0,0,0, 0.2);
+        background-color: rgba(0,0,0, 0.04);
+        img {
+            height: 56px;
+            margin: 0px 1rem;
+        }
+    }
+    .logo-white {
+        filter: brightness(0) invert(1);
+        width: 100%;
+        position: absolute;
+        top: 0;
+        border-bottom: solid 1px rgba(0,0,0, 0.2);
+        background-color: rgba(0,0,0, 0.04);
+        img {
+            height: 56px;
+            margin: 0px 1rem;
+        }
+    }
+}
+
+mat-toolbar {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px, rgba(0, 0, 0, 0.05) 0px 1px 4px 0px, rgba(0, 0, 0, 0.05) 0px 2px 8px 0px;
+}
+mat-drawer {
+  border: none!important;
+}
+.mat-drawer-content {
+  padding-top: 64px;
+}
+mat-nav-list {
+    padding: 0.5rem!important;
+    mat-list-item {
+      margin-bottom: 0.5rem;
+      border-radius: 6px!important;
+      opacity: 0.9;
+      transition: opacity .3s, transform .3s;
+      .nav-icon {
+        opacity: 0.5;
+        transition: transform .3s, opacity .3s;
+      }
+      &:hover,
+      &.active {
+        opacity: 1;
+        .nav-icon {
+          opacity: 1;
+        }
+      }
+      &.active {
+        position: relative;
+      }
+      &:hover {
+        .nav-icon {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+.nav-icon {
+    margin-right: 1rem;
+}
+
+.mat-expansion-panel-header-title {
+    font-weight: bold;
+}
+
+::ng-deep {
+  .acciones-tool {
+    button {
+      mat-icon {
+        filter: grayscale(0.5);
+        opacity: 0.8;
+        transition: opacity .2s, transform .2s, filter .2s;
+      }
+      &:hover mat-icon {
+        filter: grayscale(0);
+        transform: scale(1.2);
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.graficos-level{
+  margin-left: 10%;
+
+  mat-list-item{
+    font-size: 0.9em;
+  }
+}

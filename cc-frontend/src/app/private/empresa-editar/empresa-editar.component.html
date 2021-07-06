@@ -1,0 +1,276 @@
+<div class="container mt-4">
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <mat-card [@inCardAnimation]="{value: ':leave', params: { delay: 0} }" class="py-3">
+                    <div *ngIf="!mostrarForm;else form" class="placeholder-item"></div>
+                    <ng-template #form>
+                        <div *ngIf="!noEmpresa" class="noEmpresa" [@inInfoAnimation]="{value: ':leave', params: { delay: 0} }">
+                            <img src="assets/images/empresa.png">
+                            <h2>{{ 'noIdentificado' | msg }}</h2>
+                        </div>
+                        <mat-card-content *ngIf="noEmpresa">
+                            <form [formGroup]="formulario" class="row">
+                                <div class="col-12 mb-3">
+                                    <div class="file-img" matTooltip="{{ 'tooltipAgregarLogo' | msg }}">
+                                        <img *ngIf="!elemento || !elemento?.logo" class="no_Imagen" src="assets\images\drag.svg" alt="" srcset="">
+                                        <input type="file" accept="image/*" (change)="cortarImagen($event)" />
+                                        <img *ngIf="elemento.logo" [src]="elemento.logo" />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <mat-form-field [disabled]="reqListadoDepartamento != null || listaDepartamento.length == 0" appearance="outline" class="w-100">
+                                        <mat-label>{{ 'formDepartamento' | msg }}</mat-label>
+                                        <mat-select placeholder="{{ 'formPlaceholderDepartamento' | msg }}" name="departamento_id" formControlName="departamento_id">
+                                            <mat-option *ngFor="let departamento of listaDepartamento;let i = index" (click)="selectDepartamento(i)" [value]="departamento.id">
+                                                {{departamento.nombre}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-hint *ngIf="this.formulario.controls['departamento_id'].errors">{{ this.formulario.controls['departamento_id'].errors | error }}</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <mat-form-field [disabled]="reqListadoDepartamento != null || listaDepartamento.length == 0" appearance="outline" class="w-100">
+                                        <mat-label>{{ 'formLocalidad' | msg }}</mat-label>
+                                        <mat-select placeholder="{{ 'formPlaceholderLocalidad' | msg }}" name="localidad_id" formControlName="localidad_id">
+                                            <ng-container *ngIf="indexDepartamento != -1 && listaDepartamento[indexDepartamento].localidad">
+                                                <mat-option *ngFor="let departamento of listaDepartamento[indexDepartamento].localidad" [value]="departamento.id">
+                                                    {{departamento.nombre}}
+                                                </mat-option>
+                                            </ng-container>
+                                        </mat-select>
+                                        <mat-hint *ngIf="this.formulario.controls['localidad_id'].errors">{{ this.formulario.controls['localidad_id'].errors | error }}</mat-hint>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <mat-form-field [disabled]="reqListadoRubro != null || listaRubro.length == 0" appearance="outline" class="w-100">
+                                        <mat-label>*{{ 'formRubroPrincipal' | msg }} </mat-label>
+                                        <mat-select placeholder="{{ 'formPlaceholderRubroPrincipal' | msg }}" name="rubro_principal_id" formControlName="rubro_principal_id">
+                                            <mat-option *ngFor="let rubro of listaRubro" [value]="rubro.id">
+                                                {{rubro.nombre}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-hint *ngIf="this.formulario.controls['rubro_principal_id'].errors">{{ this.formulario.controls['rubro_principal_id'].errors | error }}</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <mat-form-field [disabled]="reqListadoRubro != null || listaRubro.length == 0" appearance="outline" class="w-100">
+                                        <mat-label>{{ 'formRubroSecundario' | msg }} </mat-label>
+                                        <mat-select placeholder="{{ 'formPlaceholderRubroSecundario' | msg }}" name="rubro_secundaria_id" formControlName="rubro_secundaria_id">
+                                            <mat-option *ngFor="let rubro of listaRubro" [value]="rubro.id">
+                                                {{rubro.nombre}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-hint *ngIf="this.formulario.controls['rubro_secundaria_id'].errors">{{ this.formulario.controls['rubro_secundaria_id'].errors | error }}</mat-hint>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="col-12 col-md-6">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>{{ 'formRazonSocial' | msg }}</mat-label>
+                                        <input placeholder="{{ 'formPlaceholderRazonSocial' | msg }}" matInput placeholder="" name="razon_social" formControlName="razon_social">
+                                        <mat-hint *ngIf="this.formulario.controls['razon_social'].errors">{{ this.formulario.controls['razon_social'].errors | error }}</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>{{ 'formNombreFantasia' | msg }}</mat-label>
+                                        <input placeholder="{{ 'formPlaceholderNombreFantasia' | msg }}" matInput placeholder="" name="nombre_fantasia" formControlName="nombre_fantasia">
+                                        <mat-hint *ngIf="this.formulario.controls['nombre_fantasia'].errors">{{ this.formulario.controls['nombre_fantasia'].errors | error }}</mat-hint>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="col-12 col-md-4">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>{{ 'formRUT' | msg }}</mat-label>
+                                        <input type="number" placeholder="{{ 'formPlaceholderRUT' | msg }}" matInput placeholder="" name="nro_rut" formControlName="nro_rut">
+                                        <mat-hint *ngIf="this.formulario.controls['nro_rut'].errors">{{ this.formulario.controls['nro_rut'].errors | error }}</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>{{ 'formBPS' | msg }}</mat-label>
+                                        <input type="number" placeholder="{{ 'formPlaceholderBPS' | msg }}" matInput placeholder="" name="nro_bps" formControlName="nro_bps">
+                                        <mat-hint *ngIf="this.formulario.controls['nro_bps'].errors">{{ this.formulario.controls['nro_bps'].errors | error }}</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>*{{ 'formNroReferencia' | msg }}</mat-label>
+                                        <input placeholder="{{ 'formPlaceholderNroReferencia' | msg }}" matInput placeholder="" name="nro_referencia" formControlName="nro_referencia">
+                                        <mat-hint *ngIf="this.formulario.controls['nro_referencia'].errors">{{ this.formulario.controls['nro_referencia'].errors | error }}</mat-hint>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-12">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>{{ 'formFecha' | msg }} Inicio</mat-label>
+                                        <input placeholder="{{ 'formPlaceholderFecha' | msg }}" matInput [matDatepicker]="fecha_inicio" name="fecha_inicio" formControlName="fecha_inicio">
+                                        <mat-hint *ngIf="this.formulario.controls['fecha_inicio'].errors">{{ this.formulario.controls['fecha_inicio'].errors | error }}</mat-hint>
+                                        <mat-datepicker-toggle matSuffix [for]="fecha_inicio"></mat-datepicker-toggle>
+                                        <mat-datepicker #fecha_inicio></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-12">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>*{{ 'formDireccion' | msg }}</mat-label>
+                                        <input placeholder="{{ 'formPlaceholderDireccion' | msg }}" matInput placeholder="" name="direccion" formControlName="direccion">
+                                        <mat-hint *ngIf="this.formulario.controls['direccion'].errors">{{ this.formulario.controls['direccion'].errors | error }}</mat-hint>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>*{{ 'formEmail' | msg }}</mat-label>
+                                        <input type="email" placeholder="{{ 'formPlaceholderEmail' | msg }}" matInput placeholder="" name="email" formControlName="email">
+                                        <mat-hint *ngIf="this.formulario.controls['email'].errors">{{ this.formulario.controls['email'].errors | error }}</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>{{ 'formCelular' | msg }}</mat-label>
+                                        <input placeholder="{{ 'formPlaceholderCelular' | msg }}" matInput placeholder="" name="celular" formControlName="celular">
+                                        <mat-hint *ngIf="this.formulario.controls['celular'].errors">{{ this.formulario.controls['celular'].errors | error }}</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>{{ 'formTelefono' | msg }}</mat-label>
+                                        <input placeholder="{{ 'formPlaceholderTelefono' | msg }}" matInput placeholder="" name="telefono" formControlName="telefono">
+                                        <mat-hint *ngIf="this.formulario.controls['telefono'].errors">{{ this.formulario.controls['telefono'].errors | error }}</mat-hint>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-12">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>{{ 'formObservaciones' | msg }}</mat-label>
+                                        <textarea placeholder="{{ 'formPlaceholderObservaciones' | msg }}" matInput placeholder="" name="observaciones" formControlName="observaciones"></textarea>
+                                        <mat-hint *ngIf="this.formulario.controls['observaciones'].errors">{{ this.formulario.controls['observaciones'].errors | error }}</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </form>
+                        </mat-card-content>
+                        <mat-card-actions *ngIf="noEmpresa" align="end" class="px-3 mb-2">
+                            <button mat-stroked-button (click)="resetearFormulario()" class="mr-2">{{ 'cancelar' | msg }}</button>
+                            <button mat-flat-button color="accent" [disabled]="!formulario.valid || reqGuardar != null" (click)="guardar()">
+                                <span *ngIf="reqGuardar == null">{{ 'guardar' | msg }}</span>
+                                <div *ngIf="reqGuardar != null" class="text-center">
+                                    <mat-spinner class="guardar-spinner" [diameter]="24"> </mat-spinner>
+                                </div>
+                            </button>
+                        </mat-card-actions>
+                    </ng-template>
+                </mat-card>
+            </div>
+        </div>
+
+        
+
+        <div *ngIf="noEmpresa && mostrarForm && id" class="row mt-2">
+            <div class="col-12 col-md-4 pr-md-0">
+                <mat-card [@inCardAnimation]="{value: ':leave', params: { delay: 0.1} }" class="p-2" [class]="{ 'active': active }">
+                    <mat-card-header>
+                        <mat-card-title>{{ 'crearEditar' | msg }}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content class="px-2 pt-3">
+                        <form [formGroup]="formularioEmpresaPersona" class="row">
+                            <div class="col-12">
+                                <mat-form-field [disabled]="reqListadoDepartamento != null || listaDepartamento.length == 0" appearance="outline" class="w-100">
+                                    <mat-label>*{{ 'formRelacion' | msg }}</mat-label>
+                                    <input type="text" placeholder="{{ 'formPlaceholderRelacion' | msg }}" matInput name="tipo_relacion" formControlName="tipo_relacion" [matAutocomplete]="autoTipoRelacion">
+                                    <mat-autocomplete autoActiveFirstOption #autoTipoRelacion="matAutocomplete">
+                                        <mat-option *ngFor="let tipoRelacion of filtradoTipoRelacion | async;let i = index" (click)="filterTipoRelacionSelect(tipoRelacion.id)" [value]="tipoRelacion.nombre">
+                                            {{tipoRelacion.nombre}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <button *ngIf="isAdmin && reqFilterTipoRelacion == null && autocompletados.tipo_relacion == null && formularioEmpresaPersona.controls['tipo_relacion'].value != ''" mat-icon-button matSuffix matTooltip="{{ 'tooltipAgregarTipoRelacion' | msg }}" (click)="confirmaGuardaTipoRelacion()">
+                                        <mat-icon>add</mat-icon>
+                                    </button>
+                                    <mat-spinner *ngIf="reqFilterTipoRelacion != null" matSuffix [diameter]="24"> </mat-spinner>
+                                    <mat-hint *ngIf="this.formularioEmpresaPersona.controls['tipo_relacion'].errors">{{ this.formularioEmpresaPersona.controls['tipo_relacion'].errors | error }}</mat-hint>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-12">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>*{{ 'formPersona' | msg }}</mat-label>
+                                    <input type="text" placeholder="{{ 'formPlaceholderPersona' | msg }}" matInput name="persona" formControlName="persona" [matAutocomplete]="autoPersona">
+                                    <mat-autocomplete autoActiveFirstOption #autoPersona="matAutocomplete">
+                                        <mat-option *ngFor="let Persona of filtradoPersona | async;let i = index" (click)="filterPersonaSelect(Persona.id)" [value]="Persona.nombre_1 + ' ' + Persona.apellide_1">
+                                            {{Persona.nombre_1}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <button *ngIf="reqFilterPersona == null && autocompletados.persona == null" mat-icon-button matSuffix matTooltip="{{ 'tooltipAgregarPersona' | msg }}" (click)="creaPersona()">
+                                        <mat-icon>add</mat-icon>
+                                    </button>
+                                    <mat-spinner *ngIf="reqFilterPersona != null" matSuffix [diameter]="24"> </mat-spinner>
+                                    <mat-hint *ngIf="this.formularioEmpresaPersona.controls['persona'].errors">{{ this.formularioEmpresaPersona.controls['persona'].errors | error }}</mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                    <mat-card-actions align="end" class="px-3 mb-2">
+                        <button mat-stroked-button (click)="resetearFormularioEmpresaPersona()" class="mr-2">{{ 'cancelar' | msg }}</button>
+                        <button mat-flat-button color="accent" [disabled]="!formularioEmpresaPersona.valid || reqGuardarEmpresaPersona != null" (click)="guardarEmpresaPersona()">{{ 'guardar' | msg }}</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+            <div class="col-12 col-md-8">
+                <mat-card [@inCardAnimation]="{value: ':leave', params: { delay: 0.2} }" class="py-0 px-0">
+                    <mat-card-content>
+                        <div class="spinner" *ngIf="reqListadoEmpresaPersona != null;else tabla">
+                            <mat-spinner> </mat-spinner>
+                        </div>
+                        <ng-template #tabla>
+                            <table mat-table [dataSource]="listadoEmpresaPersona.data ? listadoEmpresaPersona.data : []" class="w-100">
+
+                                <ng-container matColumnDef="id">
+                                    <th width="50" mat-header-cell *matHeaderCellDef>{{ 'thID' | msg }}</th>
+                                    <td width="50" matRipple (click)="seleccionarPersonaEmpresaEditar(element)" mat-cell *matCellDef="let element"> {{element.id}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="tipo_relacion">
+                                    <th mat-header-cell *matHeaderCellDef>{{ 'thCargo' | msg }}</th>
+                                    <td mat-cell (click)="seleccionarPersonaEmpresaEditar(element)" *matCellDef="let element"> {{element.tipo_relacion.nombre}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="persona">
+                                    <th mat-header-cell *matHeaderCellDef>{{ 'thNombre' | msg }}</th>
+                                    <td mat-cell (click)="seleccionarPersonaEmpresaEditar(element)" *matCellDef="let element"> {{element.persona.nombre_1}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="acciones">
+                                    <th width="105" class="text-center" mat-header-cell *matHeaderCellDef>{{ 'thAcciones' | msg }}</th>
+                                    <td width="105" class="text-center acciones-tool" mat-cell *matCellDef="let element">
+                                        <button mat-icon-button color="warn" matTooltip="{{ 'delete' | msg }}" (click)="seleccionarPersonaEmpresaEliminar(element)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+                                <tr class="mat-row no-data-row" *matNoDataRow>
+                                    <td class="mat-cell" colspan="5">
+                                        <img src="assets/images/no-registros.png" alt="">
+                                        <h3>{{ 'vacio' | msg }}</h3>
+                                    </td>
+                                </tr>
+                            </table>
+                            <mat-paginator
+                                *ngIf="listadoEmpresaPersona.data.length > 0"
+                                (page)="cargarListaEmpresaPersona($event)"
+                                [pageIndex]="listadoEmpresaPersona.current_page - 1"
+                                [length]="listadoEmpresaPersona.total"
+                                [pageSize]="listadoEmpresaPersona.per_page ? listadoEmpresaPersona.per_page : 10"
+                                [pageSizeOptions]="[1, 5, 10, 20]" 
+                                showFirstLastButtons
+                            ></mat-paginator>
+                        </ng-template>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+</div>

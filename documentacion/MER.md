@@ -15,14 +15,19 @@ Son el registro de las empresas que son socias de la institución
 - telefono
 - nroBPS: Número de BPS
 - nroReferencia: Nro Referencia (opcional)
-- rubroPrincipal: Rubro de Actividad Principal (Tienda, Supermercado, Joyería, Óptica, etc)
-- rubroSecundaria: Rubro de Actividad Secundaria (opcional)
+- idRubroPrincipal: Id del Rubro en el Siistema 
+- idRubroSecundaria: Id del Rubro Secundaria en el Siistema (opcional)
 - fechaAfiliacion: Fecha de Afiliación de la empresa a la institución
 - fechaInicio: Fecha de inicio de la actividad de la empresa
 - borrado: Borrado lógico
 - fechaBaja: Fecha de baja del sistema
 - observaciones
 - logo: Logo de la Empresa (imagen)
+
+## Rubro
+
+- id: ID del Rubro en el sistema
+- nombre (Tienda, Supermercado, Joyería, Óptica, etc)
 
 ## Persona
 
@@ -77,7 +82,9 @@ Pueden ser de dos perfiles Administrador o empresa/emprendedor.
 
 - id: ID del Usuario en el sistema
 - nickname: Identificador del usuario
-- contraseña
+- password
 - email: Email de recuperacion de contraseña
 - rol: Rol del usuario en el sistema (Administrador o empresa/emprendedor)
 - idPersona: ID de la Persona
+- token
+- expiresAt
