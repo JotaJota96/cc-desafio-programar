@@ -37,7 +37,7 @@ export class ModalPersonaComponent implements OnInit {
       apellide_1: new FormControl( persona.apellide_1, [Validators.required]),
       apellide_2: new FormControl( persona.apellide_2, []),
       celular: new FormControl( persona.celular, []),
-      email: new FormControl( persona.email, [ Validators.email ]),
+      email: new FormControl( persona.email, [ Validators.required, Validators.email ]),
     });
   }
 

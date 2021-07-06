@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="title flex">
                 <h2 [@inTitleAnimation] class="mt-2">{{ 'tituloEmpresas' | msg }}</h2>
-                <button [routerLink]="'crear'" mat-stroked-button class="add">
+                <button [routerLink]="'crear'" mat-stroked-button class="add" *ngIf="admin">
                     <mat-icon>add</mat-icon>
                     {{ 'nuevo' | msg }}
                 </button>

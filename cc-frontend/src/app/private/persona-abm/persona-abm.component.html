@@ -49,7 +49,7 @@
                             <ng-container matColumnDef="acciones">
                                 <th class="text-center" mat-header-cell *matHeaderCellDef>{{ 'thAcciones' | msg }}</th>
                                 <td class="text-center acciones-tool" width="145" mat-cell *matCellDef="let element">
-                                    <button mat-icon-button color="accent" matTooltip="{{ 'acceso' | msg }}" (click)="guardaAcceso(element.user, element.id)">
+                                    <button mat-icon-button color="accent" matTooltip="{{ element.user ? 'Editar usuario' : 'Crear usuario' }}" (click)="guardaAcceso(element.user, element.id)">
                                         <mat-icon>{{ element.user ? 'account_circle' : 'vpn_key'}}</mat-icon>
                                     </button>
                                     <button mat-icon-button color="accent" matTooltip="{{ 'edit' | msg }}" (click)="creaPersona(element)">

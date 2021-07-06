@@ -132,7 +132,7 @@ export class MsgService {
     formPlaceholderFecha: '28/12/2000',
     formDireccion: 'Direccion',
     formPlaceholderDireccion: '25 de agosto N999...',
-    formEmail: 'Email',
+    formEmail: '*Email',
     formPlaceholderEmail: 'correo@ejemplo.com, a...',
     formCelular: 'Celular',
     formPlaceholderCelular: '098123456, 09...',
