@@ -1,0 +1,69 @@
+// basado en https://www.youtube.com/watch?v=lQOgGVZtDHw&list=WL&index=6
+// URL demo: https://materialtheme.arcsine.dev/?c=YHBhbGV0dGU$YHByaW1hcnk$YF48IzAwODAzNiIsIj9lcjwjYjNkOWMzIiwiO2VyPCMwMDYzMjJ$LCIlPmBePCMwMzllNDQiLCI~ZXI8I2IzZTJjNyIsIjtlcjwjMDI4MjJkfiwid2Fybj5gXjwjY2QxODE4IiwiP2VyPCNmMGJhYmEiLCI7ZXI8I2JhMGUwZX4sIj9UZXh0PCMwMDEwMDAiLCI~PTwjZmFmY2ZhIiwiO1RleHQ8I2ZmZmZmZiIsIjs9PCMwNzE0MGN$LCJmb250cz5bYEA8KC00fixgQDwoLTN$LGBAPCgtMn4sYEA8KC0xfixgQDxoZWFkbGluZX4sYEA8dGl0bGV$LGBAPHN1YiktMn4sYEA8c3ViKS0xfixgQDxib2R5LTJ$LGBAPGJvZHktMX4sYEA8YnV0dG9ufixgQDxjYXB0aW9ufixgQDxpbnB1dCIsInNpemU$bnVsbH1dLCJpY29uczxTaGFycCIsIj9uZXNzPnRydWUsInZlcnNpb24$MTF9
+
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+:root {
+  --my-primary-color-200 : #b3d7c2;
+  --my-primary-color-500 : #027a35;
+  --my-primary-color-700 : #015d22;
+}
+
+// GAMA COLORES
+$my-primary-color: (
+  200 : #b3d7c2,
+  500 : #027a35,
+  700 : #015d22,
+  contrast: (
+    200 : #000000,
+    500 : #ffffff,
+    700 : #ffffff,
+  )
+);
+
+$my-accent-color: (
+  200 : #b3e2c7,
+  500 : #039e44,
+  700 : #02822d,
+  contrast: (
+    200 : #000000,
+    500 : #ffffff,
+    700 : #ffffff,
+  )
+);
+
+$my-warn-color: (
+  200 : #f0baba,
+  500 : #cd1818,
+  700 : #ba0e0e,
+  contrast: (
+    200 : #ffffff,
+    500 : #ffffff,
+    700 : #000000,
+  )
+);
+
+// PALETA DE COLORES
+$my-palette-primary: mat-palette($my-primary-color);
+$my-palette-accent: mat-palette($my-accent-color);
+$my-palette-warn: mat-palette($my-warn-color);
+
+// TEMA PROPIO
+$my-theme: mat-light-theme((
+ color: (
+   primary: $my-palette-primary,
+   accent: $my-palette-accent,
+   warn: $my-palette-warn
+ )
+));
+
+// APLICAR NUESTRO TEMA A ANGULAR
+@include angular-material-theme($my-theme);
+
+
+// REEMPLAZA EN ANGULAR.JSON -> STYLES
+// "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+// POR LA RUTA DEL CUSTOM THEME
+// "src/assets/styles/my-theme.scss",

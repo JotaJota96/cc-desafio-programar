@@ -1,0 +1,131 @@
+<mat-drawer-container autosize>
+    <mat-drawer #drawer [mode]="innerWidth && innerWidth >= 1280 ? 'side' : 'over'"
+        [opened]="!innerWidth || innerWidth >= 1280">
+        <!-- Iconos: https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/ -->
+        <div *ngIf="innerWidth && innerWidth >= 1280;else logo" class="toolbar">
+            <div class="logo-white" (click)="start()">
+                <img height="50px" src="assets/images/home-image.png">
+            </div>
+        </div>
+        <ng-template #logo>
+            <div class="logo" (click)="start()">
+                <img height="50px" src="assets/images/home-image.png">
+            </div>
+        </ng-template>
+        <ng-template #nav_user>
+            <mat-nav-list>
+                <mat-list-item routerLinkActive="active" routerLink="home">
+                    <mat-icon color="primary" class="nav-icon">home</mat-icon>
+                    {{ 'navInicio' | msg }}
+                </mat-list-item>
+                <mat-divider class="my-2"></mat-divider>
+                <mat-list-item routerLinkActive="active" routerLink="empresa">
+                    <mat-icon color="primary" class="nav-icon"> business</mat-icon>
+                    {{ 'navEmpresas' | msg }}
+                </mat-list-item>
+                <mat-divider class="my-2"></mat-divider>
+                <mat-list-item (click)="cerrarSesion()" routerLinkActive="active">
+                    <mat-icon color="primary" class="nav-icon">logout</mat-icon>
+                    {{ 'cerrarSesion' | msg }}
+                </mat-list-item>
+                <mat-divider class="my-2"></mat-divider>
+            
+            </mat-nav-list>
+        </ng-template>
+        <mat-nav-list *ngIf="user?.rol == 0;else nav_user">
+            <mat-list-item routerLinkActive="active" routerLink="home">
+                <mat-icon color="primary" class="nav-icon">home</mat-icon>
+                {{ 'navInicio' | msg }}
+            </mat-list-item>
+            <mat-divider class="my-2"></mat-divider>
+            <mat-list-item (click)="mostrar()" routerLinkActive="active">
+                <mat-icon color="primary" class="nav-icon">bar_chart</mat-icon>
+                Gráficos
+            </mat-list-item>
+            <div [hidden]="!graficas" class="graficos-level">
+                <mat-list-item routerLinkActive="active" routerLink="grafico-empresas-rubro">
+                    <mat-icon color="primary" class="nav-icon">data_usage</mat-icon>
+                    Empresas por rubro
+                </mat-list-item>
+                <mat-list-item routerLinkActive="active" routerLink="grafico-empresas-localidad">
+                    <mat-icon color="primary" class="nav-icon">pie_chart</mat-icon>
+                    Empresas por departamento
+                </mat-list-item>
+              </div>
+            <mat-divider class="my-2"></mat-divider>
+            <mat-list-item (click)="mostrarLista()" routerLinkActive="active">
+                <mat-icon color="primary" class="nav-icon">list</mat-icon>
+                Listados
+            </mat-list-item>
+            <div [hidden]="!listas" class="graficos-level">
+                <mat-list-item routerLinkActive="active" routerLink="empresas-rubro">
+                    <mat-icon color="primary" class="nav-icon">receipt_long</mat-icon>
+                    Empresas por rubro
+                </mat-list-item>
+                <mat-list-item routerLinkActive="active" routerLink="altas-bajas-mes">
+                    <mat-icon color="primary" class="nav-icon">mobiledata_off</mat-icon>
+                    Altas y bajas por mes
+                </mat-list-item>
+                <mat-list-item routerLinkActive="active" routerLink="aniversario-empresa">
+                    <mat-icon color="primary" class="nav-icon">cake</mat-icon>
+                    Aniversario empresa
+                </mat-list-item>
+              </div>
+            <mat-divider class="my-2"></mat-divider>
+            <mat-list-item routerLinkActive="active" routerLink="empresa">
+                <mat-icon color="primary" class="nav-icon"> business</mat-icon>
+                {{ 'navEmpresas' | msg }}
+            </mat-list-item>
+            <mat-list-item routerLinkActive="active" routerLink="persona">
+                <mat-icon color="primary" class="nav-icon"> person_pin</mat-icon>
+                {{ 'navPersonas' | msg }}
+            </mat-list-item>
+            <mat-list-item routerLinkActive="active" routerLink="user">
+                <mat-icon color="primary" class="nav-icon">perm_identity</mat-icon>
+                {{ 'navUsuarios' | msg }}
+            </mat-list-item>
+            <mat-divider class="my-2"></mat-divider>
+            <mat-list-item (click)="expandirMantenimiento()" routerLinkActive="active">
+                <mat-icon color="primary" class="nav-icon">settings</mat-icon>
+                {{ 'navMantenimiento' | msg }}
+            </mat-list-item>
+            <div [hidden]="!mantenimiento" class="graficos-level">
+                <mat-list-item routerLinkActive="active" routerLink="abm-tipo-de-relacion">
+                    <mat-icon color="primary" class="nav-icon">scatter_plot</mat-icon>
+                    {{ 'navTiposRelaciones' | msg }}
+                </mat-list-item>
+                <mat-list-item routerLinkActive="active" routerLink="abm-rubro">
+                    <mat-icon color="primary" class="nav-icon">supervised_user_circle</mat-icon>
+                    {{ 'navRubros' | msg }}
+                </mat-list-item>
+                <mat-list-item routerLinkActive="active" routerLink="abm-localidad">
+                    <mat-icon color="primary" class="nav-icon">room</mat-icon>
+                    {{ 'navLocalidades' | msg }}
+                </mat-list-item>
+                <mat-list-item routerLinkActive="active" routerLink="abm-departamento">
+                    <mat-icon color="primary" class="nav-icon">map</mat-icon>
+                    {{ 'navDepartamento' | msg }}
+                </mat-list-item>
+            </div>
+            <mat-divider class="my-2"></mat-divider>
+            <mat-list-item (click)="cerrarSesion()" routerLinkActive="active">
+                <mat-icon color="primary" class="nav-icon">logout</mat-icon>
+                {{ 'cerrarSesion' | msg }}
+            </mat-list-item>
+            <mat-divider class="my-2"></mat-divider>
+        </mat-nav-list>
+    </mat-drawer>
+
+    <mat-drawer-content>
+        <mat-toolbar color="primary" elevation="5">
+            <button *ngIf="innerWidth && innerWidth <= 1280" mat-icon-button (click)="drawer.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span class="ml-3">{{ 'tituoDash' | msg }}</span>
+            <span class="spacer"></span>
+        </mat-toolbar>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </mat-drawer-content>
+</mat-drawer-container>

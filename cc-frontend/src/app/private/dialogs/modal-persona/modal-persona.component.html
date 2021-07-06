@@ -1,0 +1,56 @@
+
+<div class="spinner" *ngIf="reqGuardar != null;else form">
+    <mat-spinner> </mat-spinner>
+</div>
+<ng-template #form>
+    <div class="box">
+        <form [formGroup]="formulario" class="row">
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>*{{ 'formPrimerNombre' | msg }}</mat-label>
+                    <input matInput placeholder="{{ 'formPlaceholderPrimerNombre' | msg }}" name="nombre_1" formControlName="nombre_1">
+                    <mat-hint *ngIf="this.formulario.controls['nombre_1'].errors">{{ this.formulario.controls['nombre_1'].errors | error }}</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ 'formSegundoNombre' | msg }}</mat-label>
+                    <input matInput placeholder="{{ 'formPlaceholderSegundoNombre' | msg }}" name="nombre_2" formControlName="nombre_2">
+                    <mat-hint *ngIf="this.formulario.controls['nombre_2'].errors">{{ this.formulario.controls['nombre_2'].errors | error }}</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>*{{ 'formPrimerApellido' | msg }}</mat-label>
+                    <input matInput placeholder="{{ 'formPlaceholderPrimerApellido' | msg }}" name="apellide_1" formControlName="apellide_1">
+                    <mat-hint *ngIf="this.formulario.controls['apellide_1'].errors">{{ this.formulario.controls['apellide_1'].errors | error }}</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ 'formSegundoApellido' | msg }}</mat-label>
+                    <input matInput placeholder="{{ 'formPlaceholderSegundoApellido' | msg }}" name="apellide_2" formControlName="apellide_2">
+                    <mat-hint *ngIf="this.formulario.controls['apellide_2'].errors">{{ this.formulario.controls['apellide_2'].errors | error }}</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ 'formCelular' | msg }}</mat-label>
+                    <input matInput placeholder="{{ 'formPlaceholderCelular' | msg }}" name="celular" formControlName="celular">
+                    <mat-hint *ngIf="this.formulario.controls['celular'].errors">{{ this.formulario.controls['celular'].errors | error }}</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ 'formEmail' | msg }}</mat-label>
+                    <input matInput placeholder="{{ 'formPlaceholderEmail' | msg }}" name="email" formControlName="email">
+                    <mat-hint *ngIf="this.formulario.controls['email'].errors">{{ this.formulario.controls['email'].errors | error }}</mat-hint>
+                </mat-form-field>
+            </div>
+        </form>
+        <mat-card-actions class="px-3 mb-2">
+            <button mat-stroked-button (click)="salir()" class="mr-2">{{ 'cancelar' | msg }}</button>
+            <button mat-flat-button color="accent" [disabled]="!formulario.valid || reqGuardar != null" (click)="guardar()">{{ 'guardar' | msg }}</button>
+        </mat-card-actions>
+    </div>
+</ng-template>

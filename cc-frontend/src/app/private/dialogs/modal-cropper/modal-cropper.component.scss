@@ -1,0 +1,25 @@
+::ng-deep {
+    mat-dialog-container {
+    }
+}
+
+::ng-deep .image-cropper {
+    position: relative;
+    display: block;
+    width: 50vw;
+    .source-image {
+        border-radius: 3px!important;
+        overflow: hidden;
+    }
+    
+}
+::ng-deep .mat-dialog-container {
+    max-height: calc(100vh - 70px);
+    padding: 1rem!important;
+    border-radius: 8px!important;
+}
+.mat-dialog-actions {
+    min-height: auto!important;
+    padding: 1rem;
+    margin: 0rem -1rem -1rem -1rem!important;
+}

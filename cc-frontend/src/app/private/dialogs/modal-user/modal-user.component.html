@@ -1,0 +1,58 @@
+
+
+
+
+<div class="spinner" *ngIf="reqGuardar != null;else form">
+    <mat-spinner> </mat-spinner>
+</div>
+<ng-template #form>
+    <div class="box">
+        <form [formGroup]="formulario" class="row">
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>*{{ 'formNickname' | msg }}</mat-label>
+                    <input matInput placeholder="{{ 'formPlaceholderNickname' | msg }}" name="nickname" formControlName="nickname">
+                    <mat-hint *ngIf="this.formulario.controls['nickname'].errors">{{ this.formulario.controls['nickname'].errors | error }}</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ 'formEmail' | msg }}</mat-label>
+                    <input matInput placeholder="{{ 'formPlaceholderEmail' | msg }}" name="email" formControlName="email">
+                    <mat-hint *ngIf="this.formulario.controls['email'].errors">{{ this.formulario.controls['email'].errors | error }}</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>*{{ 'formPassword' | msg }}</mat-label>
+                    <input type="password" matInput placeholder="{{ 'formPlaceholderPassword' | msg }}" name="password" formControlName="password">
+                    <mat-hint *ngIf="this.formulario.controls['password'].errors">{{ this.formulario.controls['password'].errors | error }}</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ 'formRepassword' | msg }}</mat-label>
+                    <input type="password" matInput placeholder="{{ 'formPlaceholderRepassword' | msg }}" name="repassword" formControlName="repassword">
+                    <mat-hint *ngIf="this.formulario.controls['repassword'].errors">{{ this.formulario.controls['repassword'].errors | error }}</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ 'formRol' | msg }}</mat-label>
+                    <mat-select placeholder="{{ 'formPlaceholderRol' | msg }}" name="rol" formControlName="rol">
+                        <mat-option [value]="0">{{ 'admin' | msg }}</mat-option>
+                        <mat-option [value]="1">{{ 'user' | msg }}</mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="this.formulario.controls['rol'].errors">{{ this.formulario.controls['rol'].errors | error }}</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-hint class="error-msg" *ngIf="formulario.errors">{{ formulario.errors | error }}</mat-hint>
+            </div>
+        </form>
+        <mat-card-actions class="px-3 mb-2">
+            <button mat-stroked-button (click)="salir()" class="mr-2">{{ 'cancelar' | msg }}</button>
+            <button mat-flat-button color="accent" [disabled]="!formulario.valid || reqGuardar != null" (click)="guardar()">{{ 'guardar' | msg }}</button>
+        </mat-card-actions>
+    </div>
+</ng-template>

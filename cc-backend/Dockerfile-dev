@@ -1,0 +1,5 @@
+FROM composer:2.1
+
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+EXPOSE 8080

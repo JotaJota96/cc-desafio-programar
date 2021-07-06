@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Desafio Programar</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+  function easterEgg(_jugadorChoice) {
+      const choices = ["🖐️", "👊", "✌️"];
+      let jugadorChoice = null;
+      switch (_jugadorChoice) {
+        case "🖐️":case 1:case "papel":
+          jugadorChoice = "🖐️";
+          break;
+        case "👊":case 0:case "piedra":
+          jugadorChoice = "👊";
+          break;
+        case "✌️":case 2:case "tijera":
+          jugadorChoice = "✌️";
+          break;
+        default:
+          jugadorChoice =  null;
+          break;
+      } 
+      const Choice = choices[Math.floor(Math.random() * 3)];
+      return " Nosotros elegimos " + Choice + ", así que GANAMOS !!!... Te hicimos perder el timpo en estra pavada"
+      console.log(msg);
+    }
+  </script>
+</head>
+<body class="mat-typography">
+  <app-root></app-root>
+</body>
+</html>

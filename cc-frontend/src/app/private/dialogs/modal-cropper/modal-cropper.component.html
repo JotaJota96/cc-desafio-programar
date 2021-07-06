@@ -1,0 +1,18 @@
+<div class="image-cropper">
+    <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="4 / 4"
+        [resizeToWidth]="256"
+        [resizeToHeight]="256"
+        format="jpeg"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady()"
+        (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+</div>
+<div mat-dialog-actions align="center">
+    <button mat-flat-button (click)="end(false)" >{{ 'cancelar' | msg }}</button>
+    <button class="ml-2" mat-flat-button color="accent" (click)="end(true)" >Aceptar</button>
+</div>
